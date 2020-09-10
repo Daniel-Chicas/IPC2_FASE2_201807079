@@ -1,0 +1,178 @@
+﻿@model WebApplication1.Usuario
+
+@{
+    ViewBag.Title = "CREAR CUENTA";
+}
+
+<label id="header">CREAR USUARIO</label>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <style>
+        #header {
+            font-size: 50px;
+            font-family: 'kaushan Script', cursive;
+        }
+
+        #Nuevo {
+            font-family: 'kaushan Script', cursive;
+            font-size: 20px;
+            left: 325px;
+            color: black;
+        }
+
+        body {
+            background: #96DDCC;
+        }
+
+        .etiquetas {
+            position: relative;
+            margin: 10px;
+            left: 300px;
+        }
+
+        .boton {
+            position: relative;
+            left: 150px;
+            top: 0px;
+        }
+
+        #Boton {
+            position: absolute;
+            left: 900px;
+            top: 600px;
+            border-radius: 50px;
+            background: #D9D950;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        #Boton2 {
+            position: absolute;
+            left: 950px;
+            top: 670px;
+            border-radius: 50px;
+            background: #D9D950;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+    <div class="form-horizontal">
+        <label id="Nuevo">NUEVO USUARIO</label>
+        <hr />
+        <div class="etiquetas">
+            <label>Nombre:</label>
+            <div class="insertar">
+                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="etiquetas">
+            <label>Apellidos:</label>
+            <div class="insertar">
+                @Html.EditorFor(model => model.Apellidos, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Apellidos, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="etiquetas">
+            <label>Nombre Usuario:</label>
+            <div class="insertar">
+                @Html.EditorFor(model => model.Usuario1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Usuario1, "", new { @class = "text-danger" })
+            </div>
+            <label id="UsuarioExistente" class="errorMsg">@ViewBag.TextoUsuarioRepetido
+            </label>
+        </div>
+
+        <div class="etiquetas">
+            <label>Contraseña:</label>
+            <div class="insertar">
+                @Html.EditorFor(model => model.Contraseña, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Contraseña, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="etiquetas">
+            <label>Fecha de Nacimiento:</label>
+            <div class="insertar">
+                @Html.EditorFor(model => model.FechaNacimiento, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FechaNacimiento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="etiquetas">
+            <label>Correo Electrónico:</label>
+            <div class="insertar">
+                @Html.EditorFor(model => model.Correo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Correo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="etiquetas">
+            <label>País:</label>
+           
+                <div id="listado" class="insertar">
+                    <select id="pais" name="pais">
+                        <option value="" disabled selected>Seleccione un País...</option>
+                        <option value="1">Alemania</option>
+                        <option value="2">Argentina</option>
+                        <option value="3">Bahamas</option>
+                        <option value="4">Barbados</option>
+                        <option value="5">Belice</option>
+                        <option value="6">Bolivia</option>
+                        <option value="7">Brasil</option>
+                        <option value="8">Canadá</option>
+                        <option value="9">Chile</option>
+                        <option value="10">China</option>
+                        <option value="11">Ciudad del Vaticano</option>
+                        <option value="12">Colombia</option>
+                        <option value="13">Costa Rica</option>
+                        <option value="14">Croacia</option>
+                        <option value="15">Cuba</option>
+                        <option value="16">Dominica</option>
+                        <option value="17">Ecuador</option>
+                        <option value="18">España</option>
+                        <option value="19">Estados Unidos</option>
+                        <option value="20">Grecia</option>
+                        <option value="21">Guatemala</option>
+                        <option value="22">Guyana</option>
+                        <option value="23">Honduras</option>
+                        <option value="24">Italia</option>
+                        <option value="25">Jamaica</option>
+                        <option value="26">Japón</option>
+                        <option value="27">Maldivas</option>
+                        <option value="28">Marruecos</option>
+                        <option value="29">México</option>
+                        <option value="30">Mónaco</option>
+                        <option value="31">Nicaragua</option>
+                        <option value="32">Noruega</option>
+                        <option value="33">Panamá</option>
+                        <option value="34">Paraguay</option>
+                        <option value="35">Perú</option>
+                        <option value="36">Reino Unido</option>
+                        <option value="37">Rusia</option>
+                        <option value="38">Santa Lucía</option>
+                        <option value="39">Singapur</option>
+                        <option value="40">Suecia</option>
+                        <option value="41">Suiza</option>
+                        <option value="42">Trinidad y Tobago</option>
+                        <option value="43">Uruguay</option>
+                        <option value="44">Venezuela</option>
+                        <option value="45">Vietnam</option>
+                        <option value="46">Yemen</option>
+                        <option value="47">Yibuti</option>
+                        <option value="48">Zambia</option>
+                        <option value="49">Zimbabue</option>
+                        <option value="50">Otro</option>
+                    </select>
+                </div>
+           
+        </div>
+        <input id="Boton" type="submit" value=" CREAR " class="btn btn-default" />
+    </div>
+
+}
