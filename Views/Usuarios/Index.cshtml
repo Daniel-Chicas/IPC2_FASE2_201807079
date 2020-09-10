@@ -1,0 +1,47 @@
+﻿@model IEnumerable<WebApplication1.Usuario>
+
+@{
+    ViewBag.Title = "CREAR USUARIO";
+}
+<style>
+    body {
+        background: #96DDCC;
+    }
+</style>
+
+<h2>FECHAS DE CREACIONES DE USUARIOS</h2>
+<style>
+    #Boton {
+        position: absolute;
+        left: 1000px;
+        top: 55px;
+        border-radius: 50px;
+        background: #D9D950;
+        font-size: 30px;
+        font-weight: bold;
+    }
+</style>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaUltMod)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaUltMod)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+    <input id="Boton" type="submit" value=" IR A INICIO " class="btn btn-default" onclick="location.href='@Url.Action("Index", "Home")'" />
+</table>
