@@ -1,0 +1,162 @@
+﻿@model IEnumerable<WebApplication1.Usuario>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>INICIO</title>
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" type="text/css" href="css/inicio.css">
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+            font-family: sans-serif;
+        }
+
+        body {
+            background: #96DDCC;
+        }
+
+        header {
+            margin: 20px auto;
+            width: 1000px;
+            height: 120px;
+            font-size: 50px;
+        }
+
+        #inicio {
+            position: absolute;
+            top: 250px;
+            left: 200px;
+            color: black;
+        }
+
+        #Nuevo {
+            font-family: 'kaushan Script', cursive;
+            font-size: 20px;
+            left: 325px;
+            color: black;
+        }
+
+        #datos {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 60px;
+            left: 200px;
+            color: black;
+        }
+
+        aside {
+            position: absolute;
+            left: 400px;
+            top: 350px;
+            color: black;
+        }
+
+        #usuario {
+            position: absolute;
+            left: 200px;
+            width: 200px;
+        }
+
+        #contrasena {
+            position: absolute;
+            left: 200px;
+            width: 200px;
+        }
+
+        #boton {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 100px;
+            font-size: 20px;
+            border-radius: 40px;
+            background: #D9D950;
+        }
+
+        #boton2 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 135px;
+            font-size: 20px;
+            border-radius: 40px;
+            color: white;
+            background: #7A7979;
+        }
+
+        .etiquetas {
+            font-family: 'kaushan Script', cursive;
+            font-size: 20px;
+        }
+        .errorMsg {
+            display: none;
+            color: Red;
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <div class="titulo"><header id="datos"><center>¡Juega un poco para distraerte y olvidar todos los problemas! :D</center></header></div>
+        <label id="inicio"><h1>Iniciar Sesión:</h1></label>
+
+        <div>
+            <aside class="formularioEncima">
+                <label id="nombreUsuario" for="usuario" class="etiquetas">USUARIO:</label>
+                <input id="usuario" type="text" placeholder="Nombres" value="" required="">
+                <br>
+                <br>
+                <label for="contrasena" class="etiquetas">CONTRASEÑA:</label>
+                <input id="contrasena" type="password" placeholder="Contraseña" value="" required="">
+                <br>
+                <label id="passMalo" class="errorMsg"></label>
+                <br>
+                <input id="boton" type="submit" value="  EMPEZAR A JUGAR  ">
+                <br>
+                <br>
+                <input id="boton2" type="submit" value=" Crear Usuario " onclick="location.href='@Url.Action("Create", "Usuarios")'" />
+
+            </aside>
+        </div>
+
+        @section scripts {
+             <script type="text/javascript">
+                    $("#passMalo").hide();
+                  $("#passMalo").text("");
+             $('#boton').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("validarUsuario", "Usuarios")',
+                         data: { pusuario: $("#usuario").val(), pcontrasena: $("#contrasena").val() },
+                         success:
+                             function (response) {
+                                var cadena = response.split("&");
+                 
+                                 if (cadena[0] == "1") {
+                                     window.location = '@Url.Action("Index", "Juego")';
+                                 }
+                                 else {
+                                     //alert("Usuario inválido");
+                                     $("#passMalo").show();
+                                    $("#passMalo").text(cadena[1]);
+                                    
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+                //+ "?pusuario=" + $("usuario").val() + "&pcontraseña=" + $("contraseña").val()
+                </script>
+            }
+        </div>
+    </body>
+</html>
+
+
+
