@@ -10,7 +10,7 @@ namespace WebApplication1.Controllers
     {
         public ActionResult Tablero()
         {
-            string Nombre = "perro";
+          
             return View();
         }
 
