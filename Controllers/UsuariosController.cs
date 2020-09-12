@@ -78,6 +78,8 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Usuarios/Edit/5
+
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -164,10 +166,49 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                return "2&Usuario inválido";
+                return "2&Usuario o contraseña incorrecta. Revise los datos";
             }
-
         }
+
+        //public string validarTorneo(string pTorneo)
+        //{
+        //    Usuario usuario = db.Usuario.Where(s => s.Usuario1 == pusuario).FirstOrDefault();
+
+        //    if (usuario != null)
+        //    {
+        //        //return RedirectToAction("Index", "Usuarios");
+
+        //        if (usuario.EstadoId == 1)
+        //        {
+        //            return "1&OK";
+        //        }
+        //        else
+        //        {
+        //            return "2&Usuario inactivo";
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return "2&Usuario inválido";
+        //    }
+        //}
+
+        public string EditarEstado(string pusuario, int pestado)
+        {
+            Usuario usuario = db.Usuario.Where(s => s.Usuario1 == pusuario).FirstOrDefault();
+            if (usuario == null)
+            {
+                return "0";
+            }
+            else
+            {
+                usuario.EstadoId = pestado;
+                
+                db.SaveChanges();
+                return "1";
+            }
+        }
+
 
         public string ValidarUsuarioRepetido(string pusuario)
         {
@@ -182,7 +223,6 @@ namespace WebApplication1.Controllers
             {
                 return "1";
             }
-
         }
 
         public ActionResult Deshabilitar()
