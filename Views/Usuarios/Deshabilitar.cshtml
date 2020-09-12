@@ -21,7 +21,7 @@
         #nombreUsuario {
             position: absolute;
             font-family: 'kaushan Script', cursive;
-            font-size: 40px;
+            font-size: 30px;
             left: 250px;
             top: 250px;
             color: black;
@@ -29,22 +29,90 @@
         #nombreU {
             position: absolute;
             font-family: 'kaushan Script', cursive;
-            font-size: 50px;
-            height: 50px;
-            left: 600px;
-            top: 250px;
+            left: 550px;
+            top: 260px;
+            color: black;
+        }
+        #estado {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 30px;
+            left: 250px;
+            top: 300px;
             color: black;
         }
 
+        #estadoD {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 550px;
+            width: 205px;
+            top: 311px;
+            color: black;
+        }
+        #boton {
+            position: absolute;
+            left: 700px;
+            top: 350px;
+            border-radius: 50px;
+            background: #D9D950;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        #Salir {
+            position: absolute;
+            left: 730px;
+            top: 420px;
+            border-radius: 50px;
+            background: #D9D950;
+            font-size: 30px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <form>
         <label id="nombreUsuario">Nombre Usuario:</label>
-        <input id="nombreU" type="text" value="" required=""/>
-        <select>
-            <option value="1"> </option>
+        <input id="nombreU" type="text" value="" required="" />
+        <label id="estado">Cambiar estado a:</label>
+        <select id="estadoD" name="estadoD">
+            <option value="" disabled selected>Estado</option>
+            <option value="1">Habilitar</option>
+            <option value="2">Deshabilitar</option>
         </select>
     </form>
+    <input id="boton" type="submit" value=" CAMBIAR " />
+    <input id="Salir" type="submit" value="SALIR" onclick="location.href='@Url.Action("Index", "Juego")'">
+
+    @section scripts {
+        <script type="text/javascript">
+            $('#boton').click(function (e) {
+                 $.ajax(
+                     {
+                         
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("EditarEstado", "Usuarios")',
+                         data: { pusuario: $("#nombreU").val(), pestado: $('#estadoD').find('option:selected').val() },
+                         success:
+                             function (response) {
+                                 if (response == "1") {
+                                     alert("Si existe el usuario");
+                                     //window.location = '@Url.Action("Index", "Juego")';
+                                 }
+                                 else {
+                                     alert("No existe el usuario");
+
+                                 }
+                                 
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+        </script>
+    }
 </body>
 </html>
