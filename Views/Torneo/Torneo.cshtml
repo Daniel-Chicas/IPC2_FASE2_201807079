@@ -2,28 +2,40 @@
 <html>
 <head>
     <title>Sintaxis HTML</title>
-    <header>TORNEO</header>
-    <script type="text/javascript">
+    <header><label id="header">TORNEO</label></header>
+    @section scripts {
+        <script type="text/javascript">
         function verificar() {
             var nombre = document.getElementById('nombre').value;
-            var integrantes = document.getElementById('pais').value;
+            var integrantes = $('#integrantes').find('option:selected').text();
+
             if (nombre == "" || integrantes == "") {
-                alert("Aún hay campos vacíos");
+                alert("Debe ingresar un nombre para el torneo");
             }
             else {
-                Response.Redirect("Tablero")
                 window.location = '@Url.Action("Tablero", "Tablero")';
             }
+            }
+        
+        function Unirse() {
+            var nombre = document.getElementById('nombreU').value;
+            var integrantes = $('#integrantes').find('option:selected').text();
 
-
+            if (nombre == "" || integrantes == "") {
+                alert("Debe ingresar el nombre del torneo");
+            }
+            else {
+                window.location = '@Url.Action("Tablero", "Tablero")';
+            }
         }
-    </script>
+        </script>
+    }
     <style>
         body {
             background: #B4B6B3;
         }
 
-        header {
+        #header {
             position: absolute;
             font-family: 'kaushan Script', cursive;
             font-size: 70px;
@@ -32,13 +44,15 @@
             color: black;
             font-weight: bold;
         }
-        #CrearTorneo{
+
+        #CrearTorneo {
             position: absolute;
             font-family: 'kaushan Script', cursive;
             font-size: 50px;
             color: black;
-            top: 150px; 
+            top: 150px;
         }
+
         #nombreTorneo {
             position: absolute;
             font-family: 'kaushan Script', cursive;
@@ -46,26 +60,39 @@
             color: black;
             top: 240px;
         }
-        #integrantes {
+
+        #lintegrantes {
             position: absolute;
             font-family: 'kaushan Script', cursive;
             font-size: 30px;
             color: black;
             top: 310px;
         }
+
+        #integrantes {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 20px;
+            color: black;
+            top: 120px;
+            width: 180px;
+        }
+
         #nombre {
             position: absolute;
             top: 250px;
             left: 550px;
-            width: 160px;
+            width: 180px;
             height: 30px;
         }
-        #listado{
+
+        #listado {
             position: absolute;
-            top: 320px;
+            top: 200px;
             left: 550px;
             font-size: 20px;
         }
+
         #Boton {
             position: absolute;
             left: 300px;
@@ -75,6 +102,7 @@
             font-size: 30px;
             font-weight: bold;
         }
+
         #unirseTorneo {
             position: absolute;
             font-family: 'kaushan Script', cursive;
@@ -82,6 +110,7 @@
             color: black;
             top: 390px;
         }
+
         #nombreTorneoU {
             position: absolute;
             font-family: 'kaushan Script', cursive;
@@ -89,13 +118,15 @@
             color: black;
             top: 480px;
         }
+
         #nombreU {
             position: absolute;
             top: 485px;
             left: 550px;
-            width: 160px;
+            width: 180px;
             height: 30px;
         }
+
         #Boton2 {
             position: absolute;
             left: 900px;
@@ -108,27 +139,26 @@
     </style>
 </head>
 <body>
-    <form>
+
         <label for="nombre" id="CrearTorneo">CREAR UN TORNEO:</label>
         <label id="nombreTorneo">Nombre del Torneo Nuevo:</label>
         <input id="nombre" type="text" required="" />
-        <label id="integrantes">Número de Integrantes:</label>
+        <label id="lintegrantes">Número de Integrantes:</label>
         <div id="listado" class="insertar">
-            <select id="pais" name="pais" required="">
-                <option value="" disabled selected>No. Integrantes</option>
+            <select id="integrantes" name="integrantes" required="">
                 <option value="1">4</option>
                 <option value="2">8</option>
                 <option value="3">16</option>
             </select>
+
             <input id="Boton" type="submit" value=" CREAR TORNEO " onclick="verificar()"/>
         </div>
-    </form>
-    <form>
+
         <label for="nombreU" id="unirseTorneo">UNIRSE UN TORNEO:</label>
         <label for="nombreU" id="nombreTorneoU">Nombre del Torneo:</label>
         <input id="nombreU" type="text" required=""/>
-        <input id="Boton2" type="submit" value=" UNIRSE "/>
-    </form>
+            <input id="Boton2" type="submit" value=" UNIRSE " onclick="Unirse()"/>
+
 </body>
 
 
