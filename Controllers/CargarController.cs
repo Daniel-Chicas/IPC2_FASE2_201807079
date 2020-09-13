@@ -34,35 +34,31 @@ namespace WebApplication1.Controllers
         public ActionResult Leer(string pruta)
         {
             var ArrayFichas = new List<Ficha>();
-            XmlTextReader lector = new XmlTextReader(pruta);
-            while (lector.Read())
+            XmlReader reader = XmlReader.Create(pruta);
+            while (reader.Read())
             {
-                if (lector.IsStartElement())
+                if (reader.IsStartElement())
                 {
                     Ficha temp = new Ficha();
-                    switch (lector.Name.ToString())
+                    switch (reader.Name.ToString())
                     {
+                        case "tablero":
+                            break;
+                        case "ficha":
+                            break;
                         case "color":
-                            //color.Append(lector.ReadString());
-                            temp.color = lector.ReadString();
+                            temp.color = reader.ReadString();
                             break;
                         case "columna":
-                            //tx1.AppendText("color de la fruta: " + lector.ReadString() + "\r\n");
-                            temp.columna = lector.ReadString();
+                            temp.columna = reader.ReadString();
                             break;
                         case "fila":
-                            //tx1.AppendText("tamanio de la fruta: " + lector.ReadString() + "\r\n\r\n");
-                            temp.fila = int.Parse(lector.ReadString());
+                            temp.fila = reader.ReadElementContentAsInt();
+                            break;
+                        case "siguientetiro":
                             break;
                     }
-                    ArrayFichas.Add(temp);
                 }
-
-        //        foreach (var item in ArrayFichas)
-        //        {
-        //            Console.WriteLine(item.columna+"-"+item.fila+"-"+item.color);
-
-        //        }
                 
             }
             return View();
