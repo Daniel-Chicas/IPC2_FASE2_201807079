@@ -65,7 +65,6 @@
     </form>
     <input id="boton" type="submit" value=" CARGAR " />
     <input id="Salir" type="submit" value="SALIR" onclick="location.href='@Url.Action("Index", "Juego")'">
-    <br> <br>  <br><br> <br> <br> <br> <br> <br> <br> <br> <br>
     @using (@Html.BeginForm("upload", "fileUpload", FormMethod.Post,
      new { enctype = "multipart/form-data" }))
     {
@@ -81,19 +80,20 @@
             $('#boton').click(function (e) {
                  $.ajax(
                      {
-
+                         
                          type: 'POST',
                          dataType: 'text',
-                         url: '@Url.Action("Leer", "Cargar")',
+                         url: '@Url.Action("Leer", "Tablero")',
                          data: { pruta: $("#Ruta").val()},
                          success:
                              function (response) {
-                                 if (response == "1") {
-                                     alert("Los datos han sido cargados correctamente");
+                                 var cadena = response.split("&");
+                                 if (cadena[0] == "1") {
+                                     alert(cadena[1]);
                                      window.location = '@Url.Action("Tablero", "Tablero")';
                                  }
                                  else {
-                                     alert("No existe el usuario");
+                                     alert("Se ha producido un error al cargar el archivo, intente nuevamente y verifique la estructura del archivo.");
 
                                  }
                              },
