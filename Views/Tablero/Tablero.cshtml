@@ -886,7 +886,18 @@
         left: 100px;
         top: 500px;
     }
-    #turno {
+    #Ruta {
+        height: 40px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: bold;
+        position: absolute;
+        font-family: 'kaushan Script', cursive;
+        width: 300px;
+        left: 100px;
+        top: 450px;
+    }
+    #Toca {
         height: 40px;
         border-radius: 50px;
         font-size: 40px;
@@ -897,16 +908,17 @@
         left: 150px;
         top: 150px;
     }
-    #Turno {
+    #toca {
         height: 40px;
         border-radius: 50px;
         font-size: 20px;
         font-weight: bold;
         position: absolute;
         font-family: 'kaushan Script', cursive;
-        width: 300px;
-        left: 100px;
+        width: 140px;
+        left: 150px;
         top: 200px;
+        text-align: center;
     }
 
 </style>
@@ -1022,233 +1034,635 @@
     <input id="Reportes" type="submit" value=" Reportes ">
     <input id="Guardar" type="submit" value="Guardar">
     <input id="Repetir" type="submit" value=" Volver a Jugar">
-    <input id="Mostrar" type="submit" value=" Mostrar fichas" />
-    <input id="Turno" type="text" value=" " />
-    <p id="turno">TURNO</p>
+    <input id="Ruta" type="text" value="" required="" />
+    <input id="Mostrar" type="submit" value=" Mostrar Ficha "/>
+    <input id="toca" type="text" value=" " disabled="disabled"/>
+    <p id="Toca">TURNO</p>
 
     @section scripts {
         <script type="text/javascript">
-            //$('#A1').click(function (e) {
-            //     $.ajax(
-            //         {
-            //             type: 'POST',
-            //             dataType: 'text',
-            //             url: '@Url.Action("Conteo", "Tablero")',
-            //             data: {contador: contador},
-            //            success:
-            //                 function (response) {
-            //                     var cadena = response;
-            //                     if (cadena == "black") {
-            //                         document.getElementById("A1").style.backgroundColor = "black";
-            //                         deshabilitar("A1");
-            //                     }
-            //                     else {
-            //                         document.getElementById("A1").style.backgroundColor = "white";
-            //                         deshabilitar("A1");
-            //                     }
-            //                 },
-            //             error:
-            //                 function (response) {
-            //                     alert("Error: " + response);
-            //                 }
-            //         });
-            //});
-        </script>
-
-
-
-        <script type="text/javascript">
             var contador = 0;
-                document.getElementById('A1').onclick = function () {
+            document.getElementById('Mostrar').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
                 contador++;
             }
-                document.getElementById('A2').onclick = function () {
+                $('#Mostrar').click(function (e) {
+                    $.ajax(
+                        {
+                            type: 'POST',
+                            dataType: 'text',
+                            url: '@Url.Action("Leer", "Tablero")',
+                            data: { pruta: $("#Ruta").val(), conteo: contador },
+                            success:
+                                function (response) {
+                                    var cadena = response.split(",");
+                                    if (cadena == "") {
+                                        alert("Debe ingresar una ruta válida");
+                                        document.getElementById("toca").value = cadena[0];
+                                    }
+                                    if (cadena[0] == "Turno") {
+                                        document.getElementById("toca").value = cadena[1];
+                                        document.getElementById("Mostrar").style.display = "none";
+                                        alert("La lista ha sido cargada con éxito. Corresponde el turno a: " + cadena[1]);
+                                        document.getElementById("Ruta").value = "";
+                                        document.getElementById("Ruta").style.display = "none";
+                                    }
+                                    else {
+                                        if (cadena[0] == "blanco" || cadena[0] == "Blanco") {
+                                            color = "white";
+                                        }
+                                        else {
+                                            color = "black";
+                                        }
+                                        document.getElementById(cadena[1]).style.backgroundColor = color;
+                                        deshabilitar(cadena[1]);
+                                    }
+                                },
+                            error:
+                                function (response) {
+                                    alert("Error: " + response);
+                                }
+                        });
+                });
+            document.getElementById('A1').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('A3').onclick = function () {
+            document.getElementById('A2').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('A4').onclick = function () {
+            document.getElementById('A3').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('A5').onclick = function () {
+            document.getElementById('A4').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('A6').onclick = function () {
+            document.getElementById('A5').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('A7').onclick = function () {
+            document.getElementById('A6').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('A8').onclick = function () {
+            document.getElementById('A7').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('B1').onclick = function () {
+            document.getElementById('A8').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('B2').onclick = function () {
+            document.getElementById('B1').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('B3').onclick = function () {
+            document.getElementById('B2').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('B4').onclick = function () {
+            document.getElementById('B3').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('B5').onclick = function () {
+            document.getElementById('B4').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('B6').onclick = function () {
+            document.getElementById('B5').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('B7').onclick = function () {
+            document.getElementById('B6').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('B8').onclick = function () {
+            document.getElementById('B7').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('C1').onclick = function () {
+            document.getElementById('B8').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('C2').onclick = function () {
+            document.getElementById('C1').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('C3').onclick = function () {
+            document.getElementById('C2').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('C4').onclick = function () {
+            document.getElementById('C3').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('C5').onclick = function () {
+            document.getElementById('C4').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('C6').onclick = function () {
+            document.getElementById('C5').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('C7').onclick = function () {
+            document.getElementById('C6').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('C8').onclick = function () {
+            document.getElementById('C7').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('D1').onclick = function () {
+            document.getElementById('C8').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('D2').onclick = function () {
+            document.getElementById('D1').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('D3').onclick = function () {
+            document.getElementById('D2').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('D4').onclick = function () {
+            document.getElementById('D3').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('D5').onclick = function () {
+            document.getElementById('D4').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('D6').onclick = function () {
+            document.getElementById('D5').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('D7').onclick = function () {
+            document.getElementById('D6').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('D8').onclick = function () {
+            document.getElementById('D7').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('E1').onclick = function () {
+            document.getElementById('D8').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('E2').onclick = function () {
+            document.getElementById('E1').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('E3').onclick = function () {
+            document.getElementById('E2').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('E4').onclick = function () {
+            document.getElementById('E3').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('E5').onclick = function () {
+            document.getElementById('E4').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('E6').onclick = function () {
+            document.getElementById('E5').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('E7').onclick = function () {
+            document.getElementById('E6').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('E8').onclick = function () {
+            document.getElementById('E7').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('F1').onclick = function () {
+            document.getElementById('E8').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('F2').onclick = function () {
+            document.getElementById('F1').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('F3').onclick = function () {
+            document.getElementById('F2').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('F4').onclick = function () {
+            document.getElementById('F3').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('F5').onclick = function () {
+            document.getElementById('F4').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('F6').onclick = function () {
+            document.getElementById('F5').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('F7').onclick = function () {
+            document.getElementById('F6').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('F8').onclick = function () {
+            document.getElementById('F7').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('G1').onclick = function () {
+            document.getElementById('F8').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('G2').onclick = function () {
+            document.getElementById('G1').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('G3').onclick = function () {
+            document.getElementById('G2').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('G4').onclick = function () {
+            document.getElementById('G3').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('G5').onclick = function () {
+            document.getElementById('G4').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('G6').onclick = function () {
+            document.getElementById('G5').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('G7').onclick = function () {
+            document.getElementById('G6').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('G8').onclick = function () {
+            document.getElementById('G7').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('H1').onclick = function () {
+            document.getElementById('G8').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('H2').onclick = function () {
+            document.getElementById('H1').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('H3').onclick = function () {
+            document.getElementById('H2').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('H4').onclick = function () {
+            document.getElementById('H3').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('H5').onclick = function () {
+            document.getElementById('H4').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('H6').onclick = function () {
+            document.getElementById('H5').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('H7').onclick = function () {
+            document.getElementById('H6').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
-                document.getElementById('H8').onclick = function () {
+            document.getElementById('H7').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
+                contador++;
+            }
+            document.getElementById('H8').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "negro";
+                }
+                else {
+                    document.getElementById("toca").value = "blanco";
+                }
                 contador++;
             }
 
@@ -1261,6 +1675,7 @@
             ///////////////////////////////////////////////////////////////////////////////////////////
             ///////////////////////////////////////////////////////////////////////////////////////////
             $('#A1').click(function (e) {
+                 alert(contador);
                  $.ajax(
                      {
                          type: 'POST',
