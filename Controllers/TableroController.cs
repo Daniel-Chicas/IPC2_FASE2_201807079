@@ -12,6 +12,7 @@ namespace WebApplication1.Controllers
 {
     public class TableroController : Controller
     {
+        List<string> Ficha;
         public ActionResult Tablero()
         {
           
@@ -47,76 +48,89 @@ namespace WebApplication1.Controllers
             }
         }
 
-
-        public string Leer(string pruta)
+        public string Leer(string pruta, int conteo)
         {
+            conteo = conteo - 1;
             string cadena = "0&No se completó la carga";
-            List<String> ficha = new List<string>();
-            List<String> turno = new List<string>();
-            XmlReader reader = XmlReader.Create(pruta);
-            string color = "";
-            string columna = "";
-            int fila;
-            var variableAgregar = "";
-            string variableAg = "";
-            string toca = "";
-            string colorToca = "";
-            Boolean existe;
-            while (reader.Read())
+            Ficha = new List<string>();
+            if (pruta == "")
             {
-                if (reader.IsStartElement())
+                cadena = "";
+            }
+            else
+            {
+                XmlReader reader = XmlReader.Create(pruta);
+                string color = "";
+                string columna = "";
+                int fila;
+                var variableAgregar = "";
+                string variableAg = "";
+                string toca = "";
+                string colorToca = "";
+                Boolean existe;
+                while (reader.Read())
                 {
-                    Ficha temp = new Ficha();
-                    switch (reader.Name.ToString())
+                    if (reader.IsStartElement())
                     {
-                        case "tablero":
-                            break;
-                        case "ficha":
-                            break;
-                        case "color":
-                            temp.color = reader.ReadString();
-                            color = temp.color;
-                            if (toca == "%")
-                            {
-                                colorToca = temp.color;
-                            }
-                            break;
-                        case "columna":
-                            temp.columna = reader.ReadString();
-                            columna = temp.columna;
-                            break;
-                        case "fila":
-                            temp.fila = reader.ReadElementContentAsInt();
-                            fila = temp.fila;
-                            variableAgregar = color + "," + columna + "" + fila;
-                            variableAg = variableAgregar.ToString();
-                            break;
-                        case "siguienteTiro":
-                            toca = "%";
-                            break;
-                    }
+                        Ficha temp = new Ficha();
+                        switch (reader.Name.ToString())
+                        {
+                            case "tablero":
+                                break;
+                            case "ficha":
+                                break;
+                            case "color":
+                                temp.color = reader.ReadString();
+                                color = temp.color;
+                                if (toca == "%")
+                                {
+                                    colorToca = temp.color;
+                                }
+                                break;
+                            case "columna":
+                                temp.columna = reader.ReadString();
+                                columna = temp.columna;
+                                break;
+                            case "fila":
+                                temp.fila = reader.ReadElementContentAsInt();
+                                fila = temp.fila;
+                                variableAgregar = color + "," + columna + "" + fila;
+                                variableAg = variableAgregar.ToString();
+                                break;
+                            case "siguienteTiro":
+                                toca = "%";
+                                break;
+                        }
 
-                    existe = ficha.Contains(variableAg);
-                    if (existe == true || variableAg == "" || toca == "%")
-                    {
-                        Console.WriteLine(" ");
+                        existe = Ficha.Contains(variableAg);
+                        if (existe == true || variableAg == "" || toca == "%")
+                        {
+                            Console.WriteLine(" ");
+                        }
+                        else
+                        {
+                            Ficha.Add(variableAg);
+                        }
+                        if (toca == "%" && colorToca != "")
+                        {
+                            Ficha.Add("Turno," + colorToca);
+                            toca = "";
+                        }
                     }
-                    else
-                    {
-                        ficha.Add(variableAg);
-                    }
-                    if (toca == "%" && colorToca != "")
-                    {
-                        turno.Add(colorToca);
-                        toca = "";
-                        cadena = "1&La lista ha sido cargada";
-
-                    }
-
                 }
+                int numero = Ficha.Count();
+                if (conteo >= numero)
+                {
+                    cadena = Ficha.Last();
+                }
+                else
+                {
+                    cadena = Ficha[conteo];
+                }
+
+                return cadena;
             }
             return cadena;
         }
     }
-
 }
