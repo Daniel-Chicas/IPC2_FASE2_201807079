@@ -7,11 +7,16 @@ using System.Xml;
 using WebApplication1.Models;
 using System.Data;
 using System.Data.Sql;
+using System.IO;
+using System.Xml.Linq;
 
 namespace WebApplication1.Controllers
 {
     public class TableroController : Controller
     {
+        XmlDocument doc = new XmlDocument();
+        string filename = "C:\\Users\\Daniel Chicas\\Desktop\\Jugador vs Maquina.xml";
+
         List<string> Ficha;
         public ActionResult Tablero()
         {
@@ -131,6 +136,87 @@ namespace WebApplication1.Controllers
                 return cadena;
             }
             return cadena;
+        }
+
+        public string Guardar(int contadorG, string columnaR, string filaR, string colorR)
+        {
+            var cadena = "";
+            string cadenaS = contadorG.ToString();
+            string nombreArchivo = "C:\\Users\\Daniel Chicas\\Desktop\\Jugador vs Maquina.xml";
+
+            if (contadorG == 0 && columnaR == "k" && filaR == "9")
+            {
+                XmlNode turno = turnoficha(colorR);
+                XmlNode ultimo = doc.DocumentElement;
+                ultimo.InsertAfter(turno, ultimo.LastChild);
+                doc.Save(nombreArchivo);
+                cadena = "Se ha guardado el archivo.";
+                return cadena;
+            }
+
+                if (System.IO.File.Exists(nombreArchivo))
+            {
+                XmlNode ficha = crearFicha(colorR, filaR, columnaR);
+                XmlNode ultimo = doc.DocumentElement;
+                ultimo.InsertAfter(ficha, ultimo.LastChild);
+                doc.Save(nombreArchivo);
+                cadena = "se ha guardado el archivo 2 (definitivamente ya)";
+                return cadena;
+            }
+            else
+            {
+                    XmlDocument doc = new XmlDocument();
+                    XmlElement raiz = doc.CreateElement("tablero");
+                    doc.AppendChild(raiz);
+
+                    XmlElement ficha = doc.CreateElement("ficha");
+                    raiz.AppendChild(ficha);
+
+                    XmlElement color = doc.CreateElement("color");
+                    color.AppendChild(doc.CreateTextNode(colorR));
+                    ficha.AppendChild(color);
+
+                    XmlElement columna = doc.CreateElement("columna");
+                    columna.AppendChild(doc.CreateTextNode(columnaR));
+                    ficha.AppendChild(columna);
+
+                    XmlElement fila = doc.CreateElement("fila");
+                    fila.AppendChild(doc.CreateTextNode(filaR));
+                    ficha.AppendChild(fila);
+                    doc.Save(nombreArchivo);
+                    cadena = "se ha guardado el archivo (no pero ya)";
+                return cadena;
+            }
+            }
+        
+        private XmlNode crearFicha(string colorR, string filaR, string columnaR)
+        {
+            doc.Load("C:\\Users\\Daniel Chicas\\Desktop\\Jugador vs Maquina.xml");
+            XmlNode ficha = doc.CreateElement("ficha");
+
+            XmlElement color = doc.CreateElement("color");
+            color.InnerText = colorR;
+            ficha.AppendChild(color);
+
+            XmlElement columna = doc.CreateElement("columna");
+            columna.InnerText = columnaR;
+            ficha.AppendChild(columna);
+
+            XmlElement fila = doc.CreateElement("fila");
+            fila.InnerText = filaR;
+            ficha.AppendChild(fila);
+
+            return ficha;
+        }
+        private XmlNode turnoficha(string colorR)
+        {
+            doc.Load("C:\\Users\\Daniel Chicas\\Desktop\\Jugador vs Maquina.xml");
+            XmlNode ficha = doc.CreateElement("siguienteTiro");
+
+            XmlElement color = doc.CreateElement("color");
+            color.InnerText = colorR;
+            ficha.AppendChild(color);
+            return ficha;
         }
     }
 }
