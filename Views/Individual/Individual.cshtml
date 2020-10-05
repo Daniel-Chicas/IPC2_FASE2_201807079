@@ -1,0 +1,3442 @@
+﻿<html>
+<header>
+    JUGADOR VS MÁQUINA
+</header>
+<script type="text/javascript">
+    var contador = Math.floor(Math.random() * 10);
+    contador = 1;
+</script>
+<style>
+    body {
+        background: #96DDCC;
+    }
+    header {
+        font-family: 'kaushan Script', cursive;
+        font-size: 60px;
+        color: black;
+    }
+    #tabla {
+        position: absolute;
+        border: 1px solid #fff;
+        top: 200px;
+        left: 500px;
+        background: #747772;
+    }
+    #A1 {
+        position: absolute;
+        border-radius: 300px;
+        top: 5px;
+        left: 7px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+    #B1 {
+        position: absolute;
+        border-radius: 300px;
+        top: 5px;
+        left: 57px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #C1 {
+        position: absolute;
+        border-radius: 300px;
+        top: 5px;
+        left: 107px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #D1 {
+        position: absolute;
+        border-radius: 300px;
+        top: 5px;
+        left: 157px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #E1 {
+        position: absolute;
+        border-radius: 300px;
+        top: 5px;
+        left: 207px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+    #F1 {
+        position: absolute;
+        border-radius: 300px;
+        top: 5px;
+        left: 257px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+    #G1 {
+        position: absolute;
+        border-radius: 300px;
+        top: 5px;
+        left: 307px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+    #H1 {
+        position: absolute;
+        border-radius: 300px;
+        top: 5px;
+        left: 357px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #A2 {
+        position: absolute;
+        border-radius: 300px;
+        top: 55px;
+        left: 7px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #B2 {
+        position: absolute;
+        border-radius: 300px;
+        top: 55px;
+        left: 57px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #C2 {
+        position: absolute;
+        border-radius: 300px;
+        top: 55px;
+        left: 107px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #D2 {
+        position: absolute;
+        border-radius: 300px;
+        top: 55px;
+        left: 157px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #E2 {
+        position: absolute;
+        border-radius: 300px;
+        top: 55px;
+        left: 207px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #F2 {
+        position: absolute;
+        border-radius: 300px;
+        top: 55px;
+        left: 257px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #G2 {
+        position: absolute;
+        border-radius: 300px;
+        top: 55px;
+        left: 307px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #H2 {
+        position: absolute;
+        border-radius: 300px;
+        top: 55px;
+        left: 357px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #A3 {
+        position: absolute;
+        border-radius: 300px;
+        top: 105px;
+        left: 7px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #B3 {
+        position: absolute;
+        border-radius: 300px;
+        top: 105px;
+        left: 57px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #C3 {
+        position: absolute;
+        border-radius: 300px;
+        top: 105px;
+        left: 107px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #D3 {
+        position: absolute;
+        border-radius: 300px;
+        top: 105px;
+        left: 157px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #E3 {
+        position: absolute;
+        border-radius: 300px;
+        top: 105px;
+        left: 207px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #F3 {
+        position: absolute;
+        border-radius: 300px;
+        top: 105px;
+        left: 257px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #G3 {
+        position: absolute;
+        border-radius: 300px;
+        top: 105px;
+        left: 307px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #H3 {
+        position: absolute;
+        border-radius: 300px;
+        top: 105px;
+        left: 357px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #A4 {
+        position: absolute;
+        border-radius: 300px;
+        top: 155px;
+        left: 7px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #B4 {
+        position: absolute;
+        border-radius: 300px;
+        top: 155px;
+        left: 57px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #C4 {
+        position: absolute;
+        border-radius: 300px;
+        top: 155px;
+        left: 107px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #D4 {
+        position: absolute;
+        border-radius: 300px;
+        top: 155px;
+        left: 157px;
+        font-size: 25px;
+        border: none;
+        background: white;
+    }
+
+    #E4 {
+        position: absolute;
+        border-radius: 300px;
+        top: 155px;
+        left: 207px;
+        font-size: 25px;
+        border: none;
+        background: Black;
+    }
+
+    #F4 {
+        position: absolute;
+        border-radius: 300px;
+        top: 155px;
+        left: 257px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #G4 {
+        position: absolute;
+        border-radius: 300px;
+        top: 155px;
+        left: 307px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #H4 {
+        position: absolute;
+        border-radius: 300px;
+        top: 155px;
+        left: 357px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #A5 {
+        position: absolute;
+        border-radius: 300px;
+        top: 205px;
+        left: 7px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #B5 {
+        position: absolute;
+        border-radius: 300px;
+        top: 205px;
+        left: 57px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #C5 {
+        position: absolute;
+        border-radius: 300px;
+        top: 205px;
+        left: 107px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #D5 {
+        position: absolute;
+        border-radius: 300px;
+        top: 205px;
+        left: 157px;
+        font-size: 25px;
+        border: none;
+        background: black;
+    }
+
+    #E5 {
+        position: absolute;
+        border-radius: 300px;
+        top: 205px;
+        left: 207px;
+        font-size: 25px;
+        border: none;
+        background: white;
+    }
+
+    #F5 {
+        position: absolute;
+        border-radius: 300px;
+        top: 205px;
+        left: 257px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #G5 {
+        position: absolute;
+        border-radius: 300px;
+        top: 205px;
+        left: 307px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #H5 {
+        position: absolute;
+        border-radius: 300px;
+        top: 205px;
+        left: 357px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #A6 {
+        position: absolute;
+        border-radius: 300px;
+        top: 255px;
+        left: 7px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #B6 {
+        position: absolute;
+        border-radius: 300px;
+        top: 255px;
+        left: 57px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #C6 {
+        position: absolute;
+        border-radius: 300px;
+        top: 255px;
+        left: 107px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #D6 {
+        position: absolute;
+        border-radius: 300px;
+        top: 255px;
+        left: 157px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #E6 {
+        position: absolute;
+        border-radius: 300px;
+        top: 255px;
+        left: 207px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #F6 {
+        position: absolute;
+        border-radius: 300px;
+        top: 255px;
+        left: 257px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #G6 {
+        position: absolute;
+        border-radius: 300px;
+        top: 255px;
+        left: 307px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #H6 {
+        position: absolute;
+        border-radius: 300px;
+        top: 255px;
+        left: 357px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #A7 {
+        position: absolute;
+        border-radius: 300px;
+        top: 305px;
+        left: 7px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #B7 {
+        position: absolute;
+        border-radius: 300px;
+        top: 305px;
+        left: 57px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #C7 {
+        position: absolute;
+        border-radius: 300px;
+        top: 305px;
+        left: 107px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #D7 {
+        position: absolute;
+        border-radius: 300px;
+        top: 305px;
+        left: 157px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #E7 {
+        position: absolute;
+        border-radius: 300px;
+        top: 305px;
+        left: 207px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #F7 {
+        position: absolute;
+        border-radius: 300px;
+        top: 305px;
+        left: 257px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #G7 {
+        position: absolute;
+        border-radius: 300px;
+        top: 305px;
+        left: 307px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #H7 {
+        position: absolute;
+        border-radius: 300px;
+        top: 305px;
+        left: 357px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #A8 {
+        position: absolute;
+        border-radius: 300px;
+        top: 355px;
+        left: 7px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #B8 {
+        position: absolute;
+        border-radius: 300px;
+        top: 355px;
+        left: 57px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #C8 {
+        position: absolute;
+        border-radius: 300px;
+        top: 355px;
+        left: 107px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #D8 {
+        position: absolute;
+        border-radius: 300px;
+        top: 355px;
+        left: 157px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #E8 {
+        position: absolute;
+        border-radius: 300px;
+        top: 355px;
+        left: 207px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #F8 {
+        position: absolute;
+        border-radius: 300px;
+        top: 355px;
+        left: 257px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #G8 {
+        position: absolute;
+        border-radius: 300px;
+        top: 355px;
+        left: 307px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+
+    #H8 {
+        position: absolute;
+        border-radius: 300px;
+        top: 355px;
+        left: 357px;
+        font-size: 25px;
+        border: none;
+        background: transparent;
+    }
+    #LA1 {
+        position: absolute;
+        top: 205px;
+        left: 480px;
+        font-family: 'kaushan Script', cursive;
+        font-size: 30px;
+        color: black;
+    }
+    #LB2 {
+        position: absolute;
+        top: 255PX;
+        left: 480px;
+        font-family: 'kaushan Script', cursive;
+        font-size: 30px;
+        color: black;
+    }
+    #LC3 {
+        position: absolute;
+        top: 305px;
+        left: 480px;
+        font-family: 'kaushan Script', cursive;
+        font-size: 30px;
+        color: black;
+    }
+    #LD4 {
+        position: absolute;
+        top: 355px;
+        left: 480px;
+        font-family: 'kaushan Script', cursive;
+        font-size: 30px;
+        color: black;
+    }
+    #LE5 {
+        position: absolute;
+        top: 405px;
+        left: 480px;
+        font-family: 'kaushan Script', cursive;
+        font-size: 30px;
+        color: black;
+    }
+    #LF6 {
+        position: absolute;
+        top: 455px;
+        left: 480px;
+        font-family: 'kaushan Script', cursive;
+        font-size: 30px;
+        color: black;
+    }
+    #LG7 {
+        position: absolute;
+        top: 505px;
+        left: 480px;
+        font-family: 'kaushan Script', cursive;
+        font-size: 30px;
+        color: black;
+    }
+    #LH8 {
+        position: absolute;
+        top: 555px;
+        left: 480px;
+        font-family: 'kaushan Script', cursive;
+        font-size: 30px;
+        color: black;
+    }
+    #LA {
+        position: absolute;
+        top: 160px;
+        left: 510px;
+        font-family: 'kaushan Script', cursive;
+        font-size: 30px;
+        color: black;
+    }
+
+    #LB {
+        position: absolute;
+        top: 160px;
+        left: 560px;
+        font-family: 'kaushan Script', cursive;
+        font-size: 30px;
+        color: black;
+    }
+
+    #LC {
+        position: absolute;
+        top: 160px;
+        left: 610px;
+        font-family: 'kaushan Script', cursive;
+        font-size: 30px;
+        color: black;
+    }
+
+    #LD {
+        position: absolute;
+        top: 160px;
+        left: 660px;
+        font-family: 'kaushan Script', cursive;
+        font-size: 30px;
+        color: black;
+    }
+
+    #LE {
+        position: absolute;
+        top: 160px;
+        left: 710px;
+        font-family: 'kaushan Script', cursive;
+        font-size: 30px;
+        color: black;
+    }
+
+    #LF {
+        position: absolute;
+        top: 160px;
+        left: 760px;
+        font-family: 'kaushan Script', cursive;
+        font-size: 30px;
+        color: black;
+    }
+
+    #LG {
+        position: absolute;
+        top: 160px;
+        left: 810px;
+        font-family: 'kaushan Script', cursive;
+        font-size: 30px;
+        color: black;
+    }
+
+    #LH {
+        position: absolute;
+        top: 160px;
+        left: 860px;
+        font-family: 'kaushan Script', cursive;
+        font-size: 30px;
+        color: black;
+    }
+    #Salir {
+        font-family: 'kaushan Script', cursive;
+        position: absolute;
+        left: 1000px;
+        top: 550px;
+        width: 300px;
+        height: 40px;
+        border-radius: 50px;
+        font-size: 25px;
+        background: #CEE476;
+        font-weight: bold;
+    }
+    #Reportes {
+        font-family: 'kaushan Script', cursive;
+        position: absolute;
+        left: 1000px;
+        top: 400px;
+        width: 300px;
+        height: 40px;
+        border-radius: 50px;
+        font-size: 25px;
+        background: #CEE476;
+        font-weight: bold;
+    }
+    #Guardar {
+        font-family: 'kaushan Script', cursive;
+        position: absolute;
+        left: 1000px;
+        top: 450px;
+        width: 300px;
+        height: 40px;
+        border-radius: 50px;
+        font-size: 25px;
+        background: #CEE476;
+        font-weight: bold;
+    }
+    #Repetir {
+        font-family: 'kaushan Script', cursive;
+        position: absolute;
+        left: 1000px;
+        top: 500px;
+        width: 300px;
+        height: 40px;
+        border-radius: 50px;
+        font-size: 25px;
+        background: #CEE476;
+        font-weight: bold;
+    }
+    #puntos {
+        position: absolute;
+        font-family: 'kaushan Script', cursive;
+        font-size:30px;
+        left: 1000px;
+        top: 115px;
+        font-weight: bold;
+        }
+    #blancas {
+        position: absolute;
+        font-family: 'kaushan Script', cursive;
+        font-size: 20px;
+        left: 1000px;
+        top: 165px;
+    }
+    #Pblancas {
+        position: absolute;
+        font-family: 'kaushan Script', cursive;
+        font-size: 20px;
+        width: 100px;
+        left: 1100px;
+        top: 165px;
+    }
+    #negras {
+        position: absolute;
+        font-family: 'kaushan Script', cursive;
+        font-size: 20px;
+        left: 1000px;
+        top: 220px;
+    }
+    #Pnegras {
+        position: absolute;
+        font-family: 'kaushan Script', cursive;
+        font-size: 20px;
+        width: 100px;
+        left: 1100px;
+        top: 220px;
+    }
+    #Mostrar {
+        height: 40px;
+        border-radius: 50px;
+        font-size: 25px;
+        background: #CEE476;
+        font-weight: bold;
+        position: absolute;
+        font-family: 'kaushan Script', cursive;
+        width: 300px;
+        left: 100px;
+        top: 500px;
+    }
+    #Ruta {
+        height: 40px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: bold;
+        position: absolute;
+        font-family: 'kaushan Script', cursive;
+        width: 300px;
+        left: 100px;
+        top: 450px;
+    }
+    #Toca {
+        height: 40px;
+        border-radius: 50px;
+        font-size: 40px;
+        font-weight: bold;
+        position: absolute;
+        font-family: 'kaushan Script', cursive;
+        width: 300px;
+        left: 150px;
+        top: 150px;
+    }
+    #toca {
+        height: 40px;
+        border-radius: 50px;
+        font-size: 20px;
+        font-weight: bold;
+        position: absolute;
+        font-family: 'kaushan Script', cursive;
+        width: 140px;
+        left: 150px;
+        top: 200px;
+        text-align: center;
+    }
+
+</style>
+<body>
+
+
+    <label id="LA">A</label>
+    <label id="LB">B</label>
+    <label id="LC">C</label>
+    <label id="LD">D</label>
+    <label id="LE">E</label>
+    <label id="LF">F</label>
+    <label id="LG">G</label>
+    <label id="LH">H</label>
+    <label id="LA1">1</label>
+    <label id="LB2">2</label>
+    <label id="LC3">3</label>
+    <label id="LD4">4</label>
+    <label id="LE5">5</label>
+    <label id="LF6">6</label>
+    <label id="LG7">7</label>
+    <label id="LH8">8</label>
+
+    <table id="tabla" width="400" height="400px" ; border="1" cellspacing="2" cellpadding="2">
+        <tr align="center">
+            <td><font color="#6ADB6D"><input type="button" id="A1" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="B1" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="C1" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="D1" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="E1" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="F1" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="G1" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="H1" value="   " class="botones" disabled="disabled"/></td>
+        </tr>
+        <tr align="center">
+            <td bgcolor="#6ADB6D"><input type="button" id="A2" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="B2" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="C2" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="D2" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="E2" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="F2" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="G2" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="H2" value="   " class="botones" disabled="disabled"/></font></td>
+        </tr>
+        <tr align="center">
+            <td><font color="#83D92E"><input type="button" id="A3" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="B3" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="C3" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="D3" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="E3" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="F3" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="G3" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="H3" value="   " class="botones" disabled="disabled"/></td>
+        </tr>
+        <tr align="center">
+            <td bgcolor="#6ADB6D"><input type="button" id="A4" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="B4" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="C4" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="D4" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="E4" value="   " class="botones" disabled/></td>
+            <td><font color="#6ADB6D"><input type="button" id="F4" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="G4" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="H4" value="   " class="botones" disabled="disabled"/></font></td>
+        </tr>
+        <tr align="center">
+            <td><font color="#83D92E"><input type="button" id="A5" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="B5" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="C5" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="D5" value="   " class="botones" disabled/></td>
+            <td><font color="#6ADB6D"><input type="button" id="E5" value="   " class="botones" disabled/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="F5" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="G5" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="H5" value="   " class="botones" disabled="disabled"/></td>
+        </tr>
+        <tr align="center">
+            <td bgcolor="#6ADB6D"><input type="button" id="A6" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="B6" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="C6" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="D6" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="E6" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="F6" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="G6" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="H6" value="   " class="botones" disabled="disabled"/></font></td>
+        </tr>
+        <tr align="center">
+            <td><font color="#83D92E"><input type="button" id="A7" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="B7" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="C7" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="D7" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="E7" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="F7" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="G7" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="H7" value="   " disabled="disabled"/></td>
+        </tr>
+        <tr align="#6ADB6D">
+            <td bgcolor="#6ADB6D"><input type="button" id="A8" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="B8" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="C8" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="D8" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="E8" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="F8" value="   " class="botones" disabled="disabled"/></font></td>
+            <td bgcolor="#6ADB6D"><input type="button" id="G8" value="   " class="botones" disabled="disabled"/></td>
+            <td><font color="#6ADB6D"><input type="button" id="H8" value="   " class="botones" disabled="disabled"/></font></td>
+        </tr>
+        <!-- document.getElementById("H8").style.backgroundColor = "black";-->
+    </table>
+    <label id="puntos">PUNTEO</label>
+    <label id="blancas">Blancas = </label>
+    <input id="Pblancas" type="text" placeholder=" " disabled="disabled">
+    <label id="negras">Negras = </label>
+    <input id="Pnegras" type="text" placeholder=" " disabled="disabled">
+    <input id="Salir" type="submit" value="Salir" onclick="location.href='@Url.Action("Index", "Juego")'">
+    <input id="Reportes" type="submit" value=" Reportes ">
+    <input id="Guardar" type="submit" value="Guardar">
+    <input id="Repetir" type="submit" value=" Volver a Jugar" onclick="location.href='@Url.Action("Tablero", "Tablero")'">
+    <input id="toca" type="text" value=" " disabled="disabled" />
+
+    <p id="Toca">TURNO</p>
+
+    @section scripts {
+        <script type="text/javascript">
+            var movimientosUsuario = 0;
+            var punteoBlancas = 2;
+            var punteoNegras = 2;
+            document.getElementById("Pnegras").value = punteoNegras
+            document.getElementById("Pblancas").value = punteoBlancas;
+
+            if (contador % 2 == 0) {
+                document.getElementById("toca").value = "Blanco";
+                document.getElementById("E3").disabled = false;
+                document.getElementById("E3").style.border = "black 1px solid";
+                document.getElementById("F4").disabled = false;
+                document.getElementById("F4").style.border = "black 1px solid";
+                document.getElementById("C5").disabled = false;
+                document.getElementById("C5").style.border = "black 1px solid";
+                document.getElementById("D6").disabled = false;
+                document.getElementById("D6").style.border = "black 1px solid";
+                contador = 0;
+            }
+            else {
+                document.getElementById("toca").value = "Negro";
+                document.getElementById("E6").disabled = false;
+                document.getElementById("E6").style.border = "black 1px solid";
+                document.getElementById("F5").disabled = false;
+                document.getElementById("F5").style.border = "black 1px solid";
+                document.getElementById("C4").disabled = false;
+                document.getElementById("C4").style.border = "black 1px solid";
+                document.getElementById("D3").disabled = false;
+                document.getElementById("D3").style.border = "black 1px solid";
+                contador = 1;
+            }
+            document.getElementById('A1').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                else {
+                    document.getElementById("toca").value = "Negro";
+                }
+                contador++;
+            }
+            document.getElementById('A2').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('A3').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('A4').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('A5').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('A6').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('A7').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('A8').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('B1').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('B2').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('B3').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('B4').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('B5').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('B6').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('B7').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('B8').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('C1').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('C2').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('C3').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('C4').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('C5').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('C6').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('C7').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('C8').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('D1').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('D2').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('D3').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('D4').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('D5').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('D6').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('D7').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('D8').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('E1').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('E2').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('E3').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('E4').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('E5').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('E6').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('E7').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('E8').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('F1').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('F2').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('F3').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('F4').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('F5').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('F6').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('F7').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('F8').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('G1').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('G2').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('G3').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('G4').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('G5').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('G6').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('G7').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('G8').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('H1').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('H2').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('H3').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('H4').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('H5').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('H6').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('H7').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+            document.getElementById('H8').onclick = function () {
+                if (contador % 2 == 0) {
+                    document.getElementById("toca").value = "Negro";
+                }
+                else {
+                    document.getElementById("toca").value = "Blanco";
+                }
+                contador++;
+            }
+
+            //////////////////////////////////////////////////////////////////////////////////////////
+            function deshabilitar(s) {
+                var boton = document.getElementById(s);
+                boton.disabled = true;
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////////////////////
+            $('#A1').click(function (e) {   
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("A1").style.backgroundColor = "black";
+                                     deshabilitar("A1");
+                                 }
+                                 else {
+                                     document.getElementById("A1").style.backgroundColor = "white";
+                                     deshabilitar("A1");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#A2').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("A2").style.backgroundColor = "black";
+                                     deshabilitar("A2");
+                                 }
+                                 else {
+                                     document.getElementById("A2").style.backgroundColor = "white";
+                                     deshabilitar("A2");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#A3').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("A3").style.backgroundColor = "black";
+                                     deshabilitar("A3");
+                                 }
+                                 else {
+                                     document.getElementById("A3").style.backgroundColor = "white";
+                                     deshabilitar("A3");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#A4').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("A4").style.backgroundColor = "black";
+                                     deshabilitar("A4");
+                                 }
+                                 else {
+                                     document.getElementById("A4").style.backgroundColor = "white";
+                                     deshabilitar("A4");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#A5').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("A5").style.backgroundColor = "black";
+                                     deshabilitar("A5");
+                                 }
+                                 else {
+                                     document.getElementById("A5").style.backgroundColor = "white";
+                                     deshabilitar("A5");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#A6').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("A6").style.backgroundColor = "black";
+                                     deshabilitar("A6");
+                                 }
+                                 else {
+                                     document.getElementById("A6").style.backgroundColor = "white";
+                                     deshabilitar("A6");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#A7').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("A7").style.backgroundColor = "black";
+                                     deshabilitar("A7");
+                                 }
+                                 else {
+                                     document.getElementById("A7").style.backgroundColor = "white";
+                                     deshabilitar("A7");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#A8').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("A8").style.backgroundColor = "black";
+                                     deshabilitar("A8");
+                                 }
+                                 else {
+                                     document.getElementById("A8").style.backgroundColor = "white";
+                                     deshabilitar("A8");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#B1').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("B1").style.backgroundColor = "black";
+                                     deshabilitar("B1");
+                                 }
+                                 else {
+                                     document.getElementById("B1").style.backgroundColor = "white";
+                                     deshabilitar("B1");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#B2').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("B2").style.backgroundColor = "black";
+                                     deshabilitar("B2");
+                                 }
+                                 else {
+                                     document.getElementById("B2").style.backgroundColor = "white";
+                                     deshabilitar("B2");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#B3').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("B3").style.backgroundColor = "black";
+                                     deshabilitar("B3");
+                                 }
+                                 else {
+                                     document.getElementById("B3").style.backgroundColor = "white";
+                                     deshabilitar("B3");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#B4').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     movimientosUsuario = movimientosUsuario + 1;
+                                     document.getElementById("B4").disabled = true;
+                                     document.getElementById("B4").style.backgroundColor = "black";
+                                     document.getElementById("B5").style.backgroundColor = "black";
+                                     deshabilitar("B6");
+                                     document.getElementById("C6").disabled = true;
+                                     document.getElementById("C6").style.border = "none";
+                                     document.getElementById("D6").disabled = true;
+                                     document.getElementById("D6").style.border = "none";
+                                     document.getElementById("E6").disabled = true;
+                                     document.getElementById("E6").style.border = "none";
+                                     document.getElementById("F6").disabled = true;
+                                     document.getElementById("F6").style.border = "none";
+                                     punteoNegras = punteoNegras + 2;
+                                     document.getElementById("Pnegras").value = punteoNegras;
+                                     punteoBlancas = punteoBlancas - 1;
+                                     document.getElementById("Pblancas").value = punteoBlancas;
+                                     setTimeout(function () {
+                                         document.getElementById("A5").style.backgroundColor = "white";
+                                         document.getElementById("C5").style.backgroundColor = "white";
+                                         punteoBlancas = punteoBlancas + 2;
+                                         document.getElementById("Pblancas").value = punteoBlancas;
+                                         punteoNegras = punteoNegras - 1;
+                                         document.getElementById("Pnegras").value = punteoNegras;
+                                         document.getElementById("toca").value = "Negro";
+                                         document.getElementById("B5").disabled = true;
+                                         document.getElementById("B5").style.backgroundColor="white";
+                                         document.getElementById("C6").disabled = false;
+                                         document.getElementById("C6").style.border = "black 1px solid";
+                                         document.getElementById("D6").disabled = false;
+                                         document.getElementById("D6").style.border = "black 1px solid";
+                                         document.getElementById("E6").disabled = false;
+                                         document.getElementById("E6").style.border = "black 1px solid";
+                                         document.getElementById("F6").disabled = false;
+                                         document.getElementById("F6").style.border = "black 1px solid";
+                                         contador++;
+                                     }, 1000);
+                                 }
+                                 else {
+                                     document.getElementById("B6").style.backgroundColor = "white";
+                                     deshabilitar("B6");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#B5').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("B5").style.backgroundColor = "black";
+                                     deshabilitar("B5");
+                                 }
+                                 else {
+                                     document.getElementById("B5").style.backgroundColor = "white";
+                                     deshabilitar("B5");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#B6').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     movimientosUsuario = movimientosUsuario + 1;
+                                     document.getElementById("B6").style.backgroundColor = "black";
+                                     document.getElementById("C5").style.backgroundColor = "black";
+                                     deshabilitar("B6");
+                                     document.getElementById("C6").disabled = true;
+                                     document.getElementById("C6").style.border = "none";
+                                     document.getElementById("D6").disabled = true;
+                                     document.getElementById("D6").style.border = "none";
+                                     document.getElementById("E6").disabled = true;
+                                     document.getElementById("E6").style.border = "none";
+                                     document.getElementById("F6").disabled = true;
+                                     document.getElementById("F6").style.border = "none";
+                                     punteoNegras = punteoNegras + 2;
+                                     document.getElementById("Pnegras").value = punteoNegras;
+                                     punteoBlancas = punteoBlancas - 1;
+                                     document.getElementById("Pblancas").value = punteoBlancas;
+                                     setTimeout(function () {
+                                         document.getElementById("B5").style.backgroundColor = "white";
+                                         document.getElementById("C5").style.backgroundColor = "white";
+                                         punteoBlancas = punteoBlancas +2;
+                                         document.getElementById("Pblancas").value = punteoBlancas;
+                                         punteoNegras = punteoNegras -1;
+                                         document.getElementById("Pnegras").value = punteoNegras;
+                                         document.getElementById("toca").value = "Negro";
+                                         document.getElementById("B4").disabled = false;
+                                         document.getElementById("B4").style.border = "black 1px solid";
+                                         document.getElementById("C6").disabled = false;
+                                         document.getElementById("C6").style.border = "black 1px solid";
+                                         document.getElementById("D6").disabled = false;
+                                         document.getElementById("D6").style.border = "black 1px solid";
+                                         document.getElementById("E6").disabled = false;
+                                         document.getElementById("E6").style.border = "black 1px solid";
+                                         document.getElementById("F6").disabled = false;
+                                         document.getElementById("F6").style.border = "black 1px solid";
+                                         contador++;
+                                     }, 1000);
+                                 }
+                                 else {
+                                     document.getElementById("B6").style.backgroundColor = "white";
+                                     deshabilitar("B6");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#B7').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("B7").style.backgroundColor = "black";
+                                     deshabilitar("B7");
+                                 }
+                                 else {
+                                     document.getElementById("B7").style.backgroundColor = "white";
+                                     deshabilitar("B7");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#B8').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("B8").style.backgroundColor = "black";
+                                     deshabilitar("B8");
+                                 }
+                                 else {
+                                     document.getElementById("B8").style.backgroundColor = "white";
+                                     deshabilitar("B8");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#C1').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("C1").style.backgroundColor = "black";
+                                     deshabilitar("C1");
+                                 }
+                                 else {
+                                     document.getElementById("C1").style.backgroundColor = "white";
+                                     deshabilitar("C1");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#C2').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("C2").style.backgroundColor = "black";
+                                     deshabilitar("C2");
+                                 }
+                                 else {
+                                     document.getElementById("C2").style.backgroundColor = "white";
+                                     deshabilitar("C2");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#C3').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("C3").style.backgroundColor = "black";
+                                     deshabilitar("C3");
+                                 }
+                                 else {
+                                     document.getElementById("C3").style.backgroundColor = "white";
+                                     deshabilitar("C3");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#C4').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("C4").style.backgroundColor = "black";
+                                     deshabilitar("C4");
+                                 }
+                                 else {
+                                     document.getElementById("C4").style.backgroundColor = "white";
+                                     deshabilitar("C4");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#C5').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("C5").style.backgroundColor = "black";
+                                     deshabilitar("C5");
+                                 }
+                                 else {
+                                     document.getElementById("C5").style.backgroundColor = "white";
+                                     deshabilitar("C5");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#C6').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("C6").style.backgroundColor = "black";
+                                     deshabilitar("C6");
+                                 }
+                                 else {
+                                     document.getElementById("C6").style.backgroundColor = "white";
+                                     deshabilitar("C6");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#C7').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("C7").style.backgroundColor = "black";
+                                     deshabilitar("C7");
+                                 }
+                                 else {
+                                     document.getElementById("C7").style.backgroundColor = "white";
+                                     deshabilitar("C7");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#C8').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("C8").style.backgroundColor = "black";
+                                     deshabilitar("C8");
+                                 }
+                                 else {
+                                     document.getElementById("C8").style.backgroundColor = "white";
+                                     deshabilitar("C8");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#D1').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("D1").style.backgroundColor = "black";
+                                     deshabilitar("D1");
+                                 }
+                                 else {
+                                     document.getElementById("D1").style.backgroundColor = "white";
+                                     deshabilitar("D1");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#D2').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("D2").style.backgroundColor = "black";
+                                     deshabilitar("D2");
+                                 }
+                                 else {
+                                     document.getElementById("D2").style.backgroundColor = "white";
+                                     deshabilitar("D2");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#D3').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     movimientosUsuario = movimientosUsuario + 1;
+                                     document.getElementById("D3").style.backgroundColor = "black";
+                                     document.getElementById("D4").style.backgroundColor = "black";
+                                     punteoNegras = punteoNegras + 2;
+                                     document.getElementById("Pnegras").value = punteoNegras;
+                                     deshabilitar("D3");
+                                     document.getElementById("C4").disabled = true;
+                                     document.getElementById("C4").style.border = "none";
+                                     document.getElementById("E6").disabled = true;
+                                     document.getElementById("E6").style.border = "none";
+                                     document.getElementById("F5").disabled = true;
+                                     document.getElementById("F5").style.border = "none";
+                                     setTimeout(function () {
+                                         document.getElementById("D5").style.backgroundColor = "white";
+                                         document.getElementById("C5").style.backgroundColor = "white";
+                                         punteoNegras = punteoNegras - 1;
+                                         document.getElementById("Pnegras").value = punteoNegras;
+                                         punteoBlancas = punteoBlancas + 1
+                                         document.getElementById("Pblancas").value = punteoBlancas;
+                                         document.getElementById("toca").value = "Negro"; 
+                                         document.getElementById("B6").disabled = false;
+                                         document.getElementById("B6").style.border = "black 1px solid";
+                                         document.getElementById("C6").disabled = false;
+                                         document.getElementById("C6").style.border = "black 1px solid";
+                                         document.getElementById("D6").disabled = false;
+                                         document.getElementById("D6").style.border = "black 1px solid";
+                                         document.getElementById("E6").disabled = false;
+                                         document.getElementById("E6").style.border = "black 1px solid";
+                                         document.getElementById("F6").disabled = false;
+                                         document.getElementById("F6").style.border = "black 1px solid";
+                                         contador++;
+                                     }, 1000);
+                                 }
+                                 else {
+                                     document.getElementById("D3").style.backgroundColor = "white";
+                                     deshabilitar("D3");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#D6').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("D6").style.backgroundColor = "black";
+                                     deshabilitar("D6");
+                                 }
+                                 else {
+                                     document.getElementById("D6").style.backgroundColor = "white";
+                                     deshabilitar("D6");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#D7').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("D7").style.backgroundColor = "black";
+                                     deshabilitar("D7");
+                                 }
+                                 else {
+                                     document.getElementById("D7").style.backgroundColor = "white";
+                                     deshabilitar("D7");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#D8').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("D8").style.backgroundColor = "black";
+                                     deshabilitar("D8");
+                                 }
+                                 else {
+                                     document.getElementById("D8").style.backgroundColor = "white";
+                                     deshabilitar("D8");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#E1').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("E1").style.backgroundColor = "black";
+                                     deshabilitar("E1");
+                                 }
+                                 else {
+                                     document.getElementById("E1").style.backgroundColor = "white";
+                                     deshabilitar("E1");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#E2').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("E2").style.backgroundColor = "black";
+                                     deshabilitar("E2");
+                                 }
+                                 else {
+                                     document.getElementById("E2").style.backgroundColor = "white";
+                                     deshabilitar("E2");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#E3').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("E3").style.backgroundColor = "black";
+                                     deshabilitar("E3");
+                                 }
+                                 else {
+                                     document.getElementById("E3").style.backgroundColor = "white";
+                                     deshabilitar("E3");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#E4').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("E4").style.backgroundColor = "black";
+                                     deshabilitar("E4");
+                                 }
+                                 else {
+                                     document.getElementById("E4").style.backgroundColor = "white";
+                                     deshabilitar("E4");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#E5').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("E5").style.backgroundColor = "black";
+                                     deshabilitar("E5");
+                                 }
+                                 else {
+                                     document.getElementById("E5").style.backgroundColor = "white";
+                                     deshabilitar("E5");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#E6').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("E6").style.backgroundColor = "black";
+                                     deshabilitar("E6");
+                                 }
+                                 else {
+                                     document.getElementById("E6").style.backgroundColor = "white";
+                                     deshabilitar("E6");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#E7').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("E7").style.backgroundColor = "black";
+                                     deshabilitar("E7");
+                                 }
+                                 else {
+                                     document.getElementById("E7").style.backgroundColor = "white";
+                                     deshabilitar("E7");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#E8').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("E8").style.backgroundColor = "black";
+                                     deshabilitar("E8");
+                                 }
+                                 else {
+                                     document.getElementById("E8").style.backgroundColor = "white";
+                                     deshabilitar("E8");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#F1').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("F1").style.backgroundColor = "black";
+                                     deshabilitar("F1");
+                                 }
+                                 else {
+                                     document.getElementById("F1").style.backgroundColor = "white";
+                                     deshabilitar("F1");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#F2').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("F2").style.backgroundColor = "black";
+                                     deshabilitar("F2");
+                                 }
+                                 else {
+                                     document.getElementById("F2").style.backgroundColor = "white";
+                                     deshabilitar("F2");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#F3').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("F3").style.backgroundColor = "black";
+                                     deshabilitar("F3");
+                                 }
+                                 else {
+                                     document.getElementById("F3").style.backgroundColor = "white";
+                                     deshabilitar("F3");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#F4').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("F4").style.backgroundColor = "black";
+                                     deshabilitar("F4");
+                                 }
+                                 else {
+                                     document.getElementById("F4").style.backgroundColor = "white";
+                                     deshabilitar("F4");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#F5').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("F5").style.backgroundColor = "black";
+                                     deshabilitar("F5");
+                                 }
+                                 else {
+                                     document.getElementById("F5").style.backgroundColor = "white";
+                                     deshabilitar("F5");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#F6').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("F6").style.backgroundColor = "black";
+                                     deshabilitar("F6");
+                                 }
+                                 else {
+                                     document.getElementById("F6").style.backgroundColor = "white";
+                                     deshabilitar("F6");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#F7').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("F7").style.backgroundColor = "black";
+                                     deshabilitar("F7");
+                                 }
+                                 else {
+                                     document.getElementById("F7").style.backgroundColor = "white";
+                                     deshabilitar("F7");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#F8').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("F8").style.backgroundColor = "black";
+                                     deshabilitar("F8");
+                                 }
+                                 else {
+                                     document.getElementById("F8").style.backgroundColor = "white";
+                                     deshabilitar("F8");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#G1').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("G1").style.backgroundColor = "black";
+                                     deshabilitar("G1");
+                                 }
+                                 else {
+                                     document.getElementById("G1").style.backgroundColor = "white";
+                                     deshabilitar("G1");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#G2').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("G2").style.backgroundColor = "black";
+                                     deshabilitar("G2");
+                                 }
+                                 else {
+                                     document.getElementById("G2").style.backgroundColor = "white";
+                                     deshabilitar("G2");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#G3').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("G3").style.backgroundColor = "black";
+                                     deshabilitar("G3");
+                                 }
+                                 else {
+                                     document.getElementById("G3").style.backgroundColor = "white";
+                                     deshabilitar("G3");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#G4').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("G4").style.backgroundColor = "black";
+                                     deshabilitar("G4");
+                                 }
+                                 else {
+                                     document.getElementById("G4").style.backgroundColor = "white";
+                                     deshabilitar("G4");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#G5').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("G5").style.backgroundColor = "black";
+                                     deshabilitar("G5");
+                                 }
+                                 else {
+                                     document.getElementById("G5").style.backgroundColor = "white";
+                                     deshabilitar("G5");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#G6').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("G6").style.backgroundColor = "black";
+                                     deshabilitar("G6");
+                                 }
+                                 else {
+                                     document.getElementById("G6").style.backgroundColor = "white";
+                                     deshabilitar("G6");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#G7').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("G7").style.backgroundColor = "black";
+                                     deshabilitar("G7");
+                                 }
+                                 else {
+                                     document.getElementById("G7").style.backgroundColor = "white";
+                                     deshabilitar("G7");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#G8').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("G8").style.backgroundColor = "black";
+                                     deshabilitar("G8");
+                                 }
+                                 else {
+                                     document.getElementById("G8").style.backgroundColor = "white";
+                                     deshabilitar("G8");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#H1').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("H1").style.backgroundColor = "black";
+                                     deshabilitar("H1");
+                                 }
+                                 else {
+                                     document.getElementById("H1").style.backgroundColor = "white";
+                                     deshabilitar("H1");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#H2').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("H2").style.backgroundColor = "black";
+                                     deshabilitar("H2");
+                                 }
+                                 else {
+                                     document.getElementById("H2").style.backgroundColor = "white";
+                                     deshabilitar("H2");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#H3').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("H3").style.backgroundColor = "black";
+                                     deshabilitar("H3");
+                                 }
+                                 else {
+                                     document.getElementById("H3").style.backgroundColor = "white";
+                                     deshabilitar("H3");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#H4').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("H4").style.backgroundColor = "black";
+                                     deshabilitar("H4");
+                                 }
+                                 else {
+                                     document.getElementById("H4").style.backgroundColor = "white";
+                                     deshabilitar("H4");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#H5').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("H5").style.backgroundColor = "black";
+                                     deshabilitar("H5");
+                                 }
+                                 else {
+                                     document.getElementById("H5").style.backgroundColor = "white";
+                                     deshabilitar("H5");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#H6').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("H6").style.backgroundColor = "black";
+                                     deshabilitar("H6");
+                                 }
+                                 else {
+                                     document.getElementById("H6").style.backgroundColor = "white";
+                                     deshabilitar("H6");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#H7').click(function (e) {
+                 $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("H7").style.backgroundColor = "black";
+                                     deshabilitar("H7");
+                                 }
+                                 else {
+                                     document.getElementById("H7").style.backgroundColor = "white";
+                                     deshabilitar("H7");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            $('#H8').click(function (e) {
+                 $.ajax(
+
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Conteo", "Tablero")',
+                         data: {contador: contador},
+
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 if (cadena == "black") {
+                                     document.getElementById("H8").style.backgroundColor = "black";
+                                     deshabilitar("H8");
+                                 }
+                                 else {
+                                     document.getElementById("H8").style.backgroundColor = "white";
+                                     deshabilitar("H8");
+                                 }
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+            });
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            
+        </script>
+    }
+</body>
+</html>
