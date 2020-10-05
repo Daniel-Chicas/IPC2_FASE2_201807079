@@ -130,6 +130,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CargarController.cs" />
     <Compile Include="Controllers\fileUploadController.cs" />
+    <Compile Include="Controllers\ContraController.cs" />
+    <Compile Include="Controllers\IndividualController.cs" />
     <Compile Include="Controllers\TorneoController.cs" />
     <Compile Include="Controllers\TableroController.cs" />
     <Compile Include="Controllers\JuegoController.cs" />
@@ -187,10 +189,11 @@
     <Content Include="Views\Torneo\Torneo.cshtml" />
     <Content Include="Views\Usuarios\Deshabilitar.cshtml" />
     <Content Include="Views\Cargar\Cargar.cshtml" />
+    <Content Include="Views\Individual\Individual.cshtml" />
+    <Content Include="Views\Contra\Contra.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\fileUpload\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
