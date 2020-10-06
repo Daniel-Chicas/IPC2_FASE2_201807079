@@ -12,6 +12,9 @@ namespace WebApplication1.Controllers
 {
     public class IndividualController : Controller
     {
+        XmlDocument doc = new XmlDocument();
+        string filename = "C:\\Users\\Daniel Chicas\\Desktop\\Jugador vs Maquina.xml";
+
         List<string> Ficha;
         public ActionResult Individual()
         {
@@ -58,78 +61,177 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                XmlReader reader = XmlReader.Create(pruta);
-                string color = "";
-                string columna = "";
-                int fila;
-                var variableAgregar = "";
-                string variableAg = "";
-                string toca = "";
-                string colorToca = "";
-                Boolean existe;
-                while (reader.Read())
+                try
                 {
-                    if (reader.IsStartElement())
+                    XmlReader reader = XmlReader.Create(pruta);
+                    string color = "";
+                    string columna = "";
+                    int fila;
+                    var variableAgregar = "";
+                    string variableAg = "";
+                    string toca = "";
+                    string colorToca = "";
+                    Boolean existe;
+                    while (reader.Read())
                     {
-                        Ficha temp = new Ficha();
-                        switch (reader.Name.ToString())
+                        if (reader.IsStartElement())
                         {
-                            case "tablero":
-                                break;
-                            case "ficha":
-                                break;
-                            case "color":
-                                temp.color = reader.ReadString();
-                                color = temp.color;
-                                if (toca == "%")
-                                {
-                                    colorToca = temp.color;
-                                }
-                                break;
-                            case "columna":
-                                temp.columna = reader.ReadString();
-                                columna = temp.columna;
-                                break;
-                            case "fila":
-                                temp.fila = reader.ReadElementContentAsInt();
-                                fila = temp.fila;
-                                variableAgregar = color + "," + columna + "" + fila;
-                                variableAg = variableAgregar.ToString();
-                                break;
-                            case "siguienteTiro":
-                                toca = "%";
-                                break;
-                        }
+                            Ficha temp = new Ficha();
+                            switch (reader.Name.ToString())
+                            {
+                                case "tablero":
+                                    break;
+                                case "ficha":
+                                    break;
+                                case "color":
+                                    temp.color = reader.ReadString();
+                                    color = temp.color;
+                                    if (toca == "%")
+                                    {
+                                        colorToca = temp.color;
+                                    }
+                                    break;
+                                case "columna":
+                                    temp.columna = reader.ReadString();
+                                    columna = temp.columna;
+                                    break;
+                                case "fila":
+                                    temp.fila = reader.ReadElementContentAsInt();
+                                    fila = temp.fila;
+                                    variableAgregar = color + "," + columna + "" + fila;
+                                    variableAg = variableAgregar.ToString();
+                                    break;
+                                case "siguienteTiro":
+                                    toca = "%";
+                                    break;
+                            }
 
-                        existe = Ficha.Contains(variableAg);
-                        if (existe == true || variableAg == "" || toca == "%")
-                        {
-                            Console.WriteLine(" ");
-                        }
-                        else
-                        {
-                            Ficha.Add(variableAg);
-                        }
-                        if (toca == "%" && colorToca != "")
-                        {
-                            Ficha.Add("Turno," + colorToca);
-                            toca = "";
+                            existe = Ficha.Contains(variableAg);
+                            if (existe == true || variableAg == "" || toca == "%")
+                            {
+                                Console.WriteLine(" ");
+                            }
+                            else
+                            {
+                                Ficha.Add(variableAg);
+                            }
+                            if (toca == "%" && colorToca != "")
+                            {
+                                Ficha.Add("Turno," + colorToca);
+                                toca = "";
+                            }
                         }
                     }
-                }
-                int numero = Ficha.Count();
-                if (conteo >= numero)
-                {
-                    cadena = Ficha.Last();
-                }
-                else
-                {
-                    cadena = Ficha[conteo];
-                }
+                    int numero = Ficha.Count();
+                    if (conteo >= numero)
+                    {
+                        cadena = Ficha.Last();
+                    }
+                    else
+                    {
+                        cadena = Ficha[conteo];
+                    }
 
-                return cadena;
+                    return cadena;
+                }
+            catch (Exception)
+            {
+            cadena = "";
+            return cadena;
+            }
             }
             return cadena;
         }
+
+        public string Guardar(int contadorG, string columnaR, string filaR, string colorR)
+        {
+            var cadena = "";
+            string cadenaS = contadorG.ToString();
+            string nombreArchivo = "C:\\Users\\Daniel Chicas\\Desktop\\Jugador vs Maquina.xml";
+
+            if (contadorG == 0 && columnaR == "k" && filaR == "9")
+            {
+                XmlNode turno = turnoficha(colorR);
+                XmlNode ultimo = doc.DocumentElement;
+                ultimo.InsertAfter(turno, ultimo.LastChild);
+                doc.Save(nombreArchivo);
+                cadena = "Se ha guardado el archivo.";
+                return cadena;
+            }
+
+            if (System.IO.File.Exists(nombreArchivo))
+            {
+                XmlNode ficha = crearFicha(colorR, filaR, columnaR);
+                XmlNode ultimo = doc.DocumentElement;
+                ultimo.InsertAfter(ficha, ultimo.LastChild);
+                doc.Save(nombreArchivo);
+                cadena = "se ha guardado el archivo 2 (definitivamente ya)";
+                return cadena;
+            }
+            else
+            {
+                XmlDocument doc = new XmlDocument();
+                XmlElement raiz = doc.CreateElement("tablero");
+                doc.AppendChild(raiz);
+
+                XmlElement ficha = doc.CreateElement("ficha");
+                raiz.AppendChild(ficha);
+
+                XmlElement color = doc.CreateElement("color");
+                color.AppendChild(doc.CreateTextNode(colorR));
+                ficha.AppendChild(color);
+
+                XmlElement columna = doc.CreateElement("columna");
+                columna.AppendChild(doc.CreateTextNode(columnaR));
+                ficha.AppendChild(columna);
+
+                XmlElement fila = doc.CreateElement("fila");
+                fila.AppendChild(doc.CreateTextNode(filaR));
+                ficha.AppendChild(fila);
+                doc.Save(nombreArchivo);
+                cadena = "se ha guardado el archivo (no pero ya)";
+                return cadena;
+            }
+        }
+
+        private XmlNode crearFicha(string colorR, string filaR, string columnaR)
+        {
+            try
+            {
+                doc.Load("C:\\Users\\Daniel Chicas\\Desktop\\Jugador vs Maquina.xml");
+                XmlNode ficha = doc.CreateElement("ficha");
+
+                XmlElement color = doc.CreateElement("color");
+                color.InnerText = colorR;
+                ficha.AppendChild(color);
+
+                XmlElement columna = doc.CreateElement("columna");
+                columna.InnerText = columnaR;
+                ficha.AppendChild(columna);
+
+                XmlElement fila = doc.CreateElement("fila");
+                fila.InnerText = filaR;
+                ficha.AppendChild(fila);
+                return ficha;
+            }
+            catch (Exception ex)
+            {
+                XmlNode ficha = doc.CreateElement("");
+                return ficha;
+            }
+        }
+
+        private XmlNode turnoficha(string colorR)
+        {
+            doc.Load("C:\\Users\\Daniel Chicas\\Desktop\\Jugador vs Maquina.xml");
+            XmlNode ficha = doc.CreateElement("siguienteTiro");
+
+            XmlElement color = doc.CreateElement("color");
+            color.InnerText = colorR;
+            ficha.AppendChild(color);
+            return ficha;
+        }
+
+
     }
 }
