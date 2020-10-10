@@ -2140,10 +2140,73 @@
                         punteo();
                     }, 1000);
                 };
+                if (id == "E6" && contador == 4) {
+                    movimientosUsuario = movimientosUsuario + 1;
+                    document.getElementById("E5").disabled = true;
+                    document.getElementById("E5").style.backgroundColor = "black";
+                    deshabilitar("E6");
+                    document.getElementById("B6").disabled = true;
+                    document.getElementById("B6").style.border = "none";
+                    document.getElementById("C6").disabled = true;
+                    document.getElementById("C6").style.border = "none";
+                    document.getElementById("D6").disabled = true;
+                    document.getElementById("D6").style.border = "none";
+                    document.getElementById("E6").disabled = true;
+                    document.getElementById("E6").style.border = "none";
+                    document.getElementById("F6").disabled = true;
+                    document.getElementById("F6").style.border = "none";
+                    setTimeout(function () {
+                        document.getElementById("F7").style.backgroundColor = "white";
+                        document.getElementById("E6").style.backgroundColor = "white";
+                        document.getElementById("toca").value = "Negro";
+                        document.getElementById("E7").disabled = false;
+                        document.getElementById("E7").style.border = "black 1px solid";
+                        document.getElementById("D6").disabled = false;
+                        document.getElementById("D6").style.border = "black 1px solid";
+                        document.getElementById("C6").disabled = false;
+                        document.getElementById("C6").style.border = "black 1px solid";
+                        document.getElementById("B5").disabled = false;
+                        document.getElementById("B5").style.border = "black 1px solid";
+                        document.getElementById("B6").disabled = false;
+                        document.getElementById("B6").style.border = "black 1px solid";
+                        punteo();
+                    }, 1000);
+                };
+                if (id == "F6" && contador == 4) {
+                    document.getElementById("E5").disabled = true;
+                    document.getElementById("E5").style.backgroundColor = "black";
+                    deshabilitar("F6");
+                    document.getElementById("B6").disabled = true;
+                    document.getElementById("B6").style.border = "none";
+                    document.getElementById("C6").disabled = true;
+                    document.getElementById("C6").style.border = "none";
+                    document.getElementById("D6").disabled = true;
+                    document.getElementById("D6").style.border = "none";
+                    document.getElementById("E6").disabled = true;
+                    document.getElementById("E6").style.border = "none";
+                    document.getElementById("F6").disabled = true;
+                    document.getElementById("F6").style.border = "none";
+                    setTimeout(function () {
+                        document.getElementById("D2").style.backgroundColor = "white";
+                        document.getElementById("D3").style.backgroundColor = "white";
+                        document.getElementById("D4").style.backgroundColor = "white";
+                        document.getElementById("toca").value = "Negro";
+                        document.getElementById("C2").disabled = false;
+                        document.getElementById("C2").style.border = "black 1px solid";
+                        document.getElementById("C3").disabled = false;
+                        document.getElementById("C3").style.border = "black 1px solid";
+                        document.getElementById("C4").disabled = false;
+                        document.getElementById("C4").style.border = "black 1px solid";
+                        document.getElementById("B5").disabled = false;
+                        document.getElementById("B5").style.border = "black 1px solid";
+                        document.getElementById("C6").disabled = false;
+                        document.getElementById("C6").style.border = "black 1px solid";
+                        punteo();
+                    }, 1000);
+                };
                 punteo();
                 contador++;
             };
-
             function punteo() {
                 var posicionesConteo = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
                 var fichasNegras = [];
@@ -2502,68 +2565,6 @@
                              }
                      });
             });
-            @*$('#B4').click(function (e) {
-                 $.ajax(
-                     {
-                         type: 'POST',
-                         dataType: 'text',
-                         url: '@Url.Action("Conteo", "Individual")',
-                         data: {contador: contador},
-
-                         success:
-                             function (response) {
-                                 var cadena = response;
-                                 if (cadena == "black") {
-                                     movimientosUsuario = movimientosUsuario + 1;
-                                     document.getElementById("B4").disabled = true;
-                                     document.getElementById("B4").style.backgroundColor = "black";
-                                     document.getElementById("B5").style.backgroundColor = "black";
-                                     deshabilitar("B6");
-                                     document.getElementById("C6").disabled = true;
-                                     document.getElementById("C6").style.border = "none";
-                                     document.getElementById("D6").disabled = true;
-                                     document.getElementById("D6").style.border = "none";
-                                     document.getElementById("E6").disabled = true;
-                                     document.getElementById("E6").style.border = "none";
-                                     document.getElementById("F6").disabled = true;
-                                     document.getElementById("F6").style.border = "none";
-                                     punteoNegras = punteoNegras + 2;
-                                     document.getElementById("Pnegras").value = punteoNegras;
-                                     punteoBlancas = punteoBlancas - 1;
-                                     document.getElementById("Pblancas").value = punteoBlancas;
-                                     setTimeout(function () {
-                                         document.getElementById("A5").style.backgroundColor = "white";
-                                         document.getElementById("C5").style.backgroundColor = "white";
-                                         punteoBlancas = punteoBlancas + 2;
-                                         document.getElementById("Pblancas").value = punteoBlancas;
-                                         punteoNegras = punteoNegras - 1;
-                                         document.getElementById("Pnegras").value = punteoNegras;
-                                         document.getElementById("toca").value = "Negro";
-                                         document.getElementById("B5").disabled = true;
-                                         document.getElementById("B5").style.backgroundColor="white";
-                                         document.getElementById("C6").disabled = false;
-                                         document.getElementById("C6").style.border = "black 1px solid";
-                                         document.getElementById("D6").disabled = false;
-                                         document.getElementById("D6").style.border = "black 1px solid";
-                                         document.getElementById("E6").disabled = false;
-                                         document.getElementById("E6").style.border = "black 1px solid";
-                                         document.getElementById("F6").disabled = false;
-                                         document.getElementById("F6").style.border = "black 1px solid";
-                                         contador++;
-                                     }, 1000);
-                                 }
-                                 else {
-                                     document.getElementById("B6").style.backgroundColor = "white";
-                                     deshabilitar("B6");
-                                     movimientos("A", 2);
-                                 }
-                             },
-                         error:
-                             function (response) {
-                                 alert("Error: " + response);
-                             }
-                     });
-            });*@
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////
             $('#B5').click(function (e) {
                  $.ajax(
@@ -2620,66 +2621,6 @@
                              }
                      });
             });
-            @*$('#B6').click(function (e) {
-                 $.ajax(
-                     {
-                         type: 'POST',
-                         dataType: 'text',
-                         url: '@Url.Action("Conteo", "Individual")',
-                         data: {contador: contador},
-
-                         success:
-                             function (response) {
-                                 var cadena = response;
-                                 if (cadena == "black") {
-                                     movimientosUsuario = movimientosUsuario + 1;
-                                     document.getElementById("B6").style.backgroundColor = "black";
-                                     document.getElementById("C5").style.backgroundColor = "black";
-                                     deshabilitar("B6");
-                                     document.getElementById("C6").disabled = true;
-                                     document.getElementById("C6").style.border = "none";
-                                     document.getElementById("D6").disabled = true;
-                                     document.getElementById("D6").style.border = "none";
-                                     document.getElementById("E6").disabled = true;
-                                     document.getElementById("E6").style.border = "none";
-                                     document.getElementById("F6").disabled = true;
-                                     document.getElementById("F6").style.border = "none";
-                                     punteoNegras = punteoNegras + 2;
-                                     document.getElementById("Pnegras").value = punteoNegras;
-                                     punteoBlancas = punteoBlancas - 1;
-                                     document.getElementById("Pblancas").value = punteoBlancas;
-                                     setTimeout(function () {
-                                         document.getElementById("B5").style.backgroundColor = "white";
-                                         document.getElementById("C5").style.backgroundColor = "white";
-                                         punteoBlancas = punteoBlancas +2;
-                                         document.getElementById("Pblancas").value = punteoBlancas;
-                                         punteoNegras = punteoNegras -1;
-                                         document.getElementById("Pnegras").value = punteoNegras;
-                                         document.getElementById("toca").value = "Negro";
-                                         document.getElementById("B4").disabled = false;
-                                         document.getElementById("B4").style.border = "black 1px solid";
-                                         document.getElementById("C6").disabled = false;
-                                         document.getElementById("C6").style.border = "black 1px solid";
-                                         document.getElementById("D6").disabled = false;
-                                         document.getElementById("D6").style.border = "black 1px solid";
-                                         document.getElementById("E6").disabled = false;
-                                         document.getElementById("E6").style.border = "black 1px solid";
-                                         document.getElementById("F6").disabled = false;
-                                         document.getElementById("F6").style.border = "black 1px solid";
-                                         contador++;
-                                     }, 1000);
-                                 }
-                                 else {
-                                     document.getElementById("B6").style.backgroundColor = "white";
-                                     deshabilitar("B6");
-                                 }
-                             },
-                         error:
-                             function (response) {
-                                 alert("Error: " + response);
-                             }
-                     });
-            });*@
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////
             $('#B7').click(function (e) {
                  $.ajax(
@@ -3044,62 +2985,6 @@
                              }
                      });
             });
-            @*$('#D3').click(function (e) {
-                 $.ajax(
-                     {
-                         type: 'POST',
-                         dataType: 'text',
-                         url: '@Url.Action("Conteo", "Individual")',
-                         data: {contador: contador},
-
-                         success:
-                             function (response) {
-                                 var cadena = response;
-                                 if (cadena == "black") {
-                                     movimientosUsuario = movimientosUsuario + 1;
-                                     document.getElementById("D3").style.backgroundColor = "black";
-                                     document.getElementById("D4").style.backgroundColor = "black";
-                                     punteoNegras = punteoNegras + 2;
-                                     document.getElementById("Pnegras").value = punteoNegras;
-                                     deshabilitar("D3");
-                                     document.getElementById("C4").disabled = true;
-                                     document.getElementById("C4").style.border = "none";
-                                     document.getElementById("E6").disabled = true;
-                                     document.getElementById("E6").style.border = "none";
-                                     document.getElementById("F5").disabled = true;
-                                     document.getElementById("F5").style.border = "none";
-                                     setTimeout(function () {
-                                         document.getElementById("D5").style.backgroundColor = "white";
-                                         document.getElementById("C5").style.backgroundColor = "white";
-                                         punteoNegras = punteoNegras - 1;
-                                         document.getElementById("Pnegras").value = punteoNegras;
-                                         punteoBlancas = punteoBlancas + 1
-                                         document.getElementById("Pblancas").value = punteoBlancas;
-                                         document.getElementById("toca").value = "Negro";
-                                         document.getElementById("B6").disabled = false;
-                                         document.getElementById("B6").style.border = "black 1px solid";
-                                         document.getElementById("C6").disabled = false;
-                                         document.getElementById("C6").style.border = "black 1px solid";
-                                         document.getElementById("D6").disabled = false;
-                                         document.getElementById("D6").style.border = "black 1px solid";
-                                         document.getElementById("E6").disabled = false;
-                                         document.getElementById("E6").style.border = "black 1px solid";
-                                         document.getElementById("F6").disabled = false;
-                                         document.getElementById("F6").style.border = "black 1px solid";
-                                         contador++;
-                                     }, 1000);
-                                 }
-                                 else {
-                                     document.getElementById("D3").style.backgroundColor = "white";
-                                     deshabilitar("D3");
-                                 }
-                             },
-                         error:
-                             function (response) {
-                                 alert("Error: " + response);
-                             }
-                     });
-            });*@
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////
             $('#D4').click(function (e) {
                 $.ajax(
@@ -4137,8 +4022,6 @@
                              }
                      });
             });
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
         </script>
     }
 </body>
