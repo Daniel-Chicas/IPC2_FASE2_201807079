@@ -1085,7 +1085,7 @@
             <td bgcolor="#6ADB6D"><input type="button" id="A4" value="   " class="botones" /></td>
             <td><font color="#6ADB6D"><input type="button" id="B4" value="   " class="botones" /></font></td>
             <td bgcolor="#6ADB6D"><input type="button" id="C4" value="   " class="botones" /></td>
-            <td><font color="#6ADB6D"><input type="button" id="D4" value="   " class="botones" /></font></td>
+            <td><font color="#6ADB6D"><input type="button" id="D4" value="   " class="botones" disabled="disabled"/></font></td>
             <td bgcolor="#6ADB6D"><input type="button" id="E4" value="   " class="botones" /></td>
             <td><font color="#6ADB6D"><input type="button" id="F4" value="   " class="botones" /></font></td>
             <td bgcolor="#6ADB6D"><input type="button" id="G4" value="   " class="botones" /></td>
@@ -1096,7 +1096,7 @@
             <td bgcolor="#6ADB6D"><input type="button" id="B5" value="   " class="botones" /></td>
             <td><font color="#6ADB6D"><input type="button" id="C5" value="   " class="botones" /></font></td>
             <td bgcolor="#6ADB6D"><input type="button" id="D5" value="   " class="botones" /></td>
-            <td><font color="#6ADB6D"><input type="button" id="E5" value="   " class="botones" /></font></td>
+            <td><font color="#6ADB6D"><input type="button" id="E5" value="   " class="botones" disabled="disabled" /></font></td>
             <td bgcolor="#6ADB6D"><input type="button" id="F5" value="   " class="botones" /></td>
             <td><font color="#6ADB6D"><input type="button" id="G5" value="   " class="botones" /></font></td>
             <td bgcolor="#6ADB6D"><input type="button" id="H5" value="   " class="botones" /></td>
@@ -1142,7 +1142,7 @@
     <input id="Guardar" type="submit" value="Guardar">
     <input id="Repetir" type="submit" value=" Volver a Jugar" onclick="location.href='@Url.Action("Contra", "Contra")'">
     <label id="jugador1">Jugador 1:</label>
-    <input id="j1" type="text" />
+    <input id="j1" type="text" disabled="disabled"/>
     <select id="color">
         <option value="" disabled selected>Color de ficha</option>
         <option value="1">Negro</option>
@@ -1161,6 +1161,30 @@
     <p id="Toca">TURNO</p>
 
     @section scripts {
+        <script>
+            //////////////////////////////
+            document.getElementById("j2").value = "prueba2";
+            //////////////////////////////
+            var posiciones = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
+            posiciones.forEach(function (i) {
+                document.getElementById(i).disabled = true;
+            });
+            $.ajax(
+                     {
+                         type: 'POST',
+                         dataType: 'text',
+                         url: '@Url.Action("Usuario", "Contra")',
+                         success:
+                             function (response) {
+                                 var cadena = response;
+                                 document.getElementById("j1").value = "prueba1"; //regresar a cadena
+                             },
+                         error:
+                             function (response) {
+                                 alert("Error: " + response);
+                             }
+                     });
+        </script>
         <script>
             var posiciones = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
             var fichasGuardar = [];
@@ -1247,10 +1271,6 @@
                 }
         </script>
         <script type="text/javascript">
-            var posiciones = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
-            posiciones.forEach(function (i) {
-                document.getElementById(i).disabled = true;
-            });
             var contador = 0;
             var jug1 = "";
             var jug2 = "";
@@ -1294,9 +1314,11 @@
                                     }
                                     else {
                                         if (cadena[0] == "blanco") {
+                                            movimientos(cadena[1]);//
                                             color = "white";
                                         }
                                         else {
+                                            movimientos(cadena[1]);//
                                             color = "black";
                                         }
                                         document.getElementById(cadena[1]).style.backgroundColor = color;
@@ -1313,11 +1335,11 @@
         <script>
             function Empezar(s) {
                 if (document.getElementById("Mostrar").style.display == "none") {
+                    document.getElementById("A1").disabled = true;
                     var posiciones = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
                     posiciones.forEach(function (i) {
                         document.getElementById(i).disabled = false;
                     });
-
                     jug1 = document.getElementById("j1").value;
                     jug2 = document.getElementById("j2").value;
                     color = document.getElementById("color").value;
@@ -1362,6 +1384,10 @@
                     }
                 }
                 else {
+                    var posiciones = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
+                    posiciones.forEach(function (i) {
+                        document.getElementById(i).disabled = true;
+                    });
                     jug1 = document.getElementById("j1").value;
                     jug2 = document.getElementById("j2").value;
                     color = document.getElementById("color").value;
@@ -1426,6 +1452,987 @@
                     }
                 }
 
+            };
+            function movimientos(x, y) {
+                var id = (x + y);
+                horizontal(x+y);
+                horizontal2(x+y);
+                vertical1(x+y);
+                vertical2(x+y);
+                diagonal1(x+y);
+                diagonal2(x+y);
+                diagonalI1(x+y);
+                diagonalI2(x+y);
+                punteo();
+
+                var posicionesH = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
+                var posicionesHRe = ["H1", "G1", "F1", "E1", "D1", "C1", "B1", "A1", "H2", "G2", "F2", "E2", "D2", "C2", "B2", "A2", "H3", "G3", "F3", "E3", "D3", "C3", "B3", "A3", "H4", "G4", "F4", "E4", "D4", "C4", "B4", "A4", "H5", "G5", "F5", "E5", "D5", "C5", "B5", "A5", "H6", "G6", "F6", "E6", "D6", "C6", "B6", "A6", "H7", "G7", "F7", "E7", "D7", "C7", "B7", "A7", "H8", "G8", "F8", "E8", "D8", "C8", "B8", "A8"];
+                var posicionesV = ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8"];
+                var posicionesVRe = ["A8", "A7", "A6", "A5", "A4", "A3", "A2", "A1", "B8", "B7", "B6", "B5", "B4", "B3", "B2", "B1", "C8", "C7", "C6", "C5", "C4", "C3", "C2", "C1", "D8", "D7", "D6", "D5", "D4", "D3", "D2", "D1", "E8", "E7", "E6", "E5", "E4", "E3", "E2", "E1", "F8", "F7", "F6", "F5", "F4", "F3", "F2", "F1", "G8", "G7", "G6", "G5", "G4", "G3", "G2", "G1", "H8", "H7", "H6", "H5", "H4", "H3", "H2", "H1"];
+                var posicionesIAb = ["A8", "A7", "B8", "A6", "B7", "C8", "A5", "B6", "C7", "D8", "A4", "B5", "C6", "D7", "E8", "A3", "B4", "C5", "D6", "E7", "F8", "A2", "B3", "C4", "D5", "E6", "F7", "G8", "A1", "B2", "C3", "D4", "E5", "F6", "G7", "H8", "B1", "C2", "D3", "E4", "F5", "G6", "H7", "C1", "D2", "E3", "F4", "G5", "H6", "D1", "E2", "F3", "G4", "H5", "E1", "F2", "G3", "H4", "F1", "G2", "H3", "G1", "H2", "H1"];
+                var posicionesIAbRe = ["A8", "B8", "A7", "C8", "B7", "A6", "D8", "C7", "B6", "A5", "E8", "D7", "C6", "B5", "A4", "F8", "E7", "D6", "C5", "B4", "A3", "G8", "F7", "E6", "D5", "C4", "B3", "A2", "H8", "G7", "F6", "E5", "D4", "C3", "B2", "A1", "H7", "G6", "F5", "E4", "D3", "C2", "B1", "H6", "G5", "F4", "E3", "D2", "C1", "H5", "G4", "F3", "E2", "D1", "H4", "G3", "F2", "E1", "H3", "G2", "F1", "H2", "G1", "H1"];
+                var posicionesD1 = ["A1", "B1", "A2", "C1", "B2", "A3", "D1", "C2", "B3", "A4", "E1", "D2", "C3", "B4", "A5", "F1", "E2", "D3", "C4", "B5", "A6", "G1", "F2", "E3", "D4", "C5", "B6", "A7", "H1", "G2", "F3", "E4", "D5", "C6", "B7", "A8", "H2", "G3", "F4", "E5", "D6", "C7", "B8", "H3", "G4", "F5", "E6", "D7", "C8", "H4", "G5", "F6", "E7", "D8", "H5", "G6", "F7", "E8", "H6", "G7", "F8", "H7", "G8", "H8"];
+                var posicionesD2 = ["A1", "A2", "B1", "A3", "B2", "C1", "A4", "B3", "C2", "D1", "A5", "B4", "C3", "D2", "E1", "A6", "B5", "C4", "D3", "E2", "F1", "A7", "B6", "C5", "D4", "E3", "F2", "G1", "A8", "B7", "C6", "D5", "E4", "F3", "G2", "H1", "B8", "C7", "D6", "E5", "F4", "G3", "H2", "C8", "D7", "E6", "F5", "G4", "H3", "D8", "E7", "F6", "G5", "H4", "E8", "F7", "G6", "H5", "F8", "G7", "H6", "G8", "H7", "H8"];
+
+                posicionesH.forEach(function (i) {
+                    document.getElementById(i).style.border = "none";
+                    document.getElementById(i).disabled = true;
+                });
+                var colorFicha1 = document.getElementById(id).style.backgroundColor;
+                if (colorFicha1 == "black") {
+                    posicionesH.forEach(function (i) {
+                        color = document.getElementById(i).style.backgroundColor;
+                        if (color == "white") {
+                            var posicionActual = posicionesH.indexOf(i);
+                            var posicionSiguiente = posicionActual + 1;
+                            var colorSiguiente = document.getElementById(posicionesH[posicionSiguiente]).style.backgroundColor;
+                            while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                colorSiguiente = document.getElementById(posicionesH[posicionSiguiente]).style.backgroundColor;
+                                if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                                if (colorSiguiente == "white") {
+                                    break;
+                                }
+
+                                if (colorSiguiente == "") {
+                                    document.getElementById(posicionesH[posicionSiguiente]).style.border = "white 1px solid";
+                                    document.getElementById(posicionesH[posicionSiguiente]).disabled = false;
+                                    break;
+                                }
+                                posicionSiguiente++;
+                                if (posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                        }
+                    });
+                    posicionesHRe.forEach(function (i) {
+                        color = document.getElementById(i).style.backgroundColor;
+                        if (color == "white") {
+                            var posicionActual = posicionesHRe.indexOf(i);
+                            var posicionSiguiente = posicionActual + 1;
+                            var colorSiguiente = document.getElementById(posicionesHRe[posicionSiguiente]).style.backgroundColor;
+                            while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                colorSiguiente = document.getElementById(posicionesHRe[posicionSiguiente]).style.backgroundColor;
+                                if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                                if (colorSiguiente == "white") {
+                                    break;
+                                }
+
+                                if (colorSiguiente == "") {
+                                    document.getElementById(posicionesHRe[posicionSiguiente]).disabled = false;
+                                    document.getElementById(posicionesHRe[posicionSiguiente]).style.border = "white 1px solid";
+                                    break;
+                                }
+                                posicionSiguiente++;
+                                if (posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                        }
+                    });
+                    posicionesV.forEach(function (i) {
+                        color = document.getElementById(i).style.backgroundColor;
+                        if (color == "white") {
+                            var posicionActual = posicionesV.indexOf(i);
+                            var posicionSiguiente = posicionActual + 1;
+                            var colorSiguiente = document.getElementById(posicionesV[posicionSiguiente]).style.backgroundColor;
+                            while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                colorSiguiente = document.getElementById(posicionesV[posicionSiguiente]).style.backgroundColor;
+                                if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                                if (colorSiguiente == "white") {
+                                    break;
+                                }
+
+                                if (colorSiguiente == "") {
+                                    document.getElementById(posicionesV[posicionSiguiente]).disabled = false;
+                                    document.getElementById(posicionesV[posicionSiguiente]).style.border = "white 1px solid";
+                                    break;
+                                }
+                                posicionSiguiente++;
+                                if (posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                        }
+                    });
+                    posicionesVRe.forEach(function (i) {
+                        color = document.getElementById(i).style.backgroundColor;
+                        if (color == "white") {
+                            var posicionActual = posicionesVRe.indexOf(i);
+                            var posicionSiguiente = posicionActual + 1;
+                            var colorSiguiente = document.getElementById(posicionesVRe[posicionSiguiente]).style.backgroundColor;
+                            while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                colorSiguiente = document.getElementById(posicionesVRe[posicionSiguiente]).style.backgroundColor;
+                                if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                                if (colorSiguiente == "white") {
+                                    break;
+                                }
+
+                                if (colorSiguiente == "") {
+                                    document.getElementById(posicionesVRe[posicionSiguiente]).disabled = false;
+                                    document.getElementById(posicionesVRe[posicionSiguiente]).style.border = "white 1px solid";
+                                    break;
+                                }
+                                posicionSiguiente++;
+                                if (posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                        }
+                    });
+                    posicionesIAb.forEach(function (i) {
+                        color = document.getElementById(i).style.backgroundColor;
+                        if (color == "white") {
+                            var posicionActual = posicionesIAb.indexOf(i);
+                            var posicionSiguiente = posicionActual + 1;
+                            var colorSiguiente = document.getElementById(posicionesIAb[posicionSiguiente]).style.backgroundColor;
+                            while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                colorSiguiente = document.getElementById(posicionesIAb[posicionSiguiente]).style.backgroundColor;
+                                if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                                if (colorSiguiente == "white") {
+                                    break;
+                                }
+
+                                if (colorSiguiente == "") {
+                                    document.getElementById(posicionesIAb[posicionSiguiente]).disabled = false;
+                                    document.getElementById(posicionesIAb[posicionSiguiente]).style.border = "white 1px solid";
+                                    break;
+                                }
+                                posicionSiguiente++;
+                                if (posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                        }
+                    });
+                    posicionesIAbRe.forEach(function (i) {
+                        color = document.getElementById(i).style.backgroundColor;
+                        if (color == "white") {
+                            var posicionActual = posicionesIAbRe.indexOf(i);
+                            var posicionSiguiente = posicionActual + 1;
+                            var colorSiguiente = document.getElementById(posicionesIAbRe[posicionSiguiente]).style.backgroundColor;
+                            while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                colorSiguiente = document.getElementById(posicionesIAbRe[posicionSiguiente]).style.backgroundColor;
+                                if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                                if (colorSiguiente == "white") {
+                                    break;
+                                }
+
+                                if (colorSiguiente == "") {
+                                    document.getElementById(posicionesIAbRe[posicionSiguiente]).disabled = false;
+                                    document.getElementById(posicionesIAbRe[posicionSiguiente]).style.border = "white 1px solid";
+                                    break;
+                                }
+                                posicionSiguiente++;
+                                if (posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                        }
+                    });
+                    posicionesD1.forEach(function (i) {
+                        color = document.getElementById(i).style.backgroundColor;
+                        if (color == "white") {
+                            var posicionActual = posicionesD1.indexOf(i);
+                            var posicionSiguiente = posicionActual + 1;
+                            var colorSiguiente = document.getElementById(posicionesD1[posicionSiguiente]).style.backgroundColor;
+                            while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                colorSiguiente = document.getElementById(posicionesD1[posicionSiguiente]).style.backgroundColor;
+                                if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                                if (colorSiguiente == "white") {
+                                    break;
+                                }
+
+                                if (colorSiguiente == "") {
+                                    document.getElementById(posicionesD1[posicionSiguiente]).disabled = false;
+                                    document.getElementById(posicionesD1[posicionSiguiente]).style.border = "white 1px solid";
+                                    break;
+                                }
+                                posicionSiguiente++;
+                                if (posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                        }
+                    });
+                    posicionesD2.forEach(function (i) {
+                        color = document.getElementById(i).style.backgroundColor;
+                        if (color == "white") {
+                            var posicionActual = posicionesD2.indexOf(i);
+                            var posicionSiguiente = posicionActual + 1;
+                            var colorSiguiente = document.getElementById(posicionesD2[posicionSiguiente]).style.backgroundColor;
+                            while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                colorSiguiente = document.getElementById(posicionesD2[posicionSiguiente]).style.backgroundColor;
+                                if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                                if (colorSiguiente == "white") {
+                                    break;
+                                }
+
+                                if (colorSiguiente == "") {
+                                    document.getElementById(posicionesD2[posicionSiguiente]).disabled = false;
+                                    document.getElementById(posicionesD2[posicionSiguiente]).style.border = "white 1px solid";
+                                    break;
+                                }
+                                posicionSiguiente++;
+                                if (posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                        }
+                    });
+                }
+                else {
+                    posicionesH.forEach(function (i) {
+                        color = document.getElementById(i).style.backgroundColor;
+                        if (color == "black") {
+                            var posicionActual = posicionesH.indexOf(i);
+                            var posicionSiguiente = posicionActual + 1;
+                            var colorSiguiente = document.getElementById(posicionesH[posicionSiguiente]).style.backgroundColor;
+                            while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                colorSiguiente = document.getElementById(posicionesH[posicionSiguiente]).style.backgroundColor;
+                                if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                                if (colorSiguiente == "black") {
+                                    break;
+                                }
+
+                                if (colorSiguiente == "") {
+
+                                    document.getElementById(posicionesH[posicionSiguiente]).disabled = false;
+                                    document.getElementById(posicionesH[posicionSiguiente]).style.border = "black 1px solid";
+                                    break;
+                                }
+                                posicionSiguiente++;
+                                if (posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                        }
+                    });
+                    posicionesHRe.forEach(function (i) {
+                        color = document.getElementById(i).style.backgroundColor;
+                        if (color == "black") {
+                            var posicionActual = posicionesHRe.indexOf(i);
+                            var posicionSiguiente = posicionActual + 1;
+                            var colorSiguiente = document.getElementById(posicionesHRe[posicionSiguiente]).style.backgroundColor;
+                            while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                colorSiguiente = document.getElementById(posicionesHRe[posicionSiguiente]).style.backgroundColor;
+                                if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                                if (colorSiguiente == "black") {
+                                    break;
+                                }
+
+                                if (colorSiguiente == "") {
+                                    document.getElementById(posicionesHRe[posicionSiguiente]).disabled = false;
+                                    document.getElementById(posicionesHRe[posicionSiguiente]).style.border = "black 1px solid";
+                                    break;
+                                }
+                                posicionSiguiente++;
+                                if (posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                        }
+                    });
+                    posicionesV.forEach(function (i) {
+                        color = document.getElementById(i).style.backgroundColor;
+                        if (color == "black") {
+                            var posicionActual = posicionesV.indexOf(i);
+                            var posicionSiguiente = posicionActual + 1;
+                            var colorSiguiente = document.getElementById(posicionesV[posicionSiguiente]).style.backgroundColor;
+                            while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                colorSiguiente = document.getElementById(posicionesV[posicionSiguiente]).style.backgroundColor;
+                                if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                                if (colorSiguiente == "black") {
+                                    break;
+                                }
+
+                                if (colorSiguiente == "") {
+                                    document.getElementById(posicionesV[posicionSiguiente]).disabled = false;
+                                    document.getElementById(posicionesV[posicionSiguiente]).style.border = "black 1px solid";
+                                    break;
+                                }
+                                posicionSiguiente++;
+                                if (posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                        }
+                    });
+                    posicionesVRe.forEach(function (i) {
+                        color = document.getElementById(i).style.backgroundColor;
+                        if (color == "black") {
+                            var posicionActual = posicionesVRe.indexOf(i);
+                            var posicionSiguiente = posicionActual + 1;
+                            var colorSiguiente = document.getElementById(posicionesVRe[posicionSiguiente]).style.backgroundColor;
+                            while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                colorSiguiente = document.getElementById(posicionesVRe[posicionSiguiente]).style.backgroundColor;
+                                if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                                if (colorSiguiente == "black") {
+                                    break;
+                                }
+
+                                if (colorSiguiente == "") {
+
+                                    document.getElementById(posicionesVRe[posicionSiguiente]).disabled = false;
+                                    document.getElementById(posicionesVRe[posicionSiguiente]).style.border = "black 1px solid";
+                                    break;
+                                }
+                                posicionSiguiente++;
+                                if (posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                        }
+                    });
+                    posicionesIAb.forEach(function (i) {
+                        color = document.getElementById(i).style.backgroundColor;
+                        if (color == "black") {
+                            var posicionActual = posicionesIAb.indexOf(i);
+                            var posicionSiguiente = posicionActual + 1;
+                            var colorSiguiente = document.getElementById(posicionesIAb[posicionSiguiente]).style.backgroundColor;
+                            while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                colorSiguiente = document.getElementById(posicionesIAb[posicionSiguiente]).style.backgroundColor;
+                                if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                                if (colorSiguiente == "black") {
+                                    break;
+                                }
+
+                                if (colorSiguiente == "") {
+                                    document.getElementById(posicionesIAb[posicionSiguiente]).disabled = false;
+                                    document.getElementById(posicionesIAb[posicionSiguiente]).style.border = "black 1px solid";
+                                    break;
+                                }
+                                posicionSiguiente++;
+                                if (posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                        }
+                    });
+                    posicionesIAbRe.forEach(function (i) {
+                        color = document.getElementById(i).style.backgroundColor;
+                        if (color == "black") {
+                            var posicionActual = posicionesIAbRe.indexOf(i);
+                            var posicionSiguiente = posicionActual + 1;
+                            var colorSiguiente = document.getElementById(posicionesIAbRe[posicionSiguiente]).style.backgroundColor;
+                            while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                colorSiguiente = document.getElementById(posicionesIAbRe[posicionSiguiente]).style.backgroundColor;
+                                if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                                if (colorSiguiente == "black") {
+                                    break;
+                                }
+
+                                if (colorSiguiente == "") {
+                                    document.getElementById(posicionesIAbRe[posicionSiguiente]).disabled = false;
+                                    document.getElementById(posicionesIAbRe[posicionSiguiente]).style.border = "black 1px solid";
+                                    break;
+                                }
+                                posicionSiguiente++;
+                                if (posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                        }
+                    });
+                    posicionesD1.forEach(function (i) {
+                        color = document.getElementById(i).style.backgroundColor;
+                        if (color == "black") {
+                            var posicionActual = posicionesD1.indexOf(i);
+                            var posicionSiguiente = posicionActual + 1;
+                            var colorSiguiente = document.getElementById(posicionesD1[posicionSiguiente]).style.backgroundColor;
+                            while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                colorSiguiente = document.getElementById(posicionesD1[posicionSiguiente]).style.backgroundColor;
+                                if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                                if (colorSiguiente == "black") {
+                                    break;
+                                }
+
+                                if (colorSiguiente == "") {
+                                    document.getElementById(posicionesD1[posicionSiguiente]).disabled = false;
+                                    document.getElementById(posicionesD1[posicionSiguiente]).style.border = "black 1px solid";
+                                    break;
+                                }
+                                posicionSiguiente++;
+                                if (posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                        }
+                    });
+                    posicionesD2.forEach(function (i) {
+                        color = document.getElementById(i).style.backgroundColor;
+                        if (color == "black") {
+                            var posicionActual = posicionesD2.indexOf(i);
+                            var posicionSiguiente = posicionActual + 1;
+                            var colorSiguiente = document.getElementById(posicionesD2[posicionSiguiente]).style.backgroundColor;
+                            while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                colorSiguiente = document.getElementById(posicionesD2[posicionSiguiente]).style.backgroundColor;
+                                if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                                if (colorSiguiente == "black") {
+                                    break;
+                                }
+
+                                if (colorSiguiente == "") {
+                                    document.getElementById(posicionesD2[posicionSiguiente]).disabled = false;
+                                    document.getElementById(posicionesD2[posicionSiguiente]).style.border = "black 1px solid";
+                                    break;
+                                }
+                                posicionSiguiente++;
+                                if (posicionSiguiente == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                        }
+                    });
+                }
+            }
+
+            function final(noBlancas, noNegras) {
+                var posiciones = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
+                var termino = true;
+                posiciones.forEach(function (e) {
+                    if (document.getElementById(e).disabled == false) {
+                        termino = false;
+                    }
+                });
+                if (termino == true) {
+                    alert("TENEMOS A UN GANADOR");
+                }
+            }
+
+            function horizontal(id) {
+                var posicionesH = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
+                var conteoPosicion = 0;
+                posicionesH.forEach(function (i) {
+                        conteoPosicion = posicionesH.indexOf(i);
+                        var colorFicha = "";
+                        var siguienteFicha = 0;
+                        var colorFichaSiguiente = "";
+                        var salida = true;
+                        if (i == id) {
+                            colorFicha = document.getElementById(i).style.backgroundColor;
+                            
+                            siguienteFicha = conteoPosicion + 1;
+                           
+                            if (siguienteFicha == 64) siguienteFicha = 63;
+                            
+                            colorFichaSiguiente = document.getElementById(posicionesH[siguienteFicha]).style.backgroundColor;
+                            if (colorFicha == "black" || colorFicha == "white") {
+                                while (colorFichaSiguiente != colorFicha && siguienteFicha<64) {
+
+                                    colorFichaSiguiente = document.getElementById(posicionesH[siguienteFicha]).style.backgroundColor;
+                                    if (siguienteFicha == 8 || siguienteFicha == 16 || siguienteFicha == 24 || siguienteFicha == 32 || siguienteFicha == 40 || siguienteFicha == 48 || siguienteFicha == 56 || siguienteFicha == 64) {
+                                        salida = false;
+                                        break;
+                                    }
+
+                                    if (colorFichaSiguiente == "") {
+                                        salida = false;
+                                        break;
+                                    }
+
+                                    if (colorFichaSiguiente == colorFicha) {
+                                        salida = true;
+                                        break;
+                                    }
+                                    siguienteFicha++;
+                                    if (siguienteFicha==64) {
+                                        salida = false;
+                                        break;
+                                    }
+                                };
+                                if (salida == true) {
+
+                                    siguienteFicha = conteoPosicion + 1;
+                                    if (siguienteFicha == 64) siguienteFicha = 63;
+                                    colorFichaSiguiente = document.getElementById(posicionesH[siguienteFicha]).style.backgroundColor;
+                                    while (colorFichaSiguiente != colorFicha && siguienteFicha<64) {
+                                        colorFichaSiguiente = document.getElementById(posicionesH[siguienteFicha]).style.backgroundColor;
+                                        document.getElementById(posicionesH[siguienteFicha]).style.backgroundColor = colorFicha;
+                                        siguienteFicha++;
+                                       
+                                    }
+
+                                }
+                            }
+                        }
+                    conteoPosicion++;
+                });
+                }
+
+            function horizontal2(id) {
+                    var posicionesHRe = ["H1", "G1", "F1", "E1", "D1", "C1", "B1", "A1", "H2", "G2", "F2", "E2", "D2", "C2", "B2", "A2", "H3", "G3", "F3", "E3", "D3", "C3", "B3", "A3", "H4", "G4", "F4", "E4", "D4", "C4", "B4", "A4", "H5", "G5", "F5", "E5", "D5", "C5", "B5", "A5", "H6", "G6", "F6", "E6", "D6", "C6", "B6", "A6", "H7", "G7", "F7", "E7", "D7", "C7", "B7", "A7", "H8", "G8", "F8", "E8", "D8", "C8", "B8", "A8"];
+                    var conteoPosicion = 0;
+                    posicionesHRe.forEach(function (i) {
+                    conteoPosicion = posicionesHRe.indexOf(i);
+                    var colorFicha = "";
+                    var siguienteFicha = 0;
+                    var colorFichaSiguiente = "";
+                    var salida = true;
+                    if (i == id) {
+                        colorFicha = document.getElementById(i).style.backgroundColor;
+                        siguienteFicha = conteoPosicion + 1;
+                        if (siguienteFicha == 64) siguienteFicha = 63;
+                        colorFichaSiguiente = document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor;
+                        if (colorFicha == "black" || colorFicha == "white") {
+                            while (colorFichaSiguiente != colorFicha && siguienteFicha < 64) {
+
+                                colorFichaSiguiente = document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor;
+                                if (siguienteFicha == 8 || siguienteFicha == 16 || siguienteFicha == 24 || siguienteFicha == 32 || siguienteFicha == 40 || siguienteFicha == 48 || siguienteFicha == 56 || siguienteFicha == 64) {
+                                    salida = false;
+                                    break;
+                                }
+
+                                if (colorFichaSiguiente == "") {
+                                    salida = false;
+                                    break;
+                                }
+
+                                if (colorFichaSiguiente == colorFicha) {
+                                    salida = true;
+                                    break;
+                                }
+                                siguienteFicha++;
+                                if (siguienteFicha == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                            if (salida == true) {
+                                siguienteFicha = conteoPosicion + 1;
+                                if (siguienteFicha == 64) siguienteFicha = 63;
+                                colorFichaSiguiente = document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor;
+                                while (colorFichaSiguiente != colorFicha && siguienteFicha < 64) {
+                                    colorFichaSiguiente = document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor;
+                                    document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor = colorFicha;
+                                    siguienteFicha++;
+
+                                }
+
+                            }
+                        }
+                    }
+                    conteoPosicion++;
+                });
+                }
+            
+            function vertical1(id) {
+                var posicionesV = ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8"];
+                var conteoPosicion = 0;
+                posicionesV.forEach(function (i) {
+                    conteoPosicion = posicionesV.indexOf(i);
+                    var colorFicha = "";
+                    var siguienteFicha = 0;
+                    var colorFichaSiguiente = "";
+                    var salida = true;
+                    if (i == id) {
+                        colorFicha = document.getElementById(i).style.backgroundColor;
+                        siguienteFicha = conteoPosicion + 1;
+                        if (siguienteFicha == 64) siguienteFicha = 63;
+                        colorFichaSiguiente = document.getElementById(posicionesV[siguienteFicha]).style.backgroundColor;
+                        if (colorFicha == "black" || colorFicha == "white") {
+                            while (colorFichaSiguiente != colorFicha && siguienteFicha < 64) {
+
+                                colorFichaSiguiente = document.getElementById(posicionesV[siguienteFicha]).style.backgroundColor;
+                                if (siguienteFicha == 8 || siguienteFicha == 16 || siguienteFicha == 24 || siguienteFicha == 32 || siguienteFicha == 40 || siguienteFicha == 48 || siguienteFicha == 56 || siguienteFicha == 64) {
+                                    salida = false;
+                                    break;
+                                }
+
+                                if (colorFichaSiguiente == "") {
+                                    salida = false;
+                                    break;
+                                }
+
+
+                                if (colorFichaSiguiente == colorFicha) {
+                                    salida = true;
+                                    break;
+                                }
+                                siguienteFicha++;
+                                if (siguienteFicha == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                            if (salida == true) {
+                                siguienteFicha = conteoPosicion + 1;
+                                if (siguienteFicha == 64) siguienteFicha = 63;
+                                colorFichaSiguiente = document.getElementById(posicionesV[siguienteFicha]).style.backgroundColor;
+                                while (colorFichaSiguiente != colorFicha && siguienteFicha < 64) {
+                                    colorFichaSiguiente = document.getElementById(posicionesV[siguienteFicha]).style.backgroundColor;
+                                    document.getElementById(posicionesV[siguienteFicha]).style.backgroundColor = colorFicha;
+                                    siguienteFicha++;
+
+                                }
+                            }
+                        }
+                    }
+                    conteoPosicion++;
+                });
+            }
+
+            function vertical2(id) {
+                var posicionesVRe = ["A8", "A7", "A6", "A5", "A4", "A3", "A2", "A1", "B8", "B7", "B6", "B5", "B4", "B3", "B2", "B1", "C8", "C7", "C6", "C5", "C4", "C3", "C2", "C1", "D8", "D7", "D6", "D5", "D4", "D3", "D2", "D1", "E8", "E7", "E6", "E5", "E4", "E3", "E2", "E1", "F8", "F7", "F6", "F5", "F4", "F3", "F2", "F1", "G8", "G7", "G6", "G5", "G4", "G3", "G2", "G1", "H8", "H7", "H6", "H5", "H4", "H3", "H2", "H1"];
+                var conteoPosicion = 0;
+                posicionesVRe.forEach(function (i) {
+                    conteoPosicion = posicionesVRe.indexOf(i);
+                    var colorFicha = "";
+                    var siguienteFicha = 0;
+                    var colorFichaSiguiente = "";
+                    var salida = true;
+                    if (i == id) {
+                        colorFicha = document.getElementById(i).style.backgroundColor;
+                        siguienteFicha = conteoPosicion + 1;
+                        if (siguienteFicha == 64) siguienteFicha = 63;
+                        colorFichaSiguiente = document.getElementById(posicionesVRe[siguienteFicha]).style.backgroundColor;
+                        if (colorFicha == "black" || colorFicha == "white") {
+                            while (colorFichaSiguiente != colorFicha && siguienteFicha < 64) {
+
+                                colorFichaSiguiente = document.getElementById(posicionesVRe[siguienteFicha]).style.backgroundColor;
+                                if (siguienteFicha == 8 || siguienteFicha == 16 || siguienteFicha == 24 || siguienteFicha == 32 || siguienteFicha == 40 || siguienteFicha == 48 || siguienteFicha == 56 || siguienteFicha == 64) {
+                                    salida = false;
+                                    break;
+                                }
+
+                                if (colorFichaSiguiente == "") {
+                                    salida = false;
+                                    break;
+                                }
+
+
+                                if (colorFichaSiguiente == colorFicha) {
+                                    salida = true;
+                                    break;
+                                }
+                                siguienteFicha++;
+                                if (siguienteFicha == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                            if (salida == true) {
+                                siguienteFicha = conteoPosicion + 1;
+                                if (siguienteFicha == 64) siguienteFicha = 63;
+                                colorFichaSiguiente = document.getElementById(posicionesVRe[siguienteFicha]).style.backgroundColor;
+                                while (colorFichaSiguiente != colorFicha && siguienteFicha < 64) {
+                                    colorFichaSiguiente = document.getElementById(posicionesVRe[siguienteFicha]).style.backgroundColor;
+                                    document.getElementById(posicionesVRe[siguienteFicha]).style.backgroundColor = colorFicha;
+                                    siguienteFicha++;
+
+                                }
+                            }
+                        }
+                    }
+                    conteoPosicion++;
+                });
+            }
+
+            function diagonal1(id) {
+                var posicionesIAb = ["A8", "A7", "B8", "A6", "B7", "C8", "A5", "B6", "C7", "D8", "A4", "B5", "C6", "D7", "E8", "A3", "B4", "C5", "D6", "E7", "F8", "A2", "B3", "C4", "D5", "E6", "F7", "G8", "A1", "B2", "C3", "D4", "E5", "F6", "G7", "H8", "B1", "C2", "D3", "E4", "F5", "G6", "H7", "C1", "D2", "E3", "F4", "G5", "H6", "D1", "E2", "F3", "G4", "H5", "E1", "F2", "G3", "H4", "F1", "G2", "H3", "G1", "H2", "H1"];
+                var conteoPosicion = 0;
+                posicionesIAb.forEach(function (i) {
+                    conteoPosicion = posicionesIAb.indexOf(i);
+                    var colorFicha = "";
+                    var siguienteFicha = 0;
+                    var colorFichaSiguiente = "";
+                    var salida = true;
+                    if (i == id) {
+                        colorFicha = document.getElementById(i).style.backgroundColor;
+                        siguienteFicha = conteoPosicion + 1;
+                        if (siguienteFicha == 64) siguienteFicha = 63;
+                        colorFichaSiguiente = document.getElementById(posicionesIAb[siguienteFicha]).style.backgroundColor;
+                        if (colorFicha == "black" || colorFicha == "white") {
+                            while (colorFichaSiguiente != colorFicha && siguienteFicha < 64) {
+                                colorFichaSiguiente = document.getElementById(posicionesIAb[siguienteFicha]).style.backgroundColor;
+                                if (siguienteFicha == 1 || siguienteFicha == 3 || siguienteFicha == 6 || siguienteFicha == 10 || siguienteFicha == 15 || siguienteFicha == 21 || siguienteFicha == 28 || siguienteFicha == 36 || siguienteFicha == 43 || siguienteFicha == 49 || siguienteFicha == 54 || siguienteFicha == 58 || siguienteFicha == 61 || siguienteFicha == 64) {
+                                    salida = false;
+                                    break;
+                                }
+
+                                if (colorFichaSiguiente == "") {
+                                    salida = false;
+                                    break;
+                                }
+
+
+                                if (colorFichaSiguiente == colorFicha) {
+                                    salida = true;
+                                    break;
+                                }
+                                siguienteFicha++;
+                                if (siguienteFicha == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                            if (salida == true) {
+                                siguienteFicha = conteoPosicion + 1;
+                                if (siguienteFicha == 64) siguienteFicha = 63;
+                                colorFichaSiguiente = document.getElementById(posicionesIAb[siguienteFicha]).style.backgroundColor;
+                                while (colorFichaSiguiente != colorFicha && siguienteFicha < 64) {
+                                    colorFichaSiguiente = document.getElementById(posicionesIAb[siguienteFicha]).style.backgroundColor;
+                                    document.getElementById(posicionesIAb[siguienteFicha]).style.backgroundColor = colorFicha;
+                                    siguienteFicha++;
+
+                                }
+                            }
+                        }
+                    }
+                    conteoPosicion++;
+                });
+            }
+
+            function diagonal2(id) {
+                var posicionesIAbRe = ["A8", "B8", "A7", "C8", "B7", "A6", "D8", "C7", "B6", "A5", "E8", "D7", "C6", "B5", "A4", "F8", "E7", "D6", "C5", "B4", "A3", "G8", "F7", "E6", "D5", "C4", "B3", "A2", "H8", "G7", "F6", "E5", "D4", "C3", "B2", "A1", "H7", "G6", "F5", "E4", "D3", "C2", "B1", "H6", "G5", "F4", "E3", "D2", "C1", "H5", "G4", "F3", "E2", "D1", "H4", "G3", "F2", "E1", "H3", "G2", "F1", "H2", "G1", "H1"];
+                var conteoPosicion = 0;
+                posicionesIAbRe.forEach(function (i) {
+                    conteoPosicion = posicionesIAbRe.indexOf(i);
+                    var colorFicha = "";
+                    var siguienteFicha = 0;
+                    var colorFichaSiguiente = "";
+                    var salida = true;
+                    if (i == id) {
+                        colorFicha = document.getElementById(i).style.backgroundColor;
+                        siguienteFicha = conteoPosicion + 1;
+                        if (siguienteFicha == 64) siguienteFicha = 63;
+                        colorFichaSiguiente = document.getElementById(posicionesIAbRe[siguienteFicha]).style.backgroundColor;
+                        if (colorFicha == "black" || colorFicha == "white") {
+                            while (colorFichaSiguiente != colorFicha && siguienteFicha < 64) {
+                                colorFichaSiguiente = document.getElementById(posicionesIAbRe[siguienteFicha]).style.backgroundColor;
+                                if (siguienteFicha == 1 || siguienteFicha == 3 || siguienteFicha == 6 || siguienteFicha == 10 || siguienteFicha == 15 || siguienteFicha == 21 || siguienteFicha == 28 || siguienteFicha == 36 || siguienteFicha == 43 || siguienteFicha == 49 || siguienteFicha == 54 || siguienteFicha == 58 || siguienteFicha == 61 || siguienteFicha == 64) {
+                                    salida = false;
+                                    break;
+                                }
+
+                                if (colorFichaSiguiente == "") {
+                                    salida = false;
+                                    break;
+                                }
+
+
+                                if (colorFichaSiguiente == colorFicha) {
+                                    salida = true;
+                                    break;
+                                }
+                                siguienteFicha++;
+                                if (siguienteFicha == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                            if (salida == true) {
+                                siguienteFicha = conteoPosicion + 1;
+                                if (siguienteFicha == 64) siguienteFicha = 63;
+                                colorFichaSiguiente = document.getElementById(posicionesIAbRe[siguienteFicha]).style.backgroundColor;
+                                while (colorFichaSiguiente != colorFicha && siguienteFicha < 64) {
+                                    colorFichaSiguiente = document.getElementById(posicionesIAbRe[siguienteFicha]).style.backgroundColor;
+                                    document.getElementById(posicionesIAbRe[siguienteFicha]).style.backgroundColor = colorFicha;
+                                    siguienteFicha++;
+
+                                }
+                            }
+                        }
+                    }
+                    conteoPosicion++;
+                });
+                }
+
+            function diagonalI1(id) {
+                var posicionesD1 = ["A1", "B1", "A2", "C1", "B2", "A3", "D1", "C2", "B3", "A4", "E1", "D2", "C3", "B4", "A5", "F1", "E2", "D3", "C4", "B5", "A6", "G1", "F2", "E3", "D4", "C5", "B6", "A7", "H1", "G2", "F3", "E4", "D5", "C6", "B7", "A8", "H2", "G3", "F4", "E5", "D6", "C7", "B8", "H3", "G4", "F5", "E6", "D7", "C8", "H4", "G5", "F6", "E7", "D8", "H5", "G6", "F7", "E8", "H6", "G7", "F8", "H7", "G8", "H8"];
+                var conteoPosicion = 0;
+                posicionesD1.forEach(function (i) {
+                    conteoPosicion = posicionesD1.indexOf(i);
+                    var colorFicha = "";
+                    var siguienteFicha = 0;
+                    var colorFichaSiguiente = "";
+                    var salida = true;
+                    if (i == id) {
+                        colorFicha = document.getElementById(i).style.backgroundColor;
+                        siguienteFicha = conteoPosicion + 1;
+                        if (siguienteFicha == 64) siguienteFicha = 63;
+                        colorFichaSiguiente = document.getElementById(posicionesD1[siguienteFicha]).style.backgroundColor;
+                        if (colorFicha == "black" || colorFicha == "white") {
+                            while (colorFichaSiguiente != colorFicha && siguienteFicha < 64) {
+                                colorFichaSiguiente = document.getElementById(posicionesD1[siguienteFicha]).style.backgroundColor;
+                                if (siguienteFicha == 1 || siguienteFicha == 3 || siguienteFicha == 6 || siguienteFicha == 10 || siguienteFicha == 15 || siguienteFicha == 21 || siguienteFicha == 28 || siguienteFicha == 36 || siguienteFicha == 43 || siguienteFicha == 49 || siguienteFicha == 54 || siguienteFicha == 58 || siguienteFicha == 61 || siguienteFicha == 64) {
+                                    salida = false;
+                                    break;
+                                }
+
+                                if (colorFichaSiguiente == "") {
+                                    salida = false;
+                                    break;
+                                }
+
+
+                                if (colorFichaSiguiente == colorFicha) {
+                                    salida = true;
+                                    break;
+                                }
+                                siguienteFicha++;
+                                if (siguienteFicha == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                            if (salida == true) {
+                                siguienteFicha = conteoPosicion + 1;
+                                if (siguienteFicha == 64) siguienteFicha = 63;
+                                colorFichaSiguiente = document.getElementById(posicionesD1[siguienteFicha]).style.backgroundColor;
+                                while (colorFichaSiguiente != colorFicha && siguienteFicha < 64) {
+                                    colorFichaSiguiente = document.getElementById(posicionesD1[siguienteFicha]).style.backgroundColor;
+                                    document.getElementById(posicionesD1[siguienteFicha]).style.backgroundColor = colorFicha;
+                                    siguienteFicha++;
+
+                                }
+                            }
+                        }
+                    }
+                    conteoPosicion++;
+                });
+            }
+
+            function diagonalI2(id) {
+                var posicionesD2 = ["A1", "A2", "B1", "A3", "B2", "C1", "A4", "B3", "C2", "D1", "A5", "B4", "C3", "D2", "E1", "A6", "B5", "C4", "D3", "E2", "F1", "A7", "B6", "C5", "D4", "E3", "F2", "G1", "A8", "B7", "C6", "D5", "E4", "F3", "G2", "H1", "B8", "C7", "D6", "E5", "F4", "G3", "H2", "C8", "D7", "E6", "F5", "G4", "H3", "D8", "E7", "F6", "G5", "H4", "E8", "F7", "G6", "H5", "F8", "G7", "H6", "G8", "H7", "H8"];
+                var conteoPosicion = 0;
+                posicionesD2.forEach(function (i) {
+                    conteoPosicion = posicionesD2.indexOf(i);
+                    var colorFicha = "";
+                    var siguienteFicha = 0;
+                    var colorFichaSiguiente = "";
+                    var salida = true;
+                    if (i == id) {
+                        colorFicha = document.getElementById(i).style.backgroundColor;
+                        siguienteFicha = conteoPosicion + 1;
+                        if (siguienteFicha == 64) siguienteFicha = 63;
+                        colorFichaSiguiente = document.getElementById(posicionesD2[siguienteFicha]).style.backgroundColor;
+                        if (colorFicha == "black" || colorFicha == "white") {
+                            while (colorFichaSiguiente != colorFicha && siguienteFicha < 64) {
+                                colorFichaSiguiente = document.getElementById(posicionesD2[siguienteFicha]).style.backgroundColor;
+                                if (siguienteFicha == 1 || siguienteFicha == 3 || siguienteFicha == 6 || siguienteFicha == 10 || siguienteFicha == 15 || siguienteFicha == 21 || siguienteFicha == 28 || siguienteFicha == 36 || siguienteFicha == 43 || siguienteFicha == 49 || siguienteFicha == 54 || siguienteFicha == 58 || siguienteFicha == 61 || siguienteFicha == 64) {
+                                    salida = false;
+                                    break;
+                                }
+
+                                if (colorFichaSiguiente == "") {
+                                    salida = false;
+                                    break;
+                                }
+
+
+                                if (colorFichaSiguiente == colorFicha) {
+                                    salida = true;
+                                    break;
+                                }
+                                siguienteFicha++;
+                                if (siguienteFicha == 64) {
+                                    salida = false;
+                                    break;
+                                }
+                            };
+                            if (salida == true) {
+                                siguienteFicha = conteoPosicion + 1;
+                                if (siguienteFicha == 64) siguienteFicha = 63;
+                                colorFichaSiguiente = document.getElementById(posicionesD2[siguienteFicha]).style.backgroundColor;
+                                while (colorFichaSiguiente != colorFicha && siguienteFicha < 64) {
+                                    colorFichaSiguiente = document.getElementById(posicionesD2[siguienteFicha]).style.backgroundColor;
+                                    document.getElementById(posicionesD2[siguienteFicha]).style.backgroundColor = colorFicha;
+                                    siguienteFicha++;
+
+                                }
+                            }
+                        }
+                    }
+                    conteoPosicion++;
+                });
+            }
+
+            function punteo() {
+                var posicionesConteo = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
+                var fichasNegras = [];
+                var fichasBlancas = [];
+                var conteo = 0;
+                var color = "";
+                while (conteo < posicionesConteo.length) {
+                    color = document.getElementById(posicionesConteo[conteo]).style.backgroundColor;
+                    if (color == "black") {
+                        fichasNegras.push(posicionesConteo[conteo]);
+                    }
+                    if (color == "white") {
+                        fichasBlancas.push(posicionesConteo[conteo]);
+                    }
+                    conteo++;
+                }
+                noBlancas = fichasBlancas.length;
+                noNegras = fichasNegras.length;
+                document.getElementById("Pblancas").value = noBlancas;
+                document.getElementById("Pnegras").value = noNegras;
+                final(noBlancas, noNegras);
             };
         </script>
         <script>
@@ -3243,10 +4250,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("A1").style.backgroundColor = "black";
                                      deshabilitar("A1");
+                                     movimientos("A", 1);
                                  }
                                  else {
                                      document.getElementById("A1").style.backgroundColor = "white";
                                      deshabilitar("A1");
+                                     movimientos("A", 1);
                                  }
                              },
                          error:
@@ -3270,10 +4279,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("A2").style.backgroundColor = "black";
                                      deshabilitar("A2");
+                                     movimientos("A", 2);
                                  }
                                  else {
                                      document.getElementById("A2").style.backgroundColor = "white";
                                      deshabilitar("A2");
+                                     movimientos("A", 2);
                                  }
                              },
                          error:
@@ -3297,10 +4308,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("A3").style.backgroundColor = "black";
                                      deshabilitar("A3");
+                                     movimientos("A", 3);
                                  }
                                  else {
                                      document.getElementById("A3").style.backgroundColor = "white";
                                      deshabilitar("A3");
+                                     movimientos("A", 3);
                                  }
                              },
                          error:
@@ -3324,10 +4337,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("A4").style.backgroundColor = "black";
                                      deshabilitar("A4");
+                                     movimientos("A", 4);
                                  }
                                  else {
                                      document.getElementById("A4").style.backgroundColor = "white";
                                      deshabilitar("A4");
+                                     movimientos("A", 4);
                                  }
                              },
                          error:
@@ -3351,10 +4366,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("A5").style.backgroundColor = "black";
                                      deshabilitar("A5");
+                                     movimientos("A", 5);
                                  }
                                  else {
                                      document.getElementById("A5").style.backgroundColor = "white";
                                      deshabilitar("A5");
+                                     movimientos("A", 5);
                                  }
                              },
                          error:
@@ -3378,10 +4395,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("A6").style.backgroundColor = "black";
                                      deshabilitar("A6");
+                                     movimientos("A", 6);
                                  }
                                  else {
                                      document.getElementById("A6").style.backgroundColor = "white";
                                      deshabilitar("A6");
+                                     movimientos("A", 6);
                                  }
                              },
                          error:
@@ -3405,10 +4424,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("A7").style.backgroundColor = "black";
                                      deshabilitar("A7");
+                                     movimientos("A", 7);
                                  }
                                  else {
                                      document.getElementById("A7").style.backgroundColor = "white";
                                      deshabilitar("A7");
+                                     movimientos("A", 7);
                                  }
                              },
                          error:
@@ -3432,10 +4453,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("A8").style.backgroundColor = "black";
                                      deshabilitar("A8");
+                                     movimientos("A", 8);
                                  }
                                  else {
                                      document.getElementById("A8").style.backgroundColor = "white";
                                      deshabilitar("A8");
+                                     movimientos("A", 8);
                                  }
                              },
                          error:
@@ -3459,10 +4482,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("B1").style.backgroundColor = "black";
                                      deshabilitar("B1");
+                                     movimientos("B", 1);
                                  }
                                  else {
                                      document.getElementById("B1").style.backgroundColor = "white";
                                      deshabilitar("B1");
+                                     movimientos("B", 1);
                                  }
                              },
                          error:
@@ -3486,10 +4511,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("B2").style.backgroundColor = "black";
                                      deshabilitar("B2");
+                                     movimientos("B", 2);
                                  }
                                  else {
                                      document.getElementById("B2").style.backgroundColor = "white";
                                      deshabilitar("B2");
+                                     movimientos("B", 2);
                                  }
                              },
                          error:
@@ -3513,10 +4540,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("B3").style.backgroundColor = "black";
                                      deshabilitar("B3");
+                                     movimientos("B", 3);
                                  }
                                  else {
                                      document.getElementById("B3").style.backgroundColor = "white";
                                      deshabilitar("B3");
+                                     movimientos("B", 3);
                                  }
                              },
                          error:
@@ -3540,10 +4569,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("B4").style.backgroundColor = "black";
                                      deshabilitar("B4");
+                                     movimientos("B", 4);
                                  }
                                  else {
                                      document.getElementById("B4").style.backgroundColor = "white";
                                      deshabilitar("B4");
+                                     movimientos("B", 4);
                                  }
                              },
                          error:
@@ -3567,10 +4598,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("B5").style.backgroundColor = "black";
                                      deshabilitar("B5");
+                                     movimientos("B", 5);
                                  }
                                  else {
                                      document.getElementById("B5").style.backgroundColor = "white";
                                      deshabilitar("B5");
+                                     movimientos("B", 5);
                                  }
                              },
                          error:
@@ -3594,10 +4627,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("B6").style.backgroundColor = "black";
                                      deshabilitar("B6");
+                                     movimientos("B", 6);
                                  }
                                  else {
                                      document.getElementById("B6").style.backgroundColor = "white";
                                      deshabilitar("B6");
+                                     movimientos("B", 6);
                                  }
                              },
                          error:
@@ -3621,10 +4656,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("B7").style.backgroundColor = "black";
                                      deshabilitar("B7");
+                                     movimientos("B", 7);
                                  }
                                  else {
                                      document.getElementById("B7").style.backgroundColor = "white";
                                      deshabilitar("B7");
+                                     movimientos("B", 7);
                                  }
                              },
                          error:
@@ -3648,10 +4685,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("B8").style.backgroundColor = "black";
                                      deshabilitar("B8");
+                                     movimientos("B", 8);
                                  }
                                  else {
                                      document.getElementById("B8").style.backgroundColor = "white";
                                      deshabilitar("B8");
+                                     movimientos("B", 8);
                                  }
                              },
                          error:
@@ -3675,10 +4714,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("C1").style.backgroundColor = "black";
                                      deshabilitar("C1");
+                                     movimientos("C", 1);
                                  }
                                  else {
                                      document.getElementById("C1").style.backgroundColor = "white";
                                      deshabilitar("C1");
+                                     movimientos("C", 1);
                                  }
                              },
                          error:
@@ -3702,10 +4743,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("C2").style.backgroundColor = "black";
                                      deshabilitar("C2");
+                                     movimientos("C", 2);
                                  }
                                  else {
                                      document.getElementById("C2").style.backgroundColor = "white";
                                      deshabilitar("C2");
+                                     movimientos("C", 2);
                                  }
                              },
                          error:
@@ -3729,10 +4772,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("C3").style.backgroundColor = "black";
                                      deshabilitar("C3");
+                                     movimientos("C", 3);
                                  }
                                  else {
                                      document.getElementById("C3").style.backgroundColor = "white";
                                      deshabilitar("C3");
+                                     movimientos("C", 3);
                                  }
                              },
                          error:
@@ -3756,10 +4801,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("C4").style.backgroundColor = "black";
                                      deshabilitar("C4");
+                                     movimientos("C", 4);
                                  }
                                  else {
                                      document.getElementById("C4").style.backgroundColor = "white";
                                      deshabilitar("C4");
+                                     movimientos("C", 4);
                                  }
                              },
                          error:
@@ -3783,10 +4830,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("C5").style.backgroundColor = "black";
                                      deshabilitar("C5");
+                                     movimientos("C", 5);
                                  }
                                  else {
                                      document.getElementById("C5").style.backgroundColor = "white";
                                      deshabilitar("C5");
+                                     movimientos("C", 5);
                                  }
                              },
                          error:
@@ -3810,10 +4859,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("C6").style.backgroundColor = "black";
                                      deshabilitar("C6");
+                                     movimientos("C", 6);
                                  }
                                  else {
                                      document.getElementById("C6").style.backgroundColor = "white";
                                      deshabilitar("C6");
+                                     movimientos("C", 6);
                                  }
                              },
                          error:
@@ -3837,10 +4888,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("C7").style.backgroundColor = "black";
                                      deshabilitar("C7");
+                                     movimientos("C", 7);
                                  }
                                  else {
                                      document.getElementById("C7").style.backgroundColor = "white";
                                      deshabilitar("C7");
+                                     movimientos("C", 7);
                                  }
                              },
                          error:
@@ -3864,10 +4917,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("C8").style.backgroundColor = "black";
                                      deshabilitar("C8");
+                                     movimientos("C", 8);
                                  }
                                  else {
                                      document.getElementById("C8").style.backgroundColor = "white";
                                      deshabilitar("C8");
+                                     movimientos("C", 8);
                                  }
                              },
                          error:
@@ -3891,10 +4946,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("D1").style.backgroundColor = "black";
                                      deshabilitar("D1");
+                                     movimientos("D", 1);
                                  }
                                  else {
                                      document.getElementById("D1").style.backgroundColor = "white";
                                      deshabilitar("D1");
+                                     movimientos("D", 1);
                                  }
                              },
                          error:
@@ -3918,10 +4975,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("D2").style.backgroundColor = "black";
                                      deshabilitar("D2");
+                                     movimientos("D", 2);
                                  }
                                  else {
                                      document.getElementById("D2").style.backgroundColor = "white";
                                      deshabilitar("D2");
+                                     movimientos("D", 2);
                                  }
                              },
                          error:
@@ -3945,10 +5004,13 @@
                                  if (cadena == "black") {
                                      document.getElementById("D3").style.backgroundColor = "black";
                                      deshabilitar("D3");
+                                     movimientos("D", 3);
+
                                  }
                                  else {
                                      document.getElementById("D3").style.backgroundColor = "white";
-                                     eshabilitar("D3");
+                                     deshabilitar("D3");
+                                     movimientos("D", 3);
                                  }
                              },
                          error:
@@ -3959,31 +5021,33 @@
             });
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////
             $('#D4').click(function (e) {
-                 $.ajax(
-                     {
-                         type: 'POST',
-                         dataType: 'text',
-                         url: '@Url.Action("Conteo", "Contra")',
-                         data: {contador: contador},
+                $.ajax(
+                    {
+                        type: 'POST',
+                        dataType: 'text',
+                        url: '@Url.Action("Conteo", "Contra")',
+                        data: {contador: contador},
 
-                         success:
-                             function (response) {
-                                 var cadena = response;
-                                 if (cadena == "black") {
-                                     document.getElementById("D4").style.backgroundColor = "black";
-                                     deshabilitar("D4");
-                                 }
-                                 else {
-                                     document.getElementById("D4").style.backgroundColor = "white";
-                                     deshabilitar("D4");
-                                 }
-                             },
-                         error:
-                             function (response) {
-                                 alert("Error: " + response);
-                             }
-                     });
-            });
+                        success:
+                            function (response) {
+                                var cadena = response;
+                                if (cadena == "black") {
+                                    document.getElementById("D4").style.backgroundColor = "black";
+                                    deshabilitar("D4");
+                                    movimientos("D", 4);
+                                }
+                                else {
+                                    document.getElementById("D4").style.backgroundColor = "white";
+                                    deshabilitar("D4");
+                                    movimientos("D", 4);
+                                }
+                            },
+                        error:
+                            function (response) {
+                                alert("Error: " + response);
+                            }
+                    });
+        });
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////
             $('#D5').click(function (e) {
                  $.ajax(
@@ -3999,10 +5063,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("D5").style.backgroundColor = "black";
                                      deshabilitar("D5");
+                                     movimientos("D", 5);
                                  }
                                  else {
                                      document.getElementById("D5").style.backgroundColor = "white";
                                      deshabilitar("D5");
+                                     movimientos("D", 5);
                                  }
                              },
                          error:
@@ -4026,10 +5092,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("D6").style.backgroundColor = "black";
                                      deshabilitar("D6");
+                                     movimientos("D", 6);
                                  }
                                  else {
                                      document.getElementById("D6").style.backgroundColor = "white";
                                      deshabilitar("D6");
+                                     movimientos("D", 6);
                                  }
                              },
                          error:
@@ -4053,10 +5121,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("D7").style.backgroundColor = "black";
                                      deshabilitar("D7");
+                                     movimientos("D", 7);
                                  }
                                  else {
                                      document.getElementById("D7").style.backgroundColor = "white";
                                      deshabilitar("D7");
+                                     movimientos("D", 7);
                                  }
                              },
                          error:
@@ -4080,10 +5150,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("D8").style.backgroundColor = "black";
                                      deshabilitar("D8");
+                                     movimientos("D", 8);
                                  }
                                  else {
                                      document.getElementById("D8").style.backgroundColor = "white";
                                      deshabilitar("D8");
+                                     movimientos("D", 8);
                                  }
                              },
                          error:
@@ -4107,10 +5179,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("E1").style.backgroundColor = "black";
                                      deshabilitar("E1");
+                                     movimientos("E", 1);
                                  }
                                  else {
                                      document.getElementById("E1").style.backgroundColor = "white";
                                      deshabilitar("E1");
+                                     movimientos("E", 1);
                                  }
                              },
                          error:
@@ -4134,10 +5208,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("E2").style.backgroundColor = "black";
                                      deshabilitar("E2");
+                                     movimientos("E", 2);
                                  }
                                  else {
                                      document.getElementById("E2").style.backgroundColor = "white";
                                      deshabilitar("E2");
+                                     movimientos("E", 2);
                                  }
                              },
                          error:
@@ -4161,10 +5237,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("E3").style.backgroundColor = "black";
                                      deshabilitar("E3");
+                                     movimientos("E", 3);
                                  }
                                  else {
                                      document.getElementById("E3").style.backgroundColor = "white";
                                      deshabilitar("E3");
+                                     movimientos("E", 3);
                                  }
                              },
                          error:
@@ -4188,10 +5266,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("E4").style.backgroundColor = "black";
                                      deshabilitar("E4");
+                                     movimientos("E", 4);
                                  }
                                  else {
                                      document.getElementById("E4").style.backgroundColor = "white";
                                      deshabilitar("E4");
+                                     movimientos("E", 4);
                                  }
                              },
                          error:
@@ -4215,10 +5295,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("E5").style.backgroundColor = "black";
                                      deshabilitar("E5");
+                                     movimientos("E", 5);
                                  }
                                  else {
                                      document.getElementById("E5").style.backgroundColor = "white";
                                      deshabilitar("E5");
+                                     movimientos("E", 5);
                                  }
                              },
                          error:
@@ -4242,10 +5324,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("E6").style.backgroundColor = "black";
                                      deshabilitar("E6");
+                                     movimientos("E", 6);
                                  }
                                  else {
                                      document.getElementById("E6").style.backgroundColor = "white";
                                      deshabilitar("E6");
+                                     movimientos("E", 6);
                                  }
                              },
                          error:
@@ -4269,10 +5353,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("E7").style.backgroundColor = "black";
                                      deshabilitar("E7");
+                                     movimientos("E", 7);
                                  }
                                  else {
                                      document.getElementById("E7").style.backgroundColor = "white";
                                      deshabilitar("E7");
+                                     movimientos("E", 7);
                                  }
                              },
                          error:
@@ -4296,10 +5382,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("E8").style.backgroundColor = "black";
                                      deshabilitar("E8");
+                                     movimientos("E", 8);
                                  }
                                  else {
                                      document.getElementById("E8").style.backgroundColor = "white";
                                      deshabilitar("E8");
+                                     movimientos("E", 8);
                                  }
                              },
                          error:
@@ -4323,10 +5411,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("F1").style.backgroundColor = "black";
                                      deshabilitar("F1");
+                                     movimientos("F", 1);
                                  }
                                  else {
                                      document.getElementById("F1").style.backgroundColor = "white";
                                      deshabilitar("F1");
+                                     movimientos("F", 1);
                                  }
                              },
                          error:
@@ -4350,10 +5440,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("F2").style.backgroundColor = "black";
                                      deshabilitar("F2");
+                                     movimientos("F", 2);
                                  }
                                  else {
                                      document.getElementById("F2").style.backgroundColor = "white";
                                      deshabilitar("F2");
+                                     movimientos("F", 2);
                                  }
                              },
                          error:
@@ -4377,10 +5469,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("F3").style.backgroundColor = "black";
                                      deshabilitar("F3");
+                                     movimientos("F", 3);
                                  }
                                  else {
                                      document.getElementById("F3").style.backgroundColor = "white";
                                      deshabilitar("F3");
+                                     movimientos("F", 3);
                                  }
                              },
                          error:
@@ -4404,10 +5498,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("F4").style.backgroundColor = "black";
                                      deshabilitar("F4");
+                                     movimientos("F", 4);
                                  }
                                  else {
                                      document.getElementById("F4").style.backgroundColor = "white";
                                      deshabilitar("F4");
+                                     movimientos("F", 4);
                                  }
                              },
                          error:
@@ -4431,10 +5527,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("F5").style.backgroundColor = "black";
                                      deshabilitar("F5");
+                                     movimientos("F", 5);
                                  }
                                  else {
                                      document.getElementById("F5").style.backgroundColor = "white";
                                      deshabilitar("F5");
+                                     movimientos("F", 5);
                                  }
                              },
                          error:
@@ -4458,10 +5556,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("F6").style.backgroundColor = "black";
                                      deshabilitar("F6");
+                                     movimientos("F", 6);
                                  }
                                  else {
                                      document.getElementById("F6").style.backgroundColor = "white";
                                      deshabilitar("F6");
+                                     movimientos("F", 6);
                                  }
                              },
                          error:
@@ -4485,10 +5585,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("F7").style.backgroundColor = "black";
                                      deshabilitar("F7");
+                                     movimientos("F", 7);
                                  }
                                  else {
                                      document.getElementById("F7").style.backgroundColor = "white";
                                      deshabilitar("F7");
+                                     movimientos("F", 7);
                                  }
                              },
                          error:
@@ -4512,10 +5614,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("F8").style.backgroundColor = "black";
                                      deshabilitar("F8");
+                                     movimientos("F", 8);
                                  }
                                  else {
                                      document.getElementById("F8").style.backgroundColor = "white";
                                      deshabilitar("F8");
+                                     movimientos("F", 8);
                                  }
                              },
                          error:
@@ -4539,10 +5643,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("G1").style.backgroundColor = "black";
                                      deshabilitar("G1");
+                                     movimientos("G", 1);
                                  }
                                  else {
                                      document.getElementById("G1").style.backgroundColor = "white";
                                      deshabilitar("G1");
+                                     movimientos("G", 1);
                                  }
                              },
                          error:
@@ -4566,10 +5672,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("G2").style.backgroundColor = "black";
                                      deshabilitar("G2");
+                                     movimientos("G", 2);
                                  }
                                  else {
                                      document.getElementById("G2").style.backgroundColor = "white";
                                      deshabilitar("G2");
+                                     movimientos("G", 2);
                                  }
                              },
                          error:
@@ -4593,10 +5701,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("G3").style.backgroundColor = "black";
                                      deshabilitar("G3");
+                                     movimientos("G", 3);
                                  }
                                  else {
                                      document.getElementById("G3").style.backgroundColor = "white";
                                      deshabilitar("G3");
+                                     movimientos("G", 3);
                                  }
                              },
                          error:
@@ -4620,10 +5730,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("G4").style.backgroundColor = "black";
                                      deshabilitar("G4");
+                                     movimientos("G", 4);
                                  }
                                  else {
                                      document.getElementById("G4").style.backgroundColor = "white";
                                      deshabilitar("G4");
+                                     movimientos("G", 4);
                                  }
                              },
                          error:
@@ -4647,10 +5759,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("G5").style.backgroundColor = "black";
                                      deshabilitar("G5");
+                                     movimientos("G", 5);
                                  }
                                  else {
                                      document.getElementById("G5").style.backgroundColor = "white";
                                      deshabilitar("G5");
+                                     movimientos("G", 5);
                                  }
                              },
                          error:
@@ -4674,10 +5788,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("G6").style.backgroundColor = "black";
                                      deshabilitar("G6");
+                                     movimientos("G", 6);
                                  }
                                  else {
                                      document.getElementById("G6").style.backgroundColor = "white";
                                      deshabilitar("G6");
+                                     movimientos("G", 6);
                                  }
                              },
                          error:
@@ -4701,10 +5817,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("G7").style.backgroundColor = "black";
                                      deshabilitar("G7");
+                                     movimientos("G",7);
                                  }
                                  else {
                                      document.getElementById("G7").style.backgroundColor = "white";
                                      deshabilitar("G7");
+                                     movimientos("G", 7);
                                  }
                              },
                          error:
@@ -4728,10 +5846,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("G8").style.backgroundColor = "black";
                                      deshabilitar("G8");
+                                     movimientos("G", 8);
                                  }
                                  else {
                                      document.getElementById("G8").style.backgroundColor = "white";
                                      deshabilitar("G8");
+                                     movimientos("G", 8);
                                  }
                              },
                          error:
@@ -4755,10 +5875,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("H1").style.backgroundColor = "black";
                                      deshabilitar("H1");
+                                     movimientos("H", 1);
                                  }
                                  else {
                                      document.getElementById("H1").style.backgroundColor = "white";
                                      deshabilitar("H1");
+                                     movimientos("H", 1);
                                  }
                              },
                          error:
@@ -4782,10 +5904,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("H2").style.backgroundColor = "black";
                                      deshabilitar("H2");
+                                     movimientos("H", 2);
                                  }
                                  else {
                                      document.getElementById("H2").style.backgroundColor = "white";
                                      deshabilitar("H2");
+                                     movimientos("H", 2);
                                  }
                              },
                          error:
@@ -4809,10 +5933,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("H3").style.backgroundColor = "black";
                                      deshabilitar("H3");
+                                     movimientos("H", 3);
                                  }
                                  else {
                                      document.getElementById("H3").style.backgroundColor = "white";
                                      deshabilitar("H3");
+                                     movimientos("H", 3);
                                  }
                              },
                          error:
@@ -4836,10 +5962,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("H4").style.backgroundColor = "black";
                                      deshabilitar("H4");
+                                     movimientos("H", 4);
                                  }
                                  else {
                                      document.getElementById("H4").style.backgroundColor = "white";
                                      deshabilitar("H4");
+                                     movimientos("H", 4);
                                  }
                              },
                          error:
@@ -4863,10 +5991,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("H5").style.backgroundColor = "black";
                                      deshabilitar("H5");
+                                     movimientos("H", 5);
                                  }
                                  else {
                                      document.getElementById("H5").style.backgroundColor = "white";
                                      deshabilitar("H5");
+                                     movimientos("H", 5);
                                  }
                              },
                          error:
@@ -4890,10 +6020,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("H6").style.backgroundColor = "black";
                                      deshabilitar("H6");
+                                     movimientos("H", 6);
                                  }
                                  else {
                                      document.getElementById("H6").style.backgroundColor = "white";
                                      deshabilitar("H6");
+                                     movimientos("H", 6);
                                  }
                              },
                          error:
@@ -4917,10 +6049,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("H7").style.backgroundColor = "black";
                                      deshabilitar("H7");
+                                     movimientos("H", 7);
                                  }
                                  else {
                                      document.getElementById("H7").style.backgroundColor = "white";
                                      deshabilitar("H7");
+                                     movimientos("H", 7);
                                  }
                              },
                          error:
@@ -4945,10 +6079,12 @@
                                  if (cadena == "black") {
                                      document.getElementById("H8").style.backgroundColor = "black";
                                      deshabilitar("H8");
+                                     movimientos("H", 8);
                                  }
                                  else {
                                      document.getElementById("H8").style.backgroundColor = "white";
                                      deshabilitar("H8");
+                                     movimientos("H", 8);
                                  }
                              },
                          error:
