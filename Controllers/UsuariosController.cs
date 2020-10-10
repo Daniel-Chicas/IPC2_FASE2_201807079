@@ -152,12 +152,11 @@ namespace WebApplication1.Controllers
             Usuario usuario = db.Usuario.Where(s => s.Usuario1 == pusuario && s.Contraseña == pcontrasena).FirstOrDefault();
 
             if (usuario != null)
-            {
-                //return RedirectToAction("Index", "Usuarios");
-                
+            {   
                 if (usuario.EstadoId == 1)
                 {
-                    return "1&OK";
+                    Session["usuario"] = pusuario;
+                    return "1&OK"+ViewData["usuario"];
                 }
                 else
                 {
@@ -170,28 +169,6 @@ namespace WebApplication1.Controllers
             }
         }
 
-        //public string validarTorneo(string pTorneo)
-        //{
-        //    Usuario usuario = db.Usuario.Where(s => s.Usuario1 == pusuario).FirstOrDefault();
-
-        //    if (usuario != null)
-        //    {
-        //        //return RedirectToAction("Index", "Usuarios");
-
-        //        if (usuario.EstadoId == 1)
-        //        {
-        //            return "1&OK";
-        //        }
-        //        else
-        //        {
-        //            return "2&Usuario inactivo";
-        //        }
-        //    }
-        //    else
-        //    {
-        //        return "2&Usuario inválido";
-        //    }
-        //}
 
         public string EditarEstado(string pusuario, int pestado)
         {
