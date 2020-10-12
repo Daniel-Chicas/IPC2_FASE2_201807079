@@ -148,44 +148,31 @@ namespace WebApplication1.Controllers
             return cadena;
         }
 
-        public string Guardar(int contadorG, string columnaR, string filaR, string colorR)
+        public string Guardar(int contadorG, string columnaR, string filaR, string colorR, string j1, string j2)
         {
             var cadena = "";
             string cadenaS = contadorG.ToString();
-            string nombreArchivo = "C:\\Users\\Daniel Chicas\\Desktop\\Jugador vs Jugador.xml";
+            string nombreArchivo = "C:\\Users\\Daniel Chicas\\Desktop\\"+j1+" vs "+j2+".xml";
+
+
 
             if (contadorG == 0 && columnaR == "k" && filaR == "9")
             {
-                try
-                {
-                    XmlNode turno = turnoficha(colorR);
+                    XmlNode turno = turnoficha(colorR, j1, j2);
                     XmlNode ultimo = doc.DocumentElement;
                     ultimo.InsertAfter(turno, ultimo.LastChild);
                     doc.Save(nombreArchivo);
                     cadena = "Se ha guardado el archivo.";
                     return cadena;
-                }
-                catch (Exception ex)
-                {
-                    return "No se ha podido completar el guardado del archivo.";
-                }
             }
-
             if (System.IO.File.Exists(nombreArchivo))
             {
-                try
-                {
-                    XmlNode ficha = crearFicha(colorR, filaR, columnaR);
-                    XmlNode ultimo = doc.DocumentElement;
-                    ultimo.InsertAfter(ficha, ultimo.LastChild);
-                    doc.Save(nombreArchivo);
-                    cadena = "";
-                    return cadena;
-                }
-                catch (Exception ex)
-                {
-                    return "no se ha podido ";
-                }
+                XmlNode ficha = crearFicha(colorR, filaR, columnaR, j1, j2);
+                XmlNode ultimo = doc.DocumentElement;
+                ultimo.InsertAfter(ficha, ultimo.LastChild);
+                doc.Save(nombreArchivo);
+                cadena = "";
+                return cadena;
             }
             else
             {
@@ -213,9 +200,9 @@ namespace WebApplication1.Controllers
             }
         }
 
-        private XmlNode crearFicha(string colorR, string filaR, string columnaR)
+        private XmlNode crearFicha(string colorR, string filaR, string columnaR, string j1, string j2)
         {
-            doc.Load("C:\\Users\\Daniel Chicas\\Desktop\\Jugador vs Jugador.xml");
+            doc.Load("C:\\Users\\Daniel Chicas\\Desktop\\" + j1 + " vs " + j2 + ".xml");
             XmlNode ficha = doc.CreateElement("ficha");
 
             XmlElement color = doc.CreateElement("color");
@@ -232,10 +219,10 @@ namespace WebApplication1.Controllers
 
             return ficha;
         }
-        private XmlNode turnoficha(string colorR)
+        private XmlNode turnoficha(string colorR, string j1, string j2)
         {
             try {
-                doc.Load("C:\\Users\\Daniel Chicas\\Desktop\\Jugador vs Jugador.xml");
+                doc.Load("C:\\Users\\Daniel Chicas\\Desktop\\"+j1+" vs "+j2+".xml");
                 XmlNode ficha = doc.CreateElement("siguienteTiro");
 
                 XmlElement color = doc.CreateElement("color");
