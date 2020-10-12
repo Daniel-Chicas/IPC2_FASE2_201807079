@@ -889,7 +889,8 @@
     #Ruta {
         height: 40px;
         border-radius: 20px;
-        font-size: 10px;
+        text-align: center;
+        font-size: 20px;
         font-weight: bold;
         position: absolute;
         font-family: 'kaushan Script', cursive;
@@ -1163,9 +1164,12 @@
     @section scripts {
         <script>
             //////////////////////////////
-            document.getElementById("j2").value = "prueba2";
             //////////////////////////////
             var posiciones = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
+            document.getElementById("D4").style.backgroundColor = "white";
+            document.getElementById("E4").style.backgroundColor = "black";
+            document.getElementById("D5").style.backgroundColor = "black";
+            document.getElementById("E5").style.backgroundColor = "white";
             posiciones.forEach(function (i) {
                 document.getElementById(i).disabled = true;
             });
@@ -1177,7 +1181,8 @@
                          success:
                              function (response) {
                                  var cadena = response;
-                                 document.getElementById("j1").value = "prueba1"; //regresar a cadena
+                                 document.getElementById("j1").value = "prueba1"; //cambiar a cadena
+                                 document.getElementById("j2").value = "prueba2"; //quitar
                              },
                          error:
                              function (response) {
@@ -1188,31 +1193,35 @@
         <script>
             var posiciones = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
             var fichasGuardar = [];
-            var contadorGuardar = 0;
             document.getElementById('Guardar').onclick = function () {
-                guardar();
-                contadorGuardar++;
+                guardar(fichasGuardar);
             }
-            function guardar() {
-                var conteo = 0;
+            function posicionesGuardar(id) {
+                fichasGuardar.push(id);
+            }
+
+            function guardar(fichasGuardar) {
+                var conteoParcial2 = 0;
                 var fila = "";
                 var columna = "";
                 var color = "";
+                var fichasFinales = [];
                 var turno = document.getElementById("toca").value;
-                while (conteo < posiciones.length) {
-                    filita = posiciones[conteo];
+                while (conteoParcial2 < fichasGuardar.length) {
+                    filita = fichasGuardar[conteoParcial2];
                     fila = filita.split("");
-                    color = document.getElementById(posiciones[conteo]).style.backgroundColor;
+                    color = document.getElementById(fichasGuardar[conteoParcial2]).style.backgroundColor;
                     if (color == "white" || color == "black") {
-                        fichasGuardar.push(posiciones[conteo]);
+                        fichasFinales.push(fichasGuardar[conteoParcial2]);
                     }
-                    conteo++;
+                    conteoParcial2++;
                 }
-                var conteo = 0;
-                while (conteo < fichasGuardar.length) {
-                    filita = fichasGuardar[conteo];
+                alert(fichasFinales);
+                var conteoParcial2 = 0;
+                while (conteoParcial2 < fichasGuardar.length) {
+                    filita = fichasGuardar[conteoParcial2];
                     fila = filita.split("");
-                    color = document.getElementById(fichasGuardar[conteo]).style.backgroundColor;
+                    color = document.getElementById(fichasGuardar[conteoParcial2]).style.backgroundColor;
                     if (color == "white") {
                         color = "blanco";
                     }
@@ -1220,13 +1229,14 @@
                         color = "negro";
                     }
                     alert(fila + "-->" + color)
-
+                    var jug1 = document.getElementById("j1").value;
+                    var jug2 = document.getElementById("j2").value;
                     $.ajax(
                         {
                             type: 'POST',
                             dataType: 'text',
                             url: '@Url.Action("Guardar", "Contra")',
-                            data: { contadorG: conteo, columnaR: fila[0], filaR: fila[1], colorR: color },
+                            data: { contadorG: conteoParcial2, columnaR: fila[0], filaR: fila[1], colorR: color, j1: jug1, j2: jug2},
                             success:
                                 function (response) {
                                     var cadena = response;
@@ -1239,22 +1249,17 @@
                                     alert("Error: " + response);
                                 }
                         });
-                    conteo++;
+                    conteoParcial2++;
                 }
-                var conteo = 0;
+                var conteoParcial2 = 0;
                 var fila = "k9";
-                if (contador % 2 == 0) {
-                    color = "blanco";
-                }
-                else {
-                    color = "negro";
-                }
+                var jug1 = document.getElementById("j1").value;
                 $.ajax(
                             {
                                 type: 'POST',
                                 dataType: 'text',
                                 url: '@Url.Action("Guardar", "Contra")',
-                                data: { contadorG: conteo, columnaR: fila[0], filaR: fila[1], colorR: color},
+                                data: { contadorG: conteoParcial2, columnaR: fila[0], filaR: fila[1], colorR: turno, j1: jug1, j2: jug2},
                                 success:
                                     function (response) {
                                         var cadena = response;
@@ -1280,22 +1285,27 @@
             var movimiento2 = 0;
             var punteoBlancas = 2;
             var punteoNegras = 2;
+            var conteoParcial = 0;
             document.getElementById('Mostrar').onclick = function () {
-                if (contador % 2 == 0) {
+                if (conteoParcial % 2 == 0) {
                     document.getElementById("toca").value = negro;
                 }
                 else {
                     document.getElementById("toca").value = blanco;
                 }
-                contador++;
+                conteoParcial++;
             }
+            var listaIngreso = [];
             $('#Mostrar').click(function (e) {
+                var contadorNegras = 0;
+                var contadorBlancas = 0;
+                var Ruta = "C:\\Users\\Daniel Chicas\\Desktop\\" + document.getElementById("Ruta").value + ".xml";
                     $.ajax(
                         {
                             type: 'POST',
                             dataType: 'text',
                             url: '@Url.Action("Leer", "Contra")',
-                            data: { pruta: $("#Ruta").val(), conteo: contador },
+                            data: { pruta: Ruta, conteo: conteoParcial },
                             success:
                                 function (response) {
                                     var cadena = response.split(",");
@@ -1303,26 +1313,60 @@
                                         alert("Debe ingresar una ruta válida");
                                         document.getElementById("toca").value = cadena[0];
                                     }
-
                                     if (cadena[0] == "Turno") {
                                         document.getElementById("toca").value = cadena[1];
+                                        if (document.getElementById("j1").value == cadena[1]) {
+                                            alert("Ingrese el nombre del jugador invitado y luego presione \"Aceptar\".");
+                                        }
+                                        else {
+                                            document.getElementById("j2").value = cadena[1];
+                                            alert("Para empezar a jugar debe dar click en \"Aceptar\"");
+                                        }
                                         document.getElementById("Mostrar").style.display = "none";
-                                        alert("La lista ha sido cargada con éxito. Corresponde el turno a: " + cadena[1]);
-                                        alert("Para empezar a jugar debe ingresar los datos de los jugadores y dar click en \"Aceptar\"");
+                                        var ultimo = listaIngreso.length - 1;
+                                        if (document.getElementById(listaIngreso[ultimo]).style.backgroundColor == "white") {
+                                            contador = 1;
+                                        }
+                                        else {
+                                            contador = 0;
+                                        }
+                                        if (contador % 2 == 0) {
+                                            negro = jug2;
+                                            blanco = jug1;
+                                            document.getElementById("toca").value = negro;
+                                        }
+                                        else {
+                                            negro = jug1;
+                                            blanco = jug2;
+                                            document.getElementById("toca").value = negro;
+                                        }
+                                        var xy = listaIngreso[ultimo].split("");
+                                        var color = document.getElementById(listaIngreso[ultimo]).style.backgroundColor;
+                                        if (color == "white" || color == "White") {
+                                            document.getElementById("color").value = 0;
+                                        }
+                                        else {
+                                            document.getElementById("color").value = 1;
+                                        }
+                                        movimientos(xy[0], xy[1]);
                                         document.getElementById("Ruta").value = "";
                                         document.getElementById("Ruta").style.display = "none";
                                     }
                                     else {
                                         if (cadena[0] == "blanco") {
-                                            movimientos(cadena[1]);//
+                                            var xy = cadena[1].split("");
                                             color = "white";
+                                            contadorBlancas++;
                                         }
                                         else {
-                                            movimientos(cadena[1]);//
+                                            var xy = cadena[1].split("");
                                             color = "black";
+                                            contadorNegras++;
                                         }
                                         document.getElementById(cadena[1]).style.backgroundColor = color;
                                         deshabilitar(cadena[1]);
+                                        listaIngreso.push(cadena[1]);
+                                        movimientos(xy[0], xy[1]);
                                     }
                                 },
                             error:
@@ -1330,20 +1374,17 @@
                                     alert("Error: " + response);
                                 }
                         });
-                });
+            });
             </script>
         <script>
             function Empezar(s) {
                 if (document.getElementById("Mostrar").style.display == "none") {
-                    document.getElementById("A1").disabled = true;
                     var posiciones = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
                     posiciones.forEach(function (i) {
                         document.getElementById(i).disabled = false;
                     });
                     jug1 = document.getElementById("j1").value;
                     jug2 = document.getElementById("j2").value;
-                    color = document.getElementById("color").value;
-                    contador = parseInt(color);
                     if (jug1 == "" || jug2 == "") {
                         alert("Debe ingresar todos los datos");
                     }
@@ -1372,21 +1413,17 @@
                         if (contador % 2 == 0) {
                             negro = jug2;
                             blanco = jug1;
-                            document.getElementById("toca").value = negro;
-                            contador = 1;
                         }
                         else {
                             negro = jug1;
                             blanco = jug2;
-                            document.getElementById("toca").value = negro;
-                            contador = 1;
                         }
                     }
                 }
                 else {
                     var posiciones = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
                     posiciones.forEach(function (i) {
-                        document.getElementById(i).disabled = true;
+                        document.getElementById(i).disabled = false; //
                     });
                     jug1 = document.getElementById("j1").value;
                     jug2 = document.getElementById("j2").value;
@@ -1453,8 +1490,10 @@
                 }
 
             };
+
             function movimientos(x, y) {
                 var id = (x + y);
+                posicionesGuardar(id);
                 horizontal(x+y);
                 horizontal2(x+y);
                 vertical1(x+y);
@@ -1463,8 +1502,8 @@
                 diagonal2(x+y);
                 diagonalI1(x+y);
                 diagonalI2(x+y);
-                punteo();
-
+                punteo(x + y);
+                final();
                 var posicionesH = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
                 var posicionesHRe = ["H1", "G1", "F1", "E1", "D1", "C1", "B1", "A1", "H2", "G2", "F2", "E2", "D2", "C2", "B2", "A2", "H3", "G3", "F3", "E3", "D3", "C3", "B3", "A3", "H4", "G4", "F4", "E4", "D4", "C4", "B4", "A4", "H5", "G5", "F5", "E5", "D5", "C5", "B5", "A5", "H6", "G6", "F6", "E6", "D6", "C6", "B6", "A6", "H7", "G7", "F7", "E7", "D7", "C7", "B7", "A7", "H8", "G8", "F8", "E8", "D8", "C8", "B8", "A8"];
                 var posicionesV = ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8"];
@@ -1473,7 +1512,6 @@
                 var posicionesIAbRe = ["A8", "B8", "A7", "C8", "B7", "A6", "D8", "C7", "B6", "A5", "E8", "D7", "C6", "B5", "A4", "F8", "E7", "D6", "C5", "B4", "A3", "G8", "F7", "E6", "D5", "C4", "B3", "A2", "H8", "G7", "F6", "E5", "D4", "C3", "B2", "A1", "H7", "G6", "F5", "E4", "D3", "C2", "B1", "H6", "G5", "F4", "E3", "D2", "C1", "H5", "G4", "F3", "E2", "D1", "H4", "G3", "F2", "E1", "H3", "G2", "F1", "H2", "G1", "H1"];
                 var posicionesD1 = ["A1", "B1", "A2", "C1", "B2", "A3", "D1", "C2", "B3", "A4", "E1", "D2", "C3", "B4", "A5", "F1", "E2", "D3", "C4", "B5", "A6", "G1", "F2", "E3", "D4", "C5", "B6", "A7", "H1", "G2", "F3", "E4", "D5", "C6", "B7", "A8", "H2", "G3", "F4", "E5", "D6", "C7", "B8", "H3", "G4", "F5", "E6", "D7", "C8", "H4", "G5", "F6", "E7", "D8", "H5", "G6", "F7", "E8", "H6", "G7", "F8", "H7", "G8", "H8"];
                 var posicionesD2 = ["A1", "A2", "B1", "A3", "B2", "C1", "A4", "B3", "C2", "D1", "A5", "B4", "C3", "D2", "E1", "A6", "B5", "C4", "D3", "E2", "F1", "A7", "B6", "C5", "D4", "E3", "F2", "G1", "A8", "B7", "C6", "D5", "E4", "F3", "G2", "H1", "B8", "C7", "D6", "E5", "F4", "G3", "H2", "C8", "D7", "E6", "F5", "G4", "H3", "D8", "E7", "F6", "G5", "H4", "E8", "F7", "G6", "H5", "F8", "G7", "H6", "G8", "H7", "H8"];
-
                 posicionesH.forEach(function (i) {
                     document.getElementById(i).style.border = "none";
                     document.getElementById(i).disabled = true;
@@ -1553,7 +1591,6 @@
                                 if (colorSiguiente == "white") {
                                     break;
                                 }
-
                                 if (colorSiguiente == "") {
                                     document.getElementById(posicionesV[posicionSiguiente]).disabled = false;
                                     document.getElementById(posicionesV[posicionSiguiente]).style.border = "white 1px solid";
@@ -1714,255 +1751,259 @@
                     });
                 }
                 else {
-                    posicionesH.forEach(function (i) {
-                        color = document.getElementById(i).style.backgroundColor;
-                        if (color == "black") {
-                            var posicionActual = posicionesH.indexOf(i);
-                            var posicionSiguiente = posicionActual + 1;
-                            var colorSiguiente = document.getElementById(posicionesH[posicionSiguiente]).style.backgroundColor;
-                            while (colorSiguiente != "" && posicionSiguiente < 64) {
-                                colorSiguiente = document.getElementById(posicionesH[posicionSiguiente]).style.backgroundColor;
-                                if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
-                                    salida = false;
-                                    break;
-                                }
-                                if (colorSiguiente == "black") {
-                                    break;
-                                }
+                    if (colorFicha1 == "white") {
+                        posicionesH.forEach(function (i) {
+                            color = document.getElementById(i).style.backgroundColor;
+                            if (color == "black") {
+                                var posicionActual = posicionesH.indexOf(i);
+                                var posicionSiguiente = posicionActual + 1;
+                                var colorSiguiente = document.getElementById(posicionesH[posicionSiguiente]).style.backgroundColor;
+                                while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                    colorSiguiente = document.getElementById(posicionesH[posicionSiguiente]).style.backgroundColor;
+                                    if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
+                                        salida = false;
+                                        break;
+                                    }
+                                    if (colorSiguiente == "black") {
+                                        break;
+                                    }
 
-                                if (colorSiguiente == "") {
+                                    if (colorSiguiente == "") {
 
-                                    document.getElementById(posicionesH[posicionSiguiente]).disabled = false;
-                                    document.getElementById(posicionesH[posicionSiguiente]).style.border = "black 1px solid";
-                                    break;
-                                }
-                                posicionSiguiente++;
-                                if (posicionSiguiente == 64) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                        }
-                    });
-                    posicionesHRe.forEach(function (i) {
-                        color = document.getElementById(i).style.backgroundColor;
-                        if (color == "black") {
-                            var posicionActual = posicionesHRe.indexOf(i);
-                            var posicionSiguiente = posicionActual + 1;
-                            var colorSiguiente = document.getElementById(posicionesHRe[posicionSiguiente]).style.backgroundColor;
-                            while (colorSiguiente != "" && posicionSiguiente < 64) {
-                                colorSiguiente = document.getElementById(posicionesHRe[posicionSiguiente]).style.backgroundColor;
-                                if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
-                                    salida = false;
-                                    break;
-                                }
-                                if (colorSiguiente == "black") {
-                                    break;
-                                }
+                                        document.getElementById(posicionesH[posicionSiguiente]).disabled = false;
+                                        document.getElementById(posicionesH[posicionSiguiente]).style.border = "black 1px solid";
+                                        break;
+                                    }
+                                    posicionSiguiente++;
+                                    if (posicionSiguiente == 64) {
+                                        salida = false;
+                                        break;
+                                    }
+                                };
+                            }
+                        });
+                        posicionesHRe.forEach(function (i) {
+                            color = document.getElementById(i).style.backgroundColor;
+                            if (color == "black") {
+                                var posicionActual = posicionesHRe.indexOf(i);
+                                var posicionSiguiente = posicionActual + 1;
+                                var colorSiguiente = document.getElementById(posicionesHRe[posicionSiguiente]).style.backgroundColor;
+                                while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                    colorSiguiente = document.getElementById(posicionesHRe[posicionSiguiente]).style.backgroundColor;
+                                    if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
+                                        salida = false;
+                                        break;
+                                    }
+                                    if (colorSiguiente == "black") {
+                                        break;
+                                    }
 
-                                if (colorSiguiente == "") {
-                                    document.getElementById(posicionesHRe[posicionSiguiente]).disabled = false;
-                                    document.getElementById(posicionesHRe[posicionSiguiente]).style.border = "black 1px solid";
-                                    break;
-                                }
-                                posicionSiguiente++;
-                                if (posicionSiguiente == 64) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                        }
-                    });
-                    posicionesV.forEach(function (i) {
-                        color = document.getElementById(i).style.backgroundColor;
-                        if (color == "black") {
-                            var posicionActual = posicionesV.indexOf(i);
-                            var posicionSiguiente = posicionActual + 1;
-                            var colorSiguiente = document.getElementById(posicionesV[posicionSiguiente]).style.backgroundColor;
-                            while (colorSiguiente != "" && posicionSiguiente < 64) {
-                                colorSiguiente = document.getElementById(posicionesV[posicionSiguiente]).style.backgroundColor;
-                                if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
-                                    salida = false;
-                                    break;
-                                }
-                                if (colorSiguiente == "black") {
-                                    break;
-                                }
+                                    if (colorSiguiente == "") {
+                                        document.getElementById(posicionesHRe[posicionSiguiente]).disabled = false;
+                                        document.getElementById(posicionesHRe[posicionSiguiente]).style.border = "black 1px solid";
+                                        break;
+                                    }
+                                    posicionSiguiente++;
+                                    if (posicionSiguiente == 64) {
+                                        salida = false;
+                                        break;
+                                    }
+                                };
+                            }
+                        });
+                        posicionesV.forEach(function (i) {
+                            color = document.getElementById(i).style.backgroundColor;
+                            if (color == "black") {
+                                var posicionActual = posicionesV.indexOf(i);
+                                var posicionSiguiente = posicionActual + 1;
+                                var colorSiguiente = document.getElementById(posicionesV[posicionSiguiente]).style.backgroundColor;
+                                while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                    colorSiguiente = document.getElementById(posicionesV[posicionSiguiente]).style.backgroundColor;
+                                    if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
+                                        salida = false;
+                                        break;
+                                    }
+                                    if (colorSiguiente == "black") {
+                                        break;
+                                    }
 
-                                if (colorSiguiente == "") {
-                                    document.getElementById(posicionesV[posicionSiguiente]).disabled = false;
-                                    document.getElementById(posicionesV[posicionSiguiente]).style.border = "black 1px solid";
-                                    break;
-                                }
-                                posicionSiguiente++;
-                                if (posicionSiguiente == 64) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                        }
-                    });
-                    posicionesVRe.forEach(function (i) {
-                        color = document.getElementById(i).style.backgroundColor;
-                        if (color == "black") {
-                            var posicionActual = posicionesVRe.indexOf(i);
-                            var posicionSiguiente = posicionActual + 1;
-                            var colorSiguiente = document.getElementById(posicionesVRe[posicionSiguiente]).style.backgroundColor;
-                            while (colorSiguiente != "" && posicionSiguiente < 64) {
-                                colorSiguiente = document.getElementById(posicionesVRe[posicionSiguiente]).style.backgroundColor;
-                                if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
-                                    salida = false;
-                                    break;
-                                }
-                                if (colorSiguiente == "black") {
-                                    break;
-                                }
+                                    if (colorSiguiente == "") {
+                                        document.getElementById(posicionesV[posicionSiguiente]).disabled = false;
+                                        document.getElementById(posicionesV[posicionSiguiente]).style.border = "black 1px solid";
+                                        break;
+                                    }
+                                    posicionSiguiente++;
+                                    if (posicionSiguiente == 64) {
+                                        salida = false;
+                                        break;
+                                    }
+                                };
+                            }
+                        });
+                        posicionesVRe.forEach(function (i) {
+                            color = document.getElementById(i).style.backgroundColor;
+                            if (color == "black") {
+                                var posicionActual = posicionesVRe.indexOf(i);
+                                var posicionSiguiente = posicionActual + 1;
+                                var colorSiguiente = document.getElementById(posicionesVRe[posicionSiguiente]).style.backgroundColor;
+                                while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                    colorSiguiente = document.getElementById(posicionesVRe[posicionSiguiente]).style.backgroundColor;
+                                    if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
+                                        salida = false;
+                                        break;
+                                    }
+                                    if (colorSiguiente == "black") {
+                                        break;
+                                    }
 
-                                if (colorSiguiente == "") {
+                                    if (colorSiguiente == "") {
 
-                                    document.getElementById(posicionesVRe[posicionSiguiente]).disabled = false;
-                                    document.getElementById(posicionesVRe[posicionSiguiente]).style.border = "black 1px solid";
-                                    break;
-                                }
-                                posicionSiguiente++;
-                                if (posicionSiguiente == 64) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                        }
-                    });
-                    posicionesIAb.forEach(function (i) {
-                        color = document.getElementById(i).style.backgroundColor;
-                        if (color == "black") {
-                            var posicionActual = posicionesIAb.indexOf(i);
-                            var posicionSiguiente = posicionActual + 1;
-                            var colorSiguiente = document.getElementById(posicionesIAb[posicionSiguiente]).style.backgroundColor;
-                            while (colorSiguiente != "" && posicionSiguiente < 64) {
-                                colorSiguiente = document.getElementById(posicionesIAb[posicionSiguiente]).style.backgroundColor;
-                                if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
-                                    salida = false;
-                                    break;
-                                }
-                                if (colorSiguiente == "black") {
-                                    break;
-                                }
+                                        document.getElementById(posicionesVRe[posicionSiguiente]).disabled = false;
+                                        document.getElementById(posicionesVRe[posicionSiguiente]).style.border = "black 1px solid";
+                                        break;
+                                    }
+                                    posicionSiguiente++;
+                                    if (posicionSiguiente == 64) {
+                                        salida = false;
+                                        break;
+                                    }
+                                };
+                            }
+                        });
+                        posicionesIAb.forEach(function (i) {
+                            color = document.getElementById(i).style.backgroundColor;
+                            if (color == "black") {
+                                var posicionActual = posicionesIAb.indexOf(i);
+                                var posicionSiguiente = posicionActual + 1;
+                                var colorSiguiente = document.getElementById(posicionesIAb[posicionSiguiente]).style.backgroundColor;
+                                while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                    colorSiguiente = document.getElementById(posicionesIAb[posicionSiguiente]).style.backgroundColor;
+                                    if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
+                                        salida = false;
+                                        break;
+                                    }
+                                    if (colorSiguiente == "black") {
+                                        break;
+                                    }
 
-                                if (colorSiguiente == "") {
-                                    document.getElementById(posicionesIAb[posicionSiguiente]).disabled = false;
-                                    document.getElementById(posicionesIAb[posicionSiguiente]).style.border = "black 1px solid";
-                                    break;
-                                }
-                                posicionSiguiente++;
-                                if (posicionSiguiente == 64) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                        }
-                    });
-                    posicionesIAbRe.forEach(function (i) {
-                        color = document.getElementById(i).style.backgroundColor;
-                        if (color == "black") {
-                            var posicionActual = posicionesIAbRe.indexOf(i);
-                            var posicionSiguiente = posicionActual + 1;
-                            var colorSiguiente = document.getElementById(posicionesIAbRe[posicionSiguiente]).style.backgroundColor;
-                            while (colorSiguiente != "" && posicionSiguiente < 64) {
-                                colorSiguiente = document.getElementById(posicionesIAbRe[posicionSiguiente]).style.backgroundColor;
-                                if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
-                                    salida = false;
-                                    break;
-                                }
-                                if (colorSiguiente == "black") {
-                                    break;
-                                }
+                                    if (colorSiguiente == "") {
+                                        document.getElementById(posicionesIAb[posicionSiguiente]).disabled = false;
+                                        document.getElementById(posicionesIAb[posicionSiguiente]).style.border = "black 1px solid";
+                                        break;
+                                    }
+                                    posicionSiguiente++;
+                                    if (posicionSiguiente == 64) {
+                                        salida = false;
+                                        break;
+                                    }
+                                };
+                            }
+                        });
+                        posicionesIAbRe.forEach(function (i) {
+                            color = document.getElementById(i).style.backgroundColor;
+                            if (color == "black") {
+                                var posicionActual = posicionesIAbRe.indexOf(i);
+                                var posicionSiguiente = posicionActual + 1;
+                                var colorSiguiente = document.getElementById(posicionesIAbRe[posicionSiguiente]).style.backgroundColor;
+                                while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                    colorSiguiente = document.getElementById(posicionesIAbRe[posicionSiguiente]).style.backgroundColor;
+                                    if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
+                                        salida = false;
+                                        break;
+                                    }
+                                    if (colorSiguiente == "black") {
+                                        break;
+                                    }
 
-                                if (colorSiguiente == "") {
-                                    document.getElementById(posicionesIAbRe[posicionSiguiente]).disabled = false;
-                                    document.getElementById(posicionesIAbRe[posicionSiguiente]).style.border = "black 1px solid";
-                                    break;
-                                }
-                                posicionSiguiente++;
-                                if (posicionSiguiente == 64) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                        }
-                    });
-                    posicionesD1.forEach(function (i) {
-                        color = document.getElementById(i).style.backgroundColor;
-                        if (color == "black") {
-                            var posicionActual = posicionesD1.indexOf(i);
-                            var posicionSiguiente = posicionActual + 1;
-                            var colorSiguiente = document.getElementById(posicionesD1[posicionSiguiente]).style.backgroundColor;
-                            while (colorSiguiente != "" && posicionSiguiente < 64) {
-                                colorSiguiente = document.getElementById(posicionesD1[posicionSiguiente]).style.backgroundColor;
-                                if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
-                                    salida = false;
-                                    break;
-                                }
-                                if (colorSiguiente == "black") {
-                                    break;
-                                }
+                                    if (colorSiguiente == "") {
+                                        document.getElementById(posicionesIAbRe[posicionSiguiente]).disabled = false;
+                                        document.getElementById(posicionesIAbRe[posicionSiguiente]).style.border = "black 1px solid";
+                                        break;
+                                    }
+                                    posicionSiguiente++;
+                                    if (posicionSiguiente == 64) {
+                                        salida = false;
+                                        break;
+                                    }
+                                };
+                            }
+                        });
+                        posicionesD1.forEach(function (i) {
+                            color = document.getElementById(i).style.backgroundColor;
+                            if (color == "black") {
+                                var posicionActual = posicionesD1.indexOf(i);
+                                var posicionSiguiente = posicionActual + 1;
+                                var colorSiguiente = document.getElementById(posicionesD1[posicionSiguiente]).style.backgroundColor;
+                                while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                    colorSiguiente = document.getElementById(posicionesD1[posicionSiguiente]).style.backgroundColor;
+                                    if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
+                                        salida = false;
+                                        break;
+                                    }
+                                    if (colorSiguiente == "black") {
+                                        break;
+                                    }
 
-                                if (colorSiguiente == "") {
-                                    document.getElementById(posicionesD1[posicionSiguiente]).disabled = false;
-                                    document.getElementById(posicionesD1[posicionSiguiente]).style.border = "black 1px solid";
-                                    break;
-                                }
-                                posicionSiguiente++;
-                                if (posicionSiguiente == 64) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                        }
-                    });
-                    posicionesD2.forEach(function (i) {
-                        color = document.getElementById(i).style.backgroundColor;
-                        if (color == "black") {
-                            var posicionActual = posicionesD2.indexOf(i);
-                            var posicionSiguiente = posicionActual + 1;
-                            var colorSiguiente = document.getElementById(posicionesD2[posicionSiguiente]).style.backgroundColor;
-                            while (colorSiguiente != "" && posicionSiguiente < 64) {
-                                colorSiguiente = document.getElementById(posicionesD2[posicionSiguiente]).style.backgroundColor;
-                                if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
-                                    salida = false;
-                                    break;
-                                }
-                                if (colorSiguiente == "black") {
-                                    break;
-                                }
+                                    if (colorSiguiente == "") {
+                                        document.getElementById(posicionesD1[posicionSiguiente]).disabled = false;
+                                        document.getElementById(posicionesD1[posicionSiguiente]).style.border = "black 1px solid";
+                                        break;
+                                    }
+                                    posicionSiguiente++;
+                                    if (posicionSiguiente == 64) {
+                                        salida = false;
+                                        break;
+                                    }
+                                };
+                            }
+                        });
+                        posicionesD2.forEach(function (i) {
+                            color = document.getElementById(i).style.backgroundColor;
+                            if (color == "black") {
+                                var posicionActual = posicionesD2.indexOf(i);
+                                var posicionSiguiente = posicionActual + 1;
+                                var colorSiguiente = document.getElementById(posicionesD2[posicionSiguiente]).style.backgroundColor;
+                                while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                    colorSiguiente = document.getElementById(posicionesD2[posicionSiguiente]).style.backgroundColor;
+                                    if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
+                                        salida = false;
+                                        break;
+                                    }
+                                    if (colorSiguiente == "black") {
+                                        break;
+                                    }
 
-                                if (colorSiguiente == "") {
-                                    document.getElementById(posicionesD2[posicionSiguiente]).disabled = false;
-                                    document.getElementById(posicionesD2[posicionSiguiente]).style.border = "black 1px solid";
-                                    break;
-                                }
-                                posicionSiguiente++;
-                                if (posicionSiguiente == 64) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                        }
-                    });
-                }
-            }
-
-            function final(noBlancas, noNegras) {
-                var posiciones = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
-                var termino = true;
-                posiciones.forEach(function (e) {
-                    if (document.getElementById(e).disabled == false) {
-                        termino = false;
+                                    if (colorSiguiente == "") {
+                                        document.getElementById(posicionesD2[posicionSiguiente]).disabled = false;
+                                        document.getElementById(posicionesD2[posicionSiguiente]).style.border = "black 1px solid";
+                                        break;
+                                    }
+                                    posicionSiguiente++;
+                                    if (posicionSiguiente == 64) {
+                                        salida = false;
+                                        break;
+                                    }
+                                };
+                            }
+                        });
                     }
-                });
-                if (termino == true) {
-                    alert("TENEMOS A UN GANADOR");
                 }
-            }
+            };
+
+            function final() {
+                var punteoFinal = noBlancas + noNegras;
+                if (punteoFinal == 64) {
+                    if (noBlancas == noNegras) {
+                        alert("¡EMPATE! :O");
+                    }
+                    if (noBlancas > noNegras) {
+                        alert("El ganador es: \""+blanco+"\"");
+                    }
+                    else {
+                        alert("El ganador es: \"" + negro+"\"");
+                    }
+                }
+            };
 
             function horizontal(id) {
                 var posicionesH = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
@@ -2412,7 +2453,7 @@
                 });
             }
 
-            function punteo() {
+            function punteo(id) {
                 var posicionesConteo = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
                 var fichasNegras = [];
                 var fichasBlancas = [];
@@ -2432,7 +2473,6 @@
                 noNegras = fichasNegras.length;
                 document.getElementById("Pblancas").value = noBlancas;
                 document.getElementById("Pnegras").value = noNegras;
-                final(noBlancas, noNegras);
             };
         </script>
         <script>
@@ -3188,7 +3228,6 @@
                         document.getElementById("mov2").value = movimiento2;
                     }
                     document.getElementById("toca").value = blanco;
-
                 }
                 contador++;
             }
