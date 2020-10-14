@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApplication1.Usuario>
+﻿@model IEnumerable<WebApplication1.Entity.Usuario>
 <!DOCTYPE html>
 <html>
 <head>
@@ -122,8 +122,8 @@
 
         @section scripts {
              <script type="text/javascript">
-                    $("#passMalo").hide();
-                  $("#passMalo").text("");
+              $("#passMalo").hide();
+             $("#passMalo").text("");
              $('#boton').click(function (e) {
                  $.ajax(
                      {
