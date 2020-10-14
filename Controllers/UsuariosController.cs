@@ -6,14 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using WebApplication1;
+using WebApplication1.Entity;
 
 namespace WebApplication1.Controllers
 {
     public class UsuariosController : Controller
     {
-        private BD_Entity db = new BD_Entity();
-
+        private BD_IPC2Entities db = new BD_IPC2Entities();
         // GET: Usuarios
         public ActionResult Index()
         {
@@ -27,7 +26,7 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuario.Find(id);
+            Entity.Usuario usuario = db.Usuario.Find(id);
             if (usuario == null)
             {
                 return HttpNotFound();
@@ -46,7 +45,7 @@ namespace WebApplication1.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Usuarioid,Nombre,Apellidos,Usuario1,Contraseña,FechaNacimiento,Correo,Pais,EstadoId,FechaUltMod")] Usuario usuario)
+        public ActionResult Create([Bind(Include = "Usuarioid,Nombre,Apellidos,Usuario1,Contraseña,FechaNacimiento,Correo,Pais,EstadoId,FechaUltMod")] Entity.Usuario usuario)
         {
             string validador = ValidarUsuarioRepetido(usuario.Usuario1);
 
@@ -86,7 +85,7 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuario.Find(id);
+            Entity.Usuario usuario = db.Usuario.Find(id);
             if (usuario == null)
             {
                 return HttpNotFound();
@@ -99,7 +98,7 @@ namespace WebApplication1.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Usuarioid,Nombre,Apellidos,Usuario1,Contraseña,FechaNacimiento,Correo,Pais,EstadoId,FechaUltMod")] Usuario usuario)
+        public ActionResult Edit([Bind(Include = "Usuarioid,Nombre,Apellidos,Usuario1,Contraseña,FechaNacimiento,Correo,Pais,EstadoId,FechaUltMod")] Entity.Usuario usuario)
         {
             if (ModelState.IsValid)
             {
@@ -117,7 +116,7 @@ namespace WebApplication1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuario.Find(id);
+            Entity.Usuario usuario = db.Usuario.Find(id);
             if (usuario == null)
             {
                 return HttpNotFound();
@@ -130,7 +129,7 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Usuario usuario = db.Usuario.Find(id);
+            WebApplication1.Entity.Usuario usuario = db.Usuario.Find(id);
             db.Usuario.Remove(usuario);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -149,7 +148,7 @@ namespace WebApplication1.Controllers
 
         public string ValidarUsuario(string pusuario, string pcontrasena)
         {
-            Usuario usuario = db.Usuario.Where(s => s.Usuario1 == pusuario && s.Contraseña == pcontrasena).FirstOrDefault();
+            Entity.Usuario usuario = db.Usuario.Where(s => s.Usuario1 == pusuario && s.Contraseña == pcontrasena).FirstOrDefault();
 
             if (usuario != null)
             {   
@@ -172,7 +171,7 @@ namespace WebApplication1.Controllers
 
         public string EditarEstado(string pusuario, int pestado)
         {
-            Usuario usuario = db.Usuario.Where(s => s.Usuario1 == pusuario).FirstOrDefault();
+            Entity.Usuario usuario = db.Usuario.Where(s => s.Usuario1 == pusuario).FirstOrDefault();
             if (usuario == null)
             {
                 return "0";
@@ -189,7 +188,7 @@ namespace WebApplication1.Controllers
 
         public string ValidarUsuarioRepetido(string pusuario)
         {
-            Usuario usuario = db.Usuario.Where(s => s.Usuario1 == pusuario && s.EstadoId==1).FirstOrDefault();
+            Entity.Usuario usuario = db.Usuario.Where(s => s.Usuario1 == pusuario && s.EstadoId==1).FirstOrDefault();
 
             if (usuario == null)
             {
