@@ -202,33 +202,33 @@ namespace WebApplication1.Controllers
 
         private XmlNode crearFicha(string colorR, string filaR, string columnaR, string j1, string j2)
         {
-            doc.Load("C:\\Users\\Daniel Chicas\\Desktop\\" + j1 + " vs " + j2 + ".xml");
-            XmlNode ficha = doc.CreateElement("ficha");
+            doc.Load("C:\\Users\\Daniel Chicas\\Desktop\\" + j1 + " vs Maquina.xml");
+            XmlNode fichaAg = doc.CreateElement("ficha");
 
             XmlElement color = doc.CreateElement("color");
             color.InnerText = colorR;
-            ficha.AppendChild(color);
+            fichaAg.AppendChild(color);
 
             XmlElement columna = doc.CreateElement("columna");
             columna.InnerText = columnaR;
-            ficha.AppendChild(columna);
+            fichaAg.AppendChild(columna);
 
             XmlElement fila = doc.CreateElement("fila");
             fila.InnerText = filaR;
-            ficha.AppendChild(fila);
+            fichaAg.AppendChild(fila);
 
-            return ficha;
+            return fichaAg;
         }
         private XmlNode turnoficha(string colorR, string j1, string j2)
         {
-            try {
-                doc.Load("C:\\Users\\Daniel Chicas\\Desktop\\"+j1+" vs "+j2+".xml");
-                XmlNode ficha = doc.CreateElement("siguienteTiro");
-
+            try
+            {
+                doc.Load("C:\\Users\\Daniel Chicas\\Desktop\\" + j1 + " vs Maquina.xml");
+                XmlNode turno = doc.CreateElement("siguienteTiro");
                 XmlElement color = doc.CreateElement("color");
                 color.InnerText = colorR;
-                ficha.AppendChild(color);
-                return ficha;
+                turno.AppendChild(color);
+                return turno;
             }
             catch (Exception ex)
             {
