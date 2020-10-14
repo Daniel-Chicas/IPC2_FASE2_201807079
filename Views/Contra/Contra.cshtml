@@ -1165,6 +1165,8 @@
         <script>
             //////////////////////////////
             //////////////////////////////
+            var jugandoBlancas = "";
+            var jugandoNegras = "";
             var posiciones = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
             document.getElementById("D4").style.backgroundColor = "white";
             document.getElementById("E4").style.backgroundColor = "black";
@@ -1181,8 +1183,7 @@
                          success:
                              function (response) {
                                  var cadena = response;
-                                 document.getElementById("j1").value = "prueba1"; //cambiar a cadena
-                                 document.getElementById("j2").value = "prueba2"; //quitar
+                                 document.getElementById("j1").value = cadena;
                              },
                          error:
                              function (response) {
@@ -1381,7 +1382,7 @@
                 if (document.getElementById("Mostrar").style.display == "none") {
                     var posiciones = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
                     posiciones.forEach(function (i) {
-                        document.getElementById(i).disabled = false;
+                        document.getElementById(i).disabled = true;
                     });
                     jug1 = document.getElementById("j1").value;
                     jug2 = document.getElementById("j2").value;
@@ -1423,7 +1424,7 @@
                 else {
                     var posiciones = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
                     posiciones.forEach(function (i) {
-                        document.getElementById(i).disabled = false; //
+                        document.getElementById(i).disabled = true; //
                     });
                     jug1 = document.getElementById("j1").value;
                     jug2 = document.getElementById("j2").value;
@@ -1490,9 +1491,11 @@
                 }
 
             };
-
             function movimientos(x, y) {
                 var id = (x + y);
+                var fichasDisponibles = [];
+                var fichasDNegro = [];
+                var fichasDBlanco = [];
                 posicionesGuardar(id);
                 horizontal(x+y);
                 horizontal2(x+y);
@@ -1503,7 +1506,6 @@
                 diagonalI1(x+y);
                 diagonalI2(x+y);
                 punteo(x + y);
-                final();
                 var posicionesH = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "A2", "B2", "C2", "D2", "E2", "F2", "G2", "H2", "A3", "B3", "C3", "D3", "E3", "F3", "G3", "H3", "A4", "B4", "C4", "D4", "E4", "F4", "G4", "H4", "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "A6", "B6", "C6", "D6", "E6", "F6", "G6", "H6", "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7", "A8", "B8", "C8", "D8", "E8", "F8", "G8", "H8"];
                 var posicionesHRe = ["H1", "G1", "F1", "E1", "D1", "C1", "B1", "A1", "H2", "G2", "F2", "E2", "D2", "C2", "B2", "A2", "H3", "G3", "F3", "E3", "D3", "C3", "B3", "A3", "H4", "G4", "F4", "E4", "D4", "C4", "B4", "A4", "H5", "G5", "F5", "E5", "D5", "C5", "B5", "A5", "H6", "G6", "F6", "E6", "D6", "C6", "B6", "A6", "H7", "G7", "F7", "E7", "D7", "C7", "B7", "A7", "H8", "G8", "F8", "E8", "D8", "C8", "B8", "A8"];
                 var posicionesV = ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8"];
@@ -1518,12 +1520,18 @@
                 });
                 var colorFicha1 = document.getElementById(id).style.backgroundColor;
                 if (colorFicha1 == "black") {
+                    fichasDBlanco = [];
                     posicionesH.forEach(function (i) {
                         color = document.getElementById(i).style.backgroundColor;
                         if (color == "white") {
                             var posicionActual = posicionesH.indexOf(i);
                             var posicionSiguiente = posicionActual + 1;
+                            try {
                             var colorSiguiente = document.getElementById(posicionesH[posicionSiguiente]).style.backgroundColor;
+                            }
+                            catch (error) {
+                            conteoError = 0;
+                            }
                             while (colorSiguiente != "" && posicionSiguiente < 64) {
                                 colorSiguiente = document.getElementById(posicionesH[posicionSiguiente]).style.backgroundColor;
                                 if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
@@ -1535,6 +1543,8 @@
                                 }
 
                                 if (colorSiguiente == "") {
+                                    fichaMarcar = posicionesH[posicionSiguiente];
+                                    fichasDBlanco.push(fichaMarcar);
                                     document.getElementById(posicionesH[posicionSiguiente]).style.border = "white 1px solid";
                                     document.getElementById(posicionesH[posicionSiguiente]).disabled = false;
                                     break;
@@ -1552,7 +1562,12 @@
                         if (color == "white") {
                             var posicionActual = posicionesHRe.indexOf(i);
                             var posicionSiguiente = posicionActual + 1;
+                            try {
                             var colorSiguiente = document.getElementById(posicionesHRe[posicionSiguiente]).style.backgroundColor;
+                            }
+                            catch (error) {
+                                conteoError = 0;
+                            }
                             while (colorSiguiente != "" && posicionSiguiente < 64) {
                                 colorSiguiente = document.getElementById(posicionesHRe[posicionSiguiente]).style.backgroundColor;
                                 if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
@@ -1564,6 +1579,8 @@
                                 }
 
                                 if (colorSiguiente == "") {
+                                    fichaMarcar = posicionesHRe[posicionSiguiente];
+                                    fichasDBlanco.push(fichaMarcar);
                                     document.getElementById(posicionesHRe[posicionSiguiente]).disabled = false;
                                     document.getElementById(posicionesHRe[posicionSiguiente]).style.border = "white 1px solid";
                                     break;
@@ -1581,7 +1598,12 @@
                         if (color == "white") {
                             var posicionActual = posicionesV.indexOf(i);
                             var posicionSiguiente = posicionActual + 1;
+                            try {
                             var colorSiguiente = document.getElementById(posicionesV[posicionSiguiente]).style.backgroundColor;
+                            }
+                            catch (error) {
+                                conteoError = 0;
+                            }
                             while (colorSiguiente != "" && posicionSiguiente < 64) {
                                 colorSiguiente = document.getElementById(posicionesV[posicionSiguiente]).style.backgroundColor;
                                 if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
@@ -1592,6 +1614,8 @@
                                     break;
                                 }
                                 if (colorSiguiente == "") {
+                                    fichaMarcar = posicionesV[posicionSiguiente];
+                                    fichasDBlanco.push(fichaMarcar);
                                     document.getElementById(posicionesV[posicionSiguiente]).disabled = false;
                                     document.getElementById(posicionesV[posicionSiguiente]).style.border = "white 1px solid";
                                     break;
@@ -1609,7 +1633,12 @@
                         if (color == "white") {
                             var posicionActual = posicionesVRe.indexOf(i);
                             var posicionSiguiente = posicionActual + 1;
+                            try {
                             var colorSiguiente = document.getElementById(posicionesVRe[posicionSiguiente]).style.backgroundColor;
+                            }
+                            catch (error) {
+                                conteoError = 0;
+                            }
                             while (colorSiguiente != "" && posicionSiguiente < 64) {
                                 colorSiguiente = document.getElementById(posicionesVRe[posicionSiguiente]).style.backgroundColor;
                                 if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
@@ -1621,6 +1650,8 @@
                                 }
 
                                 if (colorSiguiente == "") {
+                                    fichaMarcar = posicionesVRe[posicionSiguiente];
+                                    fichasDBlanco.push(fichaMarcar);
                                     document.getElementById(posicionesVRe[posicionSiguiente]).disabled = false;
                                     document.getElementById(posicionesVRe[posicionSiguiente]).style.border = "white 1px solid";
                                     break;
@@ -1638,7 +1669,12 @@
                         if (color == "white") {
                             var posicionActual = posicionesIAb.indexOf(i);
                             var posicionSiguiente = posicionActual + 1;
+                            try {
                             var colorSiguiente = document.getElementById(posicionesIAb[posicionSiguiente]).style.backgroundColor;
+                            }
+                            catch (error) {
+                                conteoError = 0;
+                            }
                             while (colorSiguiente != "" && posicionSiguiente < 64) {
                                 colorSiguiente = document.getElementById(posicionesIAb[posicionSiguiente]).style.backgroundColor;
                                 if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
@@ -1650,6 +1686,8 @@
                                 }
 
                                 if (colorSiguiente == "") {
+                                    fichaMarcar = posicionesIAb[posicionSiguiente];
+                                    fichasDBlanco.push(fichaMarcar);
                                     document.getElementById(posicionesIAb[posicionSiguiente]).disabled = false;
                                     document.getElementById(posicionesIAb[posicionSiguiente]).style.border = "white 1px solid";
                                     break;
@@ -1667,8 +1705,13 @@
                         if (color == "white") {
                             var posicionActual = posicionesIAbRe.indexOf(i);
                             var posicionSiguiente = posicionActual + 1;
+                            try {
                             var colorSiguiente = document.getElementById(posicionesIAbRe[posicionSiguiente]).style.backgroundColor;
-                            while (colorSiguiente != "" && posicionSiguiente < 64) {
+                            }
+                            catch (error) {
+                                conteoError = 0;
+                            }
+                                while (colorSiguiente != "" && posicionSiguiente < 64) {
                                 colorSiguiente = document.getElementById(posicionesIAbRe[posicionSiguiente]).style.backgroundColor;
                                 if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
                                     salida = false;
@@ -1679,6 +1722,8 @@
                                 }
 
                                 if (colorSiguiente == "") {
+                                    fichaMarcar = posicionesIAbRe[posicionSiguiente];
+                                    fichasDBlanco.push(fichaMarcar);
                                     document.getElementById(posicionesIAbRe[posicionSiguiente]).disabled = false;
                                     document.getElementById(posicionesIAbRe[posicionSiguiente]).style.border = "white 1px solid";
                                     break;
@@ -1696,7 +1741,12 @@
                         if (color == "white") {
                             var posicionActual = posicionesD1.indexOf(i);
                             var posicionSiguiente = posicionActual + 1;
+                            try {
                             var colorSiguiente = document.getElementById(posicionesD1[posicionSiguiente]).style.backgroundColor;
+                            }
+                            catch (error) {
+                                conteoError = 0;
+                            }
                             while (colorSiguiente != "" && posicionSiguiente < 64) {
                                 colorSiguiente = document.getElementById(posicionesD1[posicionSiguiente]).style.backgroundColor;
                                 if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
@@ -1708,6 +1758,8 @@
                                 }
 
                                 if (colorSiguiente == "") {
+                                    fichaMarcar = posicionesD1[posicionSiguiente];
+                                    fichasDBlanco.push(fichaMarcar);
                                     document.getElementById(posicionesD1[posicionSiguiente]).disabled = false;
                                     document.getElementById(posicionesD1[posicionSiguiente]).style.border = "white 1px solid";
                                     break;
@@ -1725,7 +1777,12 @@
                         if (color == "white") {
                             var posicionActual = posicionesD2.indexOf(i);
                             var posicionSiguiente = posicionActual + 1;
+                            try {
                             var colorSiguiente = document.getElementById(posicionesD2[posicionSiguiente]).style.backgroundColor;
+                            }
+                            catch (error) {
+                                conteoError = 0;
+                            }
                             while (colorSiguiente != "" && posicionSiguiente < 64) {
                                 colorSiguiente = document.getElementById(posicionesD2[posicionSiguiente]).style.backgroundColor;
                                 if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
@@ -1737,6 +1794,8 @@
                                 }
 
                                 if (colorSiguiente == "") {
+                                    fichaMarcar = posicionesD2[posicionSiguiente];
+                                    fichasDBlanco.push(fichaMarcar);
                                     document.getElementById(posicionesD2[posicionSiguiente]).disabled = false;
                                     document.getElementById(posicionesD2[posicionSiguiente]).style.border = "white 1px solid";
                                     break;
@@ -1749,15 +1808,22 @@
                             };
                         }
                     });
+                    //alert(fichasDBlanco.length);
                 }
                 else {
+                    fichasDNegro = [];
                     if (colorFicha1 == "white") {
                         posicionesH.forEach(function (i) {
                             color = document.getElementById(i).style.backgroundColor;
                             if (color == "black") {
                                 var posicionActual = posicionesH.indexOf(i);
                                 var posicionSiguiente = posicionActual + 1;
+                                try {
                                 var colorSiguiente = document.getElementById(posicionesH[posicionSiguiente]).style.backgroundColor;
+                                }
+                                catch (error) {
+                                    conteoError = 0;
+                                }
                                 while (colorSiguiente != "" && posicionSiguiente < 64) {
                                     colorSiguiente = document.getElementById(posicionesH[posicionSiguiente]).style.backgroundColor;
                                     if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
@@ -1769,7 +1835,8 @@
                                     }
 
                                     if (colorSiguiente == "") {
-
+                                        fichaMarcar = posicionesH[posicionSiguiente];
+                                        fichasDNegro.push(fichaMarcar);
                                         document.getElementById(posicionesH[posicionSiguiente]).disabled = false;
                                         document.getElementById(posicionesH[posicionSiguiente]).style.border = "black 1px solid";
                                         break;
@@ -1787,7 +1854,12 @@
                             if (color == "black") {
                                 var posicionActual = posicionesHRe.indexOf(i);
                                 var posicionSiguiente = posicionActual + 1;
+                                try {
                                 var colorSiguiente = document.getElementById(posicionesHRe[posicionSiguiente]).style.backgroundColor;
+                                }
+                                catch (error) {
+                                    conteoError = 0;
+                                }
                                 while (colorSiguiente != "" && posicionSiguiente < 64) {
                                     colorSiguiente = document.getElementById(posicionesHRe[posicionSiguiente]).style.backgroundColor;
                                     if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
@@ -1799,6 +1871,8 @@
                                     }
 
                                     if (colorSiguiente == "") {
+                                        fichaMarcar = posicionesHRe[posicionSiguiente];
+                                        fichasDNegro.push(fichaMarcar);
                                         document.getElementById(posicionesHRe[posicionSiguiente]).disabled = false;
                                         document.getElementById(posicionesHRe[posicionSiguiente]).style.border = "black 1px solid";
                                         break;
@@ -1816,7 +1890,12 @@
                             if (color == "black") {
                                 var posicionActual = posicionesV.indexOf(i);
                                 var posicionSiguiente = posicionActual + 1;
+                                try {
                                 var colorSiguiente = document.getElementById(posicionesV[posicionSiguiente]).style.backgroundColor;
+                                }
+                                catch (error) {
+                                    conteoError = 0;
+                                }
                                 while (colorSiguiente != "" && posicionSiguiente < 64) {
                                     colorSiguiente = document.getElementById(posicionesV[posicionSiguiente]).style.backgroundColor;
                                     if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
@@ -1828,6 +1907,8 @@
                                     }
 
                                     if (colorSiguiente == "") {
+                                        fichaMarcar = posicionesV[posicionSiguiente];
+                                        fichasDNegro.push(fichaMarcar);
                                         document.getElementById(posicionesV[posicionSiguiente]).disabled = false;
                                         document.getElementById(posicionesV[posicionSiguiente]).style.border = "black 1px solid";
                                         break;
@@ -1845,7 +1926,12 @@
                             if (color == "black") {
                                 var posicionActual = posicionesVRe.indexOf(i);
                                 var posicionSiguiente = posicionActual + 1;
+                                try {
                                 var colorSiguiente = document.getElementById(posicionesVRe[posicionSiguiente]).style.backgroundColor;
+                                }
+                                catch (error) {
+                                    conteoError = 0;
+                                }
                                 while (colorSiguiente != "" && posicionSiguiente < 64) {
                                     colorSiguiente = document.getElementById(posicionesVRe[posicionSiguiente]).style.backgroundColor;
                                     if (posicionSiguiente == 8 || posicionSiguiente == 16 || posicionSiguiente == 24 || posicionSiguiente == 32 || posicionSiguiente == 40 || posicionSiguiente == 48 || posicionSiguiente == 56 || posicionSiguiente == 64) {
@@ -1857,7 +1943,8 @@
                                     }
 
                                     if (colorSiguiente == "") {
-
+                                        fichaMarcar = posicionesVRe[posicionSiguiente];
+                                        fichasDNegro.push(fichaMarcar);
                                         document.getElementById(posicionesVRe[posicionSiguiente]).disabled = false;
                                         document.getElementById(posicionesVRe[posicionSiguiente]).style.border = "black 1px solid";
                                         break;
@@ -1875,7 +1962,12 @@
                             if (color == "black") {
                                 var posicionActual = posicionesIAb.indexOf(i);
                                 var posicionSiguiente = posicionActual + 1;
+                                try {
                                 var colorSiguiente = document.getElementById(posicionesIAb[posicionSiguiente]).style.backgroundColor;
+                                }
+                                catch (error) {
+                                    conteoError = 0;
+                                }
                                 while (colorSiguiente != "" && posicionSiguiente < 64) {
                                     colorSiguiente = document.getElementById(posicionesIAb[posicionSiguiente]).style.backgroundColor;
                                     if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
@@ -1887,6 +1979,8 @@
                                     }
 
                                     if (colorSiguiente == "") {
+                                        fichaMarcar = posicionesIAb[posicionSiguiente];
+                                        fichasDNegro.push(fichaMarcar);
                                         document.getElementById(posicionesIAb[posicionSiguiente]).disabled = false;
                                         document.getElementById(posicionesIAb[posicionSiguiente]).style.border = "black 1px solid";
                                         break;
@@ -1904,7 +1998,12 @@
                             if (color == "black") {
                                 var posicionActual = posicionesIAbRe.indexOf(i);
                                 var posicionSiguiente = posicionActual + 1;
+                                try {
                                 var colorSiguiente = document.getElementById(posicionesIAbRe[posicionSiguiente]).style.backgroundColor;
+                                }
+                                catch (error) {
+                                    conteoError = 0;
+                                }
                                 while (colorSiguiente != "" && posicionSiguiente < 64) {
                                     colorSiguiente = document.getElementById(posicionesIAbRe[posicionSiguiente]).style.backgroundColor;
                                     if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
@@ -1916,6 +2015,8 @@
                                     }
 
                                     if (colorSiguiente == "") {
+                                        fichaMarcar = posicionesIAbRe[posicionSiguiente];
+                                        fichasDNegro.push(fichaMarcar);
                                         document.getElementById(posicionesIAbRe[posicionSiguiente]).disabled = false;
                                         document.getElementById(posicionesIAbRe[posicionSiguiente]).style.border = "black 1px solid";
                                         break;
@@ -1933,8 +2034,13 @@
                             if (color == "black") {
                                 var posicionActual = posicionesD1.indexOf(i);
                                 var posicionSiguiente = posicionActual + 1;
+                                try {
                                 var colorSiguiente = document.getElementById(posicionesD1[posicionSiguiente]).style.backgroundColor;
-                                while (colorSiguiente != "" && posicionSiguiente < 64) {
+                                }
+                                catch (error) {
+                                    conteoError = 0;
+                                }
+                                    while (colorSiguiente != "" && posicionSiguiente < 64) {
                                     colorSiguiente = document.getElementById(posicionesD1[posicionSiguiente]).style.backgroundColor;
                                     if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
                                         salida = false;
@@ -1945,6 +2051,8 @@
                                     }
 
                                     if (colorSiguiente == "") {
+                                        fichaMarcar = posicionesD1[posicionSiguiente];
+                                        fichasDNegro.push(fichaMarcar);
                                         document.getElementById(posicionesD1[posicionSiguiente]).disabled = false;
                                         document.getElementById(posicionesD1[posicionSiguiente]).style.border = "black 1px solid";
                                         break;
@@ -1962,7 +2070,12 @@
                             if (color == "black") {
                                 var posicionActual = posicionesD2.indexOf(i);
                                 var posicionSiguiente = posicionActual + 1;
+                                try {
                                 var colorSiguiente = document.getElementById(posicionesD2[posicionSiguiente]).style.backgroundColor;
+                                }
+                                catch (error) {
+                                    conteoError = 0;
+                                }
                                 while (colorSiguiente != "" && posicionSiguiente < 64) {
                                     colorSiguiente = document.getElementById(posicionesD2[posicionSiguiente]).style.backgroundColor;
                                     if (posicionSiguiente == 1 || posicionSiguiente == 3 || posicionSiguiente == 6 || posicionSiguiente == 10 || posicionSiguiente == 15 || posicionSiguiente == 21 || posicionSiguiente == 28 || posicionSiguiente == 36 || posicionSiguiente == 43 || posicionSiguiente == 49 || posicionSiguiente == 54 || posicionSiguiente == 58 || posicionSiguiente == 61 || posicionSiguiente == 64) {
@@ -1974,6 +2087,8 @@
                                     }
 
                                     if (colorSiguiente == "") {
+                                        fichaMarcar = posicionesD2[posicionSiguiente];
+                                        fichasDNegro.push(fichaMarcar);
                                         document.getElementById(posicionesD2[posicionSiguiente]).disabled = false;
                                         document.getElementById(posicionesD2[posicionSiguiente]).style.border = "black 1px solid";
                                         break;
@@ -1988,21 +2103,114 @@
                         });
                     }
                 }
-            };
-
-            function final() {
+                var nombre1 = document.getElementById("j1").value;
+                var nombre2 = document.getElementById("j2").value;
+                var colorFichaPuesta = document.getElementById(x + y).style.backgroundColor;
+                var usuarioActual = document.getElementById("toca").value;
+                var noBlanquitas = document.getElementById("Pblancas").value;
+                var noNegritas = document.getElementById("Pnegras").value;
+                var noBlancas = parseInt(noBlanquitas);
+                var noNegras = parseInt(noNegritas);
                 var punteoFinal = noBlancas + noNegras;
                 if (punteoFinal == 64) {
-                    if (noBlancas == noNegras) {
-                        alert("¡EMPATE! :O");
-                    }
-                    if (noBlancas > noNegras) {
-                        alert("El ganador es: \""+blanco+"\"");
+                    if (colorFichaPuesta == "black") {
+                        if (usuarioActual == nombre1) {
+                            final(nombre1, "blanco");
+                        }
+                        else {
+                            final(nombre1, "negro");
+                        }
                     }
                     else {
-                        alert("El ganador es: \"" + negro+"\"");
+                        if (usuarioActual == nombre1) {
+                            final(nombre1, "negro");
+                        }
+                        else {
+                            final(nombre1, "blanco");
+                        }
                     }
                 }
+                if (fichasDNegro.length == 0 && fichasDBlanco == 0 && punteoFinal < 64) {
+                    if (colorFichaPuesta == "black") {
+                        if (usuarioActual == nombre1) {
+                            final(nombre1, "blanco");
+                        }
+                        else {
+                            final(nombre1, "negro");
+                        }
+                    }
+                    else {
+                        if (usuarioActual == nombre1) {
+                            final(nombre1, "negro");
+                        }
+                        else {
+                            final(nombre1, "blanco");
+                        }
+                    }
+                }
+            };
+
+            function final(usuario, color) {
+                var noBlanquitas = document.getElementById("Pblancas").value;
+                var noNegritas = document.getElementById("Pnegras").value;
+                var noBlancas = parseInt(noBlanquitas);
+                var noNegras = parseInt(noNegritas);
+                var punteoFinal = noBlancas + noNegras;
+                var movimientosNegro = document.getElementById("mov1").value;
+                    if (noBlancas == noNegras) {
+                        alert("¡EMPATE! :O");
+                        var movimientosNegro = document.getElementById("mov1").value;
+                        if (color == "negro") {
+                            var punteo = document.getElementById("Pnegras").value;
+                        }
+                        else {
+                            var punteo = document.getElementById("Pblancas").value;
+                        }
+                        var estado = "Empate";
+                    }
+                    if (noBlancas > noNegras) {
+                        alert("El ganador es: \"" + blanco + "\" :D 1");
+                        var movimientosNegro = document.getElementById("mov1").value;
+                        if (color == "negro") {
+                            var punteo = document.getElementById("Pnegras").value;
+                            var estado = "Perdió";
+                        }
+                        else {
+                            var punteo = document.getElementById("Pblancas").value;
+                            var estado = "Ganó";
+                        }
+                    }
+                    else {
+                        alert("El ganador es: \"" + negro + "\" :D 2");
+                        var movimientosNegro = document.getElementById("mov1").value;
+                        if (color == "negro") {
+                            var punteo = document.getElementById("Pnegras").value;
+                            var estado = "Ganó";
+                            
+                        }
+                        else {
+                            var punteo = document.getElementById("Pblancas").value;
+                            var estado = "Perdío";
+                        }
+                }
+                    $.ajax(
+                         {
+                             type: 'POST',
+                             dataType: 'text',
+                            url: '@Url.Action("AnadirPuntaje", "Partidas")',
+                            data: { Usuario: usuario, Puntaje: punteo, Color1: color, Movimientos: movimientosNegro, EstadoPartida: estado, TipoPartida: "Jugador VS Jugador" },
+                             success:
+                                 function (response) {
+                                     var cadena = response;
+                                     alert(cadena);
+                                 },
+                             error:
+                                 function (response) {
+                                     alert("ERROR: " + response);
+                                 }
+                         });
+
+
             };
 
             function horizontal(id) {
@@ -2016,11 +2224,11 @@
                         var salida = true;
                         if (i == id) {
                             colorFicha = document.getElementById(i).style.backgroundColor;
-                            
+
                             siguienteFicha = conteoPosicion + 1;
-                           
+
                             if (siguienteFicha == 64) siguienteFicha = 63;
-                            
+
                             colorFichaSiguiente = document.getElementById(posicionesH[siguienteFicha]).style.backgroundColor;
                             if (colorFicha == "black" || colorFicha == "white") {
                                 while (colorFichaSiguiente != colorFicha && siguienteFicha<64) {
@@ -2055,7 +2263,7 @@
                                         colorFichaSiguiente = document.getElementById(posicionesH[siguienteFicha]).style.backgroundColor;
                                         document.getElementById(posicionesH[siguienteFicha]).style.backgroundColor = colorFicha;
                                         siguienteFicha++;
-                                       
+
                                     }
 
                                 }
@@ -2120,7 +2328,7 @@
                     conteoPosicion++;
                 });
                 }
-            
+
             function vertical1(id) {
                 var posicionesV = ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8"];
                 var conteoPosicion = 0;
