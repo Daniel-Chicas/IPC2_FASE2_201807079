@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background: #96DDCC;
+        }
+
+        #header {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 70px;
+            left: 325px;
+            top: 100px;
+            color: black;
+            font-weight: bold;
+        }
+
+        #botonCarga {
+            font-family: 'kaushan Script', cursive;
+            position: absolute;
+            left: 600px;
+            top: 250px;
+            width: 300px;
+            height: 40px;
+            border-radius: 50px;
+            font-size: 20px;
+            background: #D9D950;
+            font-weight: bold;
+        }
+
+        #botonIndividual {
+            font-family: 'kaushan Script', cursive;
+            position: absolute;
+            left: 600px;
+            top: 300px;
+            width: 300px;
+            height: 40px;
+            border-radius: 50px;
+            font-size: 20px;
+            background: #D9D950;
+            font-weight: bold;
+        }
+
+        #botonVS {
+            font-family: 'kaushan Script', cursive;
+            position: absolute;
+            left: 600px;
+            top: 350px;
+            width: 300px;
+            height: 40px;
+            border-radius: 50px;
+            font-size: 20px;
+            background: #D9D950;
+            font-weight: bold;
+        }
+
+        #botonTorneo {
+            font-family: 'kaushan Script', cursive;
+            position: absolute;
+            left: 600px;
+            top: 400px;
+            width: 300px;
+            height: 40px;
+            border-radius: 50px;
+            font-size: 20px;
+            background: #D9D950;
+            font-weight: bold;
+        }
+
+        #Salir {
+            font-family: 'kaushan Script', cursive;
+            position: absolute;
+            left: 600px;
+            top: 400px;
+            width: 300px;
+            height: 40px;
+            border-radius: 50px;
+            font-size: 20px;
+            background: #D9D950;
+            font-weight: bold;
+        }
+        #botonEditar {
+            font-family: 'kaushan Script', cursive;
+            position: absolute;
+            left: 600px;
+            top: 450px;
+            width: 300px;
+            height: 40px;
+            border-radius: 50px;
+            font-size: 20px;
+            background: #D9D950;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+<body>
+    <label id="header">Modos de Juego Xtream</label>
+    <input id="botonIndividual" type="submit" value=" Reto Inverso  " onclick="location.href='@Url.Action("Tablero", "Tablero")'">
+    <br>
+    <br>
+    <input id="botonVS" type="submit" value="Apertura Personalizada" onclick="location.href='@Url.Action("Index", "aperturaPer")'">
+    <br>
+    <br>
+    <input id="Salir" type="submit" value="Salir" onclick="location.href='@Url.Action("Index", "tipoJuego")'">
+    </body>
+</html>
