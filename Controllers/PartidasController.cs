@@ -72,7 +72,46 @@ namespace WebApplication1.Controllers
             modeloPartida.FechaPartida = DateTime.Now;
             db.Partida.Add(modeloPartida);
             db.SaveChanges();
-            return "";
+            return "Partida Finalizada";
+        }
+
+        public string Puntaje(int NoBlancas, int NoNegras, String Usuario, int Puntaje, String Color1, int Movimientos, String EstadoPartida, String TipoPartida)
+        {
+            string cadena = "";
+            if (NoBlancas == NoNegras)
+            {
+                cadena = "Empate";
+            }
+            if (NoBlancas > NoNegras)
+            {
+                cadena = "Perdíó";
+            }
+            else
+            {
+                cadena = "Ganó";
+            }
+
+            AnadirPuntaje(Usuario, Puntaje, Color1, Movimientos, cadena, TipoPartida);
+            return cadena;
+        }
+
+        public string PuntajeApertura(int NoBlancas, int NoNegras, String Usuario, int Puntaje, String Color1, int Movimientos, String EstadoPartida, String TipoPartida)
+        {
+            string cadena = "";
+            if (NoBlancas == NoNegras)
+            {
+                cadena = "Empate";
+            }
+            if (NoBlancas > NoNegras)
+            {
+                cadena = "Ganó";
+            }
+            else
+            {
+                cadena = "Perdió";
+            }
+            AnadirPuntaje(Usuario, Puntaje, Color1, Movimientos, cadena, TipoPartida);
+            return cadena;
         }
 
         // GET: Partidas/Edit/5
