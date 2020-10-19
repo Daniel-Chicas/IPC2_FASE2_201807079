@@ -10,7 +10,7 @@
             position: absolute;
             font-family: 'kaushan Script', cursive;
             font-size: 70px;
-            left: 450px;
+            left: 350px;
             top: 100px;
             color: black;
             font-weight: bold;
@@ -72,7 +72,7 @@
             font-family: 'kaushan Script', cursive;
             position: absolute;
             left: 600px;
-            top: 500px;
+            top: 450px;
             width: 300px;
             height: 40px;
             border-radius: 50px;
@@ -96,19 +96,16 @@
 
 </head>
 <body>
-    <label id="header">Modos de Juego</label>
-    <input id="botonEditar" type="submit" value=" Editar Usuarios " onclick="location.href='@Url.Action("Deshabilitar", "Usuarios")'">
-    <br>
-    <br>
+    <label id="header">Modos de Juego Clásico</label>
     <input id="botonIndividual" type="submit" value=" Partida Individual" onclick="location.href='@Url.Action("Individual", "Individual")'">
     <br>
     <br>
     <input id="botonVS" type="submit" value="Contra Otro Jugador" onclick="location.href='@Url.Action("Contra", "Contra")'">
     <br>
     <br>
-    <input id="botonTorneo" type="submit" value="Torneo" onclick="location.href='@Url.Action("Torneo", "Torneo")'">
+    <input id="botonTorneo" type="submit" value="Campeonato" onclick="location.href='@Url.Action("Torneo", "Torneo")'">
     <br>
     <br>
-    <input id="Salir" type="submit" value="Salir" onclick="location.href='@Url.Action("Index", "Home")'">
+    <input id="Salir" type="submit" value="Salir" onclick="location.href='@Url.Action("Index", "tipoJuego")'">
     </body>
 </html>
