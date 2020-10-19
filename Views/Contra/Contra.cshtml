@@ -1030,6 +1030,31 @@
         left: 280px;
         top: 300px;
     }
+    #cro1 {
+        height: 40px;
+        border-radius: 50px;
+        font-size: 20px;
+        font-weight: bold;
+        position: absolute;
+        font-family: 'kaushan Script', cursive;
+        width: 300px;
+        left: 20px;
+        top: 350px;
+        visibility: hidden;
+    }
+
+    #Cronometro {
+        height: 30px;
+        font-size: 20px;
+        font-weight: bold;
+        position: absolute;
+        text-align: center;
+        font-family: 'kaushan Script', cursive;
+        width: 100px;
+        left: 300px;
+        top: 350px;
+        visibility: hidden;
+    }
 </style>
 <body>
 
@@ -1086,7 +1111,7 @@
             <td bgcolor="#6ADB6D"><input type="button" id="A4" value="   " class="botones" /></td>
             <td><font color="#6ADB6D"><input type="button" id="B4" value="   " class="botones" /></font></td>
             <td bgcolor="#6ADB6D"><input type="button" id="C4" value="   " class="botones" /></td>
-            <td><font color="#6ADB6D"><input type="button" id="D4" value="   " class="botones" disabled="disabled"/></font></td>
+            <td><font color="#6ADB6D"><input type="button" id="D4" value="   " class="botones" disabled="disabled" /></font></td>
             <td bgcolor="#6ADB6D"><input type="button" id="E4" value="   " class="botones" /></td>
             <td><font color="#6ADB6D"><input type="button" id="F4" value="   " class="botones" /></font></td>
             <td bgcolor="#6ADB6D"><input type="button" id="G4" value="   " class="botones" /></td>
@@ -1143,7 +1168,7 @@
     <input id="Guardar" type="submit" value="Guardar">
     <input id="Repetir" type="submit" value=" Volver a Jugar" onclick="location.href='@Url.Action("Contra", "Contra")'">
     <label id="jugador1">Jugador 1:</label>
-    <input id="j1" type="text" disabled="disabled"/>
+    <input id="j1" type="text" disabled="disabled" />
     <select id="color">
         <option value="" disabled selected>Color de ficha</option>
         <option value="1">Negro</option>
@@ -1159,6 +1184,10 @@
     <input id="Ruta" type="text" value="" required="" />
     <input id="Mostrar" type="submit" value=" Mostrar Ficha " />
     <input id="toca" type="text" value=" " disabled="disabled" />
+    <div class="Cronometro">
+        <p id="Cronometro"><span id="minutos">00</span>:<span id="segundos">00</span></p>
+    </div>
+    <label id="cro1"></label>
     <p id="Toca">TURNO</p>
 
     @section scripts {
@@ -1180,11 +1209,16 @@
                          type: 'POST',
                          dataType: 'text',
                          url: '@Url.Action("Usuario", "Contra")',
-                         success:
-                             function (response) {
-                                 var cadena = response;
-                                 document.getElementById("j1").value = cadena;
-                             },
+                    success:
+                        function (response) {
+                            var cadena = response;
+                            if (cadena == "") {
+                                document.getElementById("j1").value = "prueba1";
+                            }
+                            else {
+                                document.getElementById("j1").value = cadena;
+                           }
+                        },
                          error:
                              function (response) {
                                  alert("Error: " + response);
@@ -1376,7 +1410,7 @@
                                 }
                         });
             });
-            </script>
+        </script>
         <script>
             function Empezar(s) {
                 if (document.getElementById("Mostrar").style.display == "none") {
@@ -1402,6 +1436,9 @@
                         document.getElementById("mov1").value = movimiento1;
                         document.getElementById("mov2").value = movimiento2;
                         document.getElementById("movi2").style.visibility = "visible";
+                        document.getElementById("cro1").style.visibility = "visible";
+                        document.getElementById("cro1").innerHTML = "   Cronómetro";
+                        document.getElementById("Cronometro").style.visibility = "visible";
                         document.getElementById("j2").style.display = "none";
                         document.getElementById("jugador1").style.display = "none";
                         document.getElementById("jugador2").style.display = "none";
@@ -1445,6 +1482,9 @@
                         document.getElementById("mov1").style.visibility = "visible";
                         document.getElementById("mov2").style.visibility = "visible";
                         document.getElementById("movi1").style.visibility = "visible";
+                        document.getElementById("Cronometro").style.visibility = "visible";
+                        document.getElementById("cro1").style.visibility = "visible";
+                        document.getElementById("cro1").innerHTML = "   Cronómetro";
                         document.getElementById("movi1").innerHTML = "   Movimientos de " + jug1 + ":";
                         document.getElementById("movi2").innerHTML = "   Movimientos de " + jug2 + ":";
                         document.getElementById("mov1").value = movimiento1;
@@ -1489,15 +1529,16 @@
                         }
                     }
                 }
-
+                empezarCronometro();
             };
             function movimientos(x, y) {
                 var id = (x + y);
                 var fichasDisponibles = [];
                 var fichasDNegro = [];
                 var fichasDBlanco = [];
+                reinicioCronometro();
                 posicionesGuardar(id);
-                horizontal(x+y);
+                horizontal(x + y);
                 horizontal2(x+y);
                 vertical1(x+y);
                 vertical2(x+y);
@@ -1516,7 +1557,7 @@
                 var posicionesD2 = ["A1", "A2", "B1", "A3", "B2", "C1", "A4", "B3", "C2", "D1", "A5", "B4", "C3", "D2", "E1", "A6", "B5", "C4", "D3", "E2", "F1", "A7", "B6", "C5", "D4", "E3", "F2", "G1", "A8", "B7", "C6", "D5", "E4", "F3", "G2", "H1", "B8", "C7", "D6", "E5", "F4", "G3", "H2", "C8", "D7", "E6", "F5", "G4", "H3", "D8", "E7", "F6", "G5", "H4", "E8", "F7", "G6", "H5", "F8", "G7", "H6", "G8", "H7", "H8"];
                 posicionesH.forEach(function (i) {
                     document.getElementById(i).style.border = "none";
-                    document.getElementById(i).disabled = true;
+                    document.getElementById(i).disabled = false; //true;
                 });
                 var colorFicha1 = document.getElementById(id).style.backgroundColor;
                 if (colorFicha1 == "black") {
@@ -1808,7 +1849,6 @@
                             };
                         }
                     });
-                    //alert(fichasDBlanco.length);
                 }
                 else {
                     fichasDNegro = [];
@@ -2103,6 +2143,7 @@
                         });
                     }
                 }
+
                 var nombre1 = document.getElementById("j1").value;
                 var nombre2 = document.getElementById("j2").value;
                 var colorFichaPuesta = document.getElementById(x + y).style.backgroundColor;
@@ -2148,7 +2189,40 @@
                         }
                     }
                 }
+
             };
+
+
+            function empezarCronometro() {
+                segundosTotales = 0;
+                segundo = document.getElementById("segundos");
+                minuto = document.getElementById("minutos");
+                segundo.innerHTML = "00";
+                minuto.innerHTML = "00";
+                cronometro = setInterval(function () {
+                    segundosTotales++;
+                    secs = segundosTotales;
+                    mins = 0;
+                    while (secs >= 60) {
+                        mins++;
+                        secs -= 60;
+                    }
+                    if (mins < 10) minuto.innerHTML = "0" + mins;
+                    else minuto.innerHTML = mins;
+                    if (secs < 10) segundo.innerHTML = "0" + secs;
+                    else segundo.innerHTML = secs;
+
+                    totalSegundos = secs;
+                    totalMinutos = mins;
+
+                }, 1000);
+            }
+
+            function reinicioCronometro() {
+                clearInterval(cronometro);
+                empezarCronometro();
+            }
+
 
             function final(usuario, color) {
                 var noBlanquitas = document.getElementById("Pblancas").value;
@@ -2186,7 +2260,7 @@
                         if (color == "negro") {
                             var punteo = document.getElementById("Pnegras").value;
                             var estado = "Ganó";
-                            
+
                         }
                         else {
                             var punteo = document.getElementById("Pblancas").value;
@@ -2708,7 +2782,7 @@
                         document.getElementById("mov2").value = movimiento2;
                     }
                     document.getElementById("toca").value = blanco;
-                    
+
                 }
                 contador++;
             }
@@ -2736,7 +2810,7 @@
                         document.getElementById("mov2").value = movimiento2;
                     }
                     document.getElementById("toca").value = blanco;
-                    
+
                 }
                 contador++;
             }
@@ -4475,7 +4549,7 @@
                 }
                 contador++;
             }
-            </script>
+        </script>
         <script>
             //////////////////////////////////////////////////////////////////////////////////////////
             function deshabilitar(s) {
