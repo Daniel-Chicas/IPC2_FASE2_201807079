@@ -140,9 +140,13 @@
     <Compile Include="Controllers\CargarController.cs" />
     <Compile Include="Controllers\ContraController.cs" />
     <Compile Include="Controllers\IndividualController.cs" />
+    <Compile Include="Controllers\aperturaPerController.cs" />
+    <Compile Include="Controllers\TableroController.cs" />
+    <Compile Include="Controllers\JuegoController.cs" />
+    <Compile Include="Controllers\tipoJuego.cs" />
     <Compile Include="Controllers\PartidasController.cs" />
     <Compile Include="Controllers\TorneoController.cs" />
-    <Compile Include="Controllers\JuegoController.cs" />
+    <Compile Include="Controllers\JuegoXController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Entity\BD_Proyecto.Context.cs">
@@ -240,6 +244,9 @@
     <Content Include="Views\Partidas\Details.cshtml" />
     <Content Include="Views\Partidas\Edit.cshtml" />
     <Content Include="Views\Partidas\Index.cshtml" />
+    <Content Include="Views\tipoJuego\Index.cshtml" />
+    <Content Include="Views\JuegoX\Index.cshtml" />
+    <Content Include="Views\aperturaPer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
