@@ -13,10 +13,10 @@ namespace WebApplication1.Controllers
     public class ContraController : Controller
     {
         XmlDocument doc = new XmlDocument();
-
         List<string> Ficha;
         public ActionResult Contra()
         {
+            Session["contar"] = 0;
             return View();
         }
 
@@ -40,19 +40,21 @@ namespace WebApplication1.Controllers
             return cadena;
         }
 
-        public string Conteo(string contador)
+        public string Conteo()
         {
-            int conteo = int.Parse(contador);
-            string color = "black";
-            if(conteo % 2 == 0)
+            string cadena = "";
+            int cuenta = (int)Session["contar"];
+            cuenta = cuenta + 1;
+            if(cuenta % 2 == 0)
             {
-                return color;
+                cadena = "white";
             }
             else
             {
-                color = "white";
-                return color;
+                cadena = "black";
             }
+            Session["contar"] = cuenta;
+            return cadena + "&" + cuenta;
         }
 
         public string Leer(string pruta, int conteo)
