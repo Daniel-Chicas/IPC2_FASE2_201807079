@@ -624,12 +624,13 @@ namespace WebApplication1.Controllers
 
 
 
-        public int Conteo()
+        public string Conteo()
         {
+            string cadena = "";
             int cuenta = (int)Session["contar"];
             cuenta = cuenta + 1;
             Session["contar"] = cuenta;
-            return cuenta;
+            return cadena+"&"+cuenta;
         }
     }
 }
