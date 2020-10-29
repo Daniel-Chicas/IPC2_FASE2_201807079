@@ -141,6 +141,7 @@
     <Compile Include="Controllers\ContraController.cs" />
     <Compile Include="Controllers\IndividualController.cs" />
     <Compile Include="Controllers\aperturaPerController.cs" />
+    <Compile Include="Controllers\TamañoMNController.cs" />
     <Compile Include="Controllers\TableroController.cs" />
     <Compile Include="Controllers\JuegoController.cs" />
     <Compile Include="Controllers\tipoJuego.cs" />
@@ -247,6 +248,7 @@
     <Content Include="Views\tipoJuego\Index.cshtml" />
     <Content Include="Views\JuegoX\Index.cshtml" />
     <Content Include="Views\aperturaPer\Index.cshtml" />
+    <Content Include="Views\TamañoMN\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
