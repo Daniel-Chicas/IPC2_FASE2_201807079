@@ -17,6 +17,7 @@ namespace WebApplication1.Controllers
         List<string> Ficha;
         public ActionResult Individual()
         {
+            Session["contar"] = 0;
             return View();
         }
 
@@ -40,19 +41,18 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public string Conteo(string contador)
+        public string Conteo(int cuenta)
         {
-            int conteo = int.Parse(contador);
-            string color = "black";
-            if(conteo % 2 == 0)
+            string cadena = "";
+            if (cuenta % 2 == 0)
             {
-                return color;
+                cadena = "white";
             }
             else
             {
-                color = "white";
-                return color;
+                cadena = "black";
             }
+            return cadena + "&" + cuenta;
         }
 
         public string Leer(string pruta, int conteo)
