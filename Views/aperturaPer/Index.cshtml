@@ -1732,23 +1732,6 @@
                     pausarCronometro(2)
                     empezarCronometro1(1);
                 }
-                setTimeout(function () {
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'text',
-                    url: '@Url.Action("Tablero", "TamañoMN")',
-                    data: { tipo: "1" },
-                    success:
-                        function (response) {
-                            var cadena = response.split(";");
-                            bordes(1, cadena, id);
-                        },
-                    error:
-                        function (response) {
-                            alert("Error: " + response);
-                        }
-                });
-                }, 1500);
                 contador++;
             }
         </script>
@@ -2957,7 +2940,8 @@
                 document.getElementById("Pnegras").value = colores2.length;
                 var tamañoTablero = posicionesConteo.length;
                 var lleva = colores1.length + colores2.length;
-                if (lleva == tamañoTablero) {
+                if (lleva == tamañoTablero || lleva == (tamañoTablero-1)) {
+                    alert("fin");
                     var nombre1 = document.getElementById("j1").value;
                     final(nombre1, coloresJug1);
                 }
@@ -3026,132 +3010,6 @@
                 }
             }
 
-            function bordes(tipo, lista, id) {
-
-                var conteoPosicion = 0;
-                var coloresJug1 = []
-                var coloresJug2 = []
-                var colores1 = document.getElementById("color1");
-                for (var i = 0; i < colores1.options.length; i++) {
-                    if (colores1.options[i].selected == true) {
-                        coloresJug1.push(colores1.options[i].value)
-                    }
-                }
-                var colores2 = document.getElementById("color2");
-                for (var i = 0; i < colores2.options.length; i++) {
-                    if (colores2.options[i].selected == true) {
-                        coloresJug2.push(colores2.options[i].value)
-                    }
-                }
-
-                if (tipo == 1) {
-                    var posicionesH = [];
-                    for (var i = 0; i < lista.length; i++) {
-                        var actual = lista[i].split("&");
-                        for (var j = 0; j < actual.length; j++) {
-                            if (actual[j] != "") {
-                                posicionesH.push(actual[j])
-                            }
-                        }
-                    }
-                    var tamañoTablero = posicionesH.length;
-                    var posicionGen = 0;
-                    var posicionesLimites = [];
-                    var tamañoGeneral = lista.length - 1;
-                    for (var i = 0; i < tamañoGeneral; i++) {
-                        var actual = lista[i].split("&");
-                        if (actual[0] != "") {
-                            posicionGen = posicionesH.indexOf(actual[0]);
-                            posicionesLimites.push(posicionGen);
-                        }
-                        else {
-                            posicionGen = posicionesH.indexOf(actual[1]);
-                            posicionesLimites.push(posicionGen);
-                        }
-                    }
-
-                    posicionesH.forEach(function (i) {
-                        document.getElementById(i).style.border = "none";
-                        //document.getElementById(i).disabled = false; //true;
-                    });
-
-                    var colorFicha1 = document.getElementById(id).style.backgroundColor;
-                    if (coloresJug1.includes(colorFicha1)) {
-                        posicionesH.forEach(function (j) {
-                            var color = document.getElementById(j).style.backgroundColor;
-                            if (coloresJug2.includes(color)) {
-                                var posicionActual = posicionesH.indexOf(j);
-                                var posicionSiguiente = posicionActual + 1;
-                                try {
-                                    var colorSiguiente = document.getElementById(posicionesH[posicionSiguiente]).style.backgroundColor;
-                                }
-                                catch (error) {
-                                    conteoError = 0;
-                                }
-                                while (colorSiguiente != "" && posicionSiguiente < posicionesH.length) {
-                                    colorSiguiente = document.getElementById(posicionesH[posicionSiguiente]).style.backgroundColor;
-                                    if (posicionesLimites.includes(posicionSiguiente)) {
-                                        salida = false;
-                                        break;
-                                    }
-                                    if (coloresJug2.includes(colorSiguiente)) {
-                                        salida = false;
-                                        break;
-                                    }
-
-                                    if (colorSiguiente == "") {
-                                        fichaMarcar = posicionesH[posicionSiguiente];
-                                        document.getElementById(posicionesH[posicionSiguiente]).style.border = coloresJug2[0] + " 1px solid";
-                                        document.getElementById(posicionesH[posicionSiguiente]).disabled = false;
-                                        break;
-                                    }
-                                    posicionSiguiente++;
-                                    if (posicionSiguiente == posicionesH.length) {
-                                        salida = false;
-                                        break;
-                                    }
-                                };
-                            }
-                        });
-                    }
-                    else {
-                        posicionesH.forEach(function (j) {
-                            var color = document.getElementById(j).style.backgroundColor;
-                            if (coloresJug1.includes(color)) {
-                                var posicionActual = posicionesH.indexOf(j);
-                                var posicionSiguiente = posicionActual + 1;
-                                try {
-                                    var colorSiguiente = document.getElementById(posicionesH[posicionSiguiente]).style.backgroundColor;
-                                }
-                                catch (error) {
-                                    conteoError = 0;
-                                }
-                                while (colorSiguiente != "" && posicionSiguiente < posicionesH.length) {
-                                    colorSiguiente = document.getElementById(posicionesH[posicionSiguiente]).style.backgroundColor;
-                                    if (posicionesLimites.includes(posicionSiguiente)) {
-                                        salida = false;
-                                        break;
-                                    }
-                                    if (coloresJug1.includes(colorSiguiente)) {
-                                        break;
-                                    }
-                                    if (colorSiguiente == "") {
-                                        fichaMarcar = posicionesH[posicionSiguiente];
-                                        document.getElementById(posicionesH[posicionSiguiente]).style.border = coloresJug1[0] + " 1px solid";
-                                        document.getElementById(posicionesH[posicionSiguiente]).disabled = false;
-                                        break;
-                                    }
-                                    posicionSiguiente++;
-                                    if (posicionSiguiente == posicionesH.length) {
-                                        salida = false;
-                                        break;
-                                    }
-                                };
-                            }
-                        });
-                    }
-                }
-            }
         </script>
     }
 </body>
