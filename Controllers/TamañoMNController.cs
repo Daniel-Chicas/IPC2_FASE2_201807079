@@ -4,11 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml;
+using WebApplication1.Models;
+using System.Data;
+using System.Data.Sql;
 
 namespace WebApplication1.Controllers
 {
     public class TamañoMNController : Controller
     {
+        XmlDocument doc = new XmlDocument();
+        List<string> Ficha;
+
         public ActionResult Index()
         {
             return View();
@@ -462,8 +469,6 @@ namespace WebApplication1.Controllers
         }
 
 
-
-
         public string Tablero(int tipo)
         {
             List<String> punteos = (List<String>)Session["Punteo"];
@@ -544,7 +549,6 @@ namespace WebApplication1.Controllers
         }
 
 
-
         public string Punteo(List<string> coloresFichas)
         {
             List<String> colorJugador1 = (List<String>)Session["jugador1"];
@@ -622,7 +626,405 @@ namespace WebApplication1.Controllers
             }
         }
 
+        public string Leer(string pruta, int conteo)
+        {
+            conteo = conteo - 1;
+            string cadena = "0&No se completó la carga";
+            Ficha = new List<string>();
+            if (pruta == "")
+            {
+                cadena = "";
+            }
+            else
+            {
+                try
+                {
+                    XmlReader reader = XmlReader.Create(pruta);
+                    string FilasTam = "";
+                    string ColumnasTam = "";
+                    List<string> colores1 = new List<string> { };
+                    List<string> colores2 = new List<string> { };
+                    string modalidad;
+                    string color = "";
+                    string columna = "";
+                    int fila;
+                    var variableAgregar = "";
+                    string variableAg = "";
+                    string toca = "";
+                    string colorToca = "";
+                    string colorestoca = "";
+                    string direccion = "";
+                    Boolean existe;
+                    while (reader.Read())
+                    {
+                        if (reader.IsStartElement())
+                        {
+                            Ficha temp = new Ficha();
+                            Personalizado temp2 = new Personalizado();
+                            switch (reader.Name.ToString())
+                            {
+                                case "Partida":
+                                    break;
+                                case "filas":
+                                    temp2.filas = reader.ReadString();
+                                    FilasTam = temp2.filas;
+                                    break;
+                                case "columnas":
+                                    temp2.columnas = reader.ReadString();
+                                    ColumnasTam = temp2.columnas;
+                                    break;
+                                case "Jugador1":
+                                    colorestoca = "1";
+                                    break;
+                                case "Jugador2":
+                                    colorestoca = "2";
+                                    break;
+                                case "Modalidad":
+                                    temp2.modalidad = reader.ReadString();
+                                    modalidad = temp2.modalidad;
+                                    if (modalidad == "Normal")
+                                    {
+                                        direccion = "ok";
+                                    }
+                                    else
+                                    {
+                                        return "El archivo no es para este módulo.";
+                                    }
+                                    break;
+                                case "color":
+                                    string colorIngles = reader.ReadString();
+                                    switch (colorIngles)
+                                    {
+                                        case "rojo":
+                                            colorIngles = "red";
+                                            break;
+                                        case "amarillo":
+                                            colorIngles = "yellow";
+                                            break;
+                                        case "azul":
+                                            colorIngles = "blue";
+                                            break;
+                                        case "anaranjado":
+                                            colorIngles = "orange";
+                                            break;
+                                        case "verde":
+                                            colorIngles = "green";
+                                            break;
+                                        case "violeta":
+                                            colorIngles = "Violet";
+                                            break;
+                                        case "blanco":
+                                            colorIngles = "white";
+                                            break;
+                                        case "negro":
+                                            colorIngles = "black";
+                                            break;
+                                        case "celeste":
+                                            colorIngles = "#00AAE4";
+                                            break;
+                                        case "gris":
+                                            colorIngles = "Gray";
+                                            break;
+                                    }
+                                    if (colorestoca == "1")
+                                    {
+                                        temp2.colores1 = colorIngles;
+                                        color = temp2.colores1;
+                                        colores1.Add(color);
+                                    }
+                                    if(colorestoca == "2")
+                                    {
+                                        temp2.colores2 = colorIngles;
+                                        color = temp2.colores2;
+                                        colores2.Add(color);
+                                    }
+                                    if (colorestoca == "3")
+                                    {
+                                        temp.color = colorIngles;
+                                        color = temp.color;
+                                        if (toca == "%")
+                                        {
+                                            colorToca = temp.color;
+                                        }
+                                    }
+                                    break;
+                                case "tablero":
+                                    colorestoca = "3";
+                                    break;
+                                case "ficha":
+                                    break;
+                                case "columna":
+                                    temp.columna = reader.ReadString();
+                                    columna = temp.columna;
+                                    break;
+                                case "fila":
+                                    temp.fila = reader.ReadElementContentAsInt();
+                                    fila = temp.fila;
+                                    variableAgregar = color + "," + columna + "" + fila;
+                                    variableAg = variableAgregar.ToString();
+                                    break;
+                                case "siguienteTiro":
+                                    toca = "%";
+                                    break;
+                            }
 
+                            existe = Ficha.Contains(variableAg);
+                            if (existe == true || variableAg == "" || toca == "%")
+                            {
+                                Console.WriteLine(" ");
+                            }
+                            else
+                            {
+                                Ficha.Add(variableAg);
+                            }
+                            if (toca == "%" && colorToca != "")
+                            {
+                                Ficha.Add("Turno," + colorToca);
+                                toca = "";
+                            }
+                        }
+                    }
+
+                    cadena = FilasTam+"&"+ColumnasTam;
+                    cadena = cadena + "|";
+                    cadena = cadena + "" + colores1[0];
+                    for (int i = 1; i < colores1.Count(); i++)
+                    {
+                        cadena = cadena + "&" +colores1[i];
+                    }
+                    cadena = cadena + "|";
+                    cadena = cadena + "" + colores2[0];
+                    for (int i = 1; i < colores2.Count(); i++)
+                    {
+                        cadena = cadena + "&" + colores2[i];
+                    }
+                    cadena = cadena + "|";
+                    cadena = cadena + ""+Ficha[0];
+                    int contar = 1;
+                    while (contar != Ficha.Count())
+                    {
+                        if(contar == (Ficha.Count()-1))
+                        {
+                            cadena = cadena + "|" +Ficha[contar];
+                        }
+                        else
+                        {
+                        cadena = cadena + "&" + Ficha[contar];
+                        }
+                        contar++;
+                    }
+
+                    return cadena;
+                }
+                catch (Exception e)
+                {
+                    cadena = "";
+                    return cadena;
+                }
+            }
+            return cadena;
+        
+    }
+
+        public string Leer2(string pruta, int conteo)
+        {
+            conteo = conteo - 1;
+            string cadena = "0&No se completó la carga";
+            Ficha = new List<string>();
+            if (pruta == "")
+            {
+                cadena = "";
+            }
+            else
+            {
+                try
+                {
+                    XmlReader reader = XmlReader.Create(pruta);
+                    string FilasTam = "";
+                    string ColumnasTam = "";
+                    List<string> colores1 = new List<string> { };
+                    List<string> colores2 = new List<string> { };
+                    string modalidad;
+                    string color = "";
+                    string columna = "";
+                    int fila;
+                    var variableAgregar = "";
+                    string variableAg = "";
+                    string toca = "";
+                    string colorToca = "";
+                    string colorestoca = "";
+                    string direccion = "";
+                    Boolean existe;
+                    while (reader.Read())
+                    {
+                        if (reader.IsStartElement())
+                        {
+                            Ficha temp = new Ficha();
+                            Personalizado temp2 = new Personalizado();
+                            switch (reader.Name.ToString())
+                            {
+                                case "Partida":
+                                    break;
+                                case "filas":
+                                    temp2.filas = reader.ReadString();
+                                    FilasTam = temp2.filas;
+                                    break;
+                                case "columnas":
+                                    temp2.columnas = reader.ReadString();
+                                    ColumnasTam = temp2.columnas;
+                                    break;
+                                case "Jugador1":
+                                    colorestoca = "1";
+                                    break;
+                                case "Jugador2":
+                                    colorestoca = "2";
+                                    break;
+                                case "Modalidad":
+                                    temp2.modalidad = reader.ReadString();
+                                    modalidad = temp2.modalidad;
+                                    if (modalidad == "Inverso")
+                                    {
+                                        direccion = "ok";
+                                    }
+                                    else
+                                    {
+                                        return "El archivo no es para este módulo.";
+                                    }
+                                    break;
+                                case "color":
+                                    string colorIngles = reader.ReadString();
+                                    switch (colorIngles)
+                                    {
+                                        case "rojo":
+                                            colorIngles = "red";
+                                            break;
+                                        case "amarillo":
+                                            colorIngles = "yellow";
+                                            break;
+                                        case "azul":
+                                            colorIngles = "blue";
+                                            break;
+                                        case "anaranjado":
+                                            colorIngles = "orange";
+                                            break;
+                                        case "verde":
+                                            colorIngles = "green";
+                                            break;
+                                        case "violeta":
+                                            colorIngles = "Violet";
+                                            break;
+                                        case "blanco":
+                                            colorIngles = "white";
+                                            break;
+                                        case "negro":
+                                            colorIngles = "black";
+                                            break;
+                                        case "celeste":
+                                            colorIngles = "#00AAE4";
+                                            break;
+                                        case "gris":
+                                            colorIngles = "Gray";
+                                            break;
+                                    }
+                                    if (colorestoca == "1")
+                                    {
+                                        temp2.colores1 = colorIngles;
+                                        color = temp2.colores1;
+                                        colores1.Add(color);
+                                    }
+                                    if (colorestoca == "2")
+                                    {
+                                        temp2.colores2 = colorIngles;
+                                        color = temp2.colores2;
+                                        colores2.Add(color);
+                                    }
+                                    if (colorestoca == "3")
+                                    {
+                                        temp.color = colorIngles;
+                                        color = temp.color;
+                                        if (toca == "%")
+                                        {
+                                            colorToca = temp.color;
+                                        }
+                                    }
+                                    break;
+                                case "tablero":
+                                    colorestoca = "3";
+                                    break;
+                                case "ficha":
+                                    break;
+                                case "columna":
+                                    temp.columna = reader.ReadString();
+                                    columna = temp.columna;
+                                    break;
+                                case "fila":
+                                    temp.fila = reader.ReadElementContentAsInt();
+                                    fila = temp.fila;
+                                    variableAgregar = color + "," + columna + "" + fila;
+                                    variableAg = variableAgregar.ToString();
+                                    break;
+                                case "siguienteTiro":
+                                    toca = "%";
+                                    break;
+                            }
+
+                            existe = Ficha.Contains(variableAg);
+                            if (existe == true || variableAg == "" || toca == "%")
+                            {
+                                Console.WriteLine(" ");
+                            }
+                            else
+                            {
+                                Ficha.Add(variableAg);
+                            }
+                            if (toca == "%" && colorToca != "")
+                            {
+                                Ficha.Add("Turno," + colorToca);
+                                toca = "";
+                            }
+                        }
+                    }
+
+                    cadena = FilasTam + "&" + ColumnasTam;
+                    cadena = cadena + "|";
+                    cadena = cadena + "" + colores1[0];
+                    for (int i = 1; i < colores1.Count(); i++)
+                    {
+                        cadena = cadena + "&" + colores1[i];
+                    }
+                    cadena = cadena + "|";
+                    cadena = cadena + "" + colores2[0];
+                    for (int i = 1; i < colores2.Count(); i++)
+                    {
+                        cadena = cadena + "&" + colores2[i];
+                    }
+                    cadena = cadena + "|";
+                    cadena = cadena + "" + Ficha[0];
+                    int contar = 1;
+                    while (contar != Ficha.Count())
+                    {
+                        if (contar == (Ficha.Count() - 1))
+                        {
+                            cadena = cadena + "|" + Ficha[contar];
+                        }
+                        else
+                        {
+                            cadena = cadena + "&" + Ficha[contar];
+                        }
+                        contar++;
+                    }
+
+                    return cadena;
+                }
+                catch (Exception e)
+                {
+                    cadena = "";
+                    return cadena;
+                }
+            }
+            return cadena;
+
+        }
 
         public string Conteo()
         {
