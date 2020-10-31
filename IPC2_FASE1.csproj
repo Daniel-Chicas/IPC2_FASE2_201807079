@@ -146,6 +146,7 @@
     <Compile Include="Controllers\JuegoController.cs" />
     <Compile Include="Controllers\tipoJuego.cs" />
     <Compile Include="Controllers\PartidasController.cs" />
+    <Compile Include="Controllers\perfilController.cs" />
     <Compile Include="Controllers\TorneoController.cs" />
     <Compile Include="Controllers\JuegoXController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
@@ -249,6 +250,7 @@
     <Content Include="Views\JuegoX\Index.cshtml" />
     <Content Include="Views\aperturaPer\Index.cshtml" />
     <Content Include="Views\TamañoMN\Index.cshtml" />
+    <Content Include="Views\perfil\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
