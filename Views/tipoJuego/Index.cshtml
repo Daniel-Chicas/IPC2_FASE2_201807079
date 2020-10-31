@@ -11,7 +11,7 @@
             font-family: 'kaushan Script', cursive;
             font-size: 70px;
             left: 450px;
-            top: 100px;
+            top: 50px;
             color: black;
             font-weight: bold;
         }
@@ -92,11 +92,26 @@
             background: #D9D950;
             font-weight: bold;
         }
+        #perfilUsuario {
+            font-family: 'kaushan Script', cursive;
+            position: absolute;
+            left: 600px;
+            top: 250px;
+            width: 300px;
+            height: 40px;
+            border-radius: 50px;
+            font-size: 20px;
+            background: #D9D950;
+            font-weight: bold;
+        }
     </style>
 
 </head>
 <body>
     <label id="header">TIPO DE OTHELLO</label>
+    <input id="perfilUsuario" type="submit" value=" Perfil de Usuario " onclick="location.href='@Url.Action("Index", "perfil")'">
+    <br>
+    <br>
     <input id="botonIndividual" type="submit" value=" Othello Clásico " onclick="location.href='@Url.Action("Index", "Juego")'">
     <br>
     <br>
@@ -104,5 +119,5 @@
     <br>
     <br>
     <input id="botonTorneo" type="submit" value="Salir" onclick="location.href='@Url.Action("Index", "Home")'">
-    </body>
+</body>
 </html>
