@@ -710,9 +710,8 @@
                 }
         </script>
         <script type="text/javascript">
-            var contador = 0;
             var jug1 = "";
-            var jug2 = "";
+            var contadorcito = 0;
             var negro = "";
             var blanco = "";
             var movimiento1 = 0;
@@ -738,76 +737,52 @@
                         {
                             type: 'POST',
                             dataType: 'text',
-                            url: '@Url.Action("Leer", "Contra")',
-                            data: { pruta: Ruta, conteo: conteoParcial },
+                            url: '@Url.Action("Leer", "Individual")',
+                            data: { pruta: Ruta, conteo: conteoParcial},
                             success:
                                 function (response) {
-                                    var cadena = response.split(",");
-                                    if (cadena == "") {
-                                        alert("Debe ingresar una ruta válida");
-                                        document.getElementById("toca").value = cadena[0];
-                                    }
-                                    if (cadena[0] == "Turno") {
-                                        document.getElementById("toca").value = cadena[1];
-                                        if (document.getElementById("j1").value == cadena[1]) {
-                                            alert("Ingrese el nombre del jugador invitado y luego presione \"Aceptar\".");
+                                    var respuesta = response.split("&");
+                                    respuesta.forEach(function (i) {
+                                        var cadena = i.split(",");
+                                        if (cadena[0] == "Turno") {
+                                            var ultimo = respuesta.length - 2;
+                                            var ultima = respuesta[ultimo].split(",");
+                                            if (ultima[1] == "white") contador = 1;
+                                            if (contador % 2 == 0) {
+                                                blanco = jug1;
+                                                document.getElementById("toca").value = "hola";
+                                            }
+                                            else {
+                                                negro = jug1;
+                                                document.getElementById("toca").value = negro;
+                                            }
+                                            var xy = ultima[1].split("");
+                                            movimientos(xy[0], xy[1]);
                                         }
                                         else {
-                                            document.getElementById("j2").value = cadena[1];
-                                            alert("Para empezar a jugar debe dar click en \"Aceptar\"");
+                                            if (cadena[0] == "blanco") {
+                                                var xy = cadena[1].split("");
+                                                color = "white";
+                                                contadorBlancas++;
+                                            }
+                                            else {
+                                                var xy = cadena[1].split("");
+                                                color = "black";
+                                                contadorNegras++;
+                                            }
+                                            document.getElementById(cadena[1]).style.backgroundColor = color;
                                         }
-                                        document.getElementById("Mostrar").style.display = "none";
-                                        var ultimo = listaIngreso.length - 1;
-                                        if (document.getElementById(listaIngreso[ultimo]).style.backgroundColor == "white") {
-                                            contador = 1;
-                                        }
-                                        else {
-                                            contador = 0;
-                                        }
-                                        if (contador % 2 == 0) {
-                                            negro = jug2;
-                                            blanco = jug1;
-                                            document.getElementById("toca").value = negro;
-                                        }
-                                        else {
-                                            negro = jug1;
-                                            blanco = jug2;
-                                            document.getElementById("toca").value = negro;
-                                        }
-                                        var xy = listaIngreso[ultimo].split("");
-                                        var color = document.getElementById(listaIngreso[ultimo]).style.backgroundColor;
-                                        if (color == "white" || color == "White") {
-                                            document.getElementById("color").value = 0;
-                                        }
-                                        else {
-                                            document.getElementById("color").value = 1;
-                                        }
-                                        movimientos(xy[0], xy[1]);
-                                        document.getElementById("Ruta").value = "";
-                                        document.getElementById("Ruta").style.display = "none";
-                                    }
-                                    else {
-                                        if (cadena[0] == "blanco") {
-                                            var xy = cadena[1].split("");
-                                            color = "white";
-                                            contadorBlancas++;
-                                        }
-                                        else {
-                                            var xy = cadena[1].split("");
-                                            color = "black";
-                                            contadorNegras++;
-                                        }
-                                        document.getElementById(cadena[1]).style.backgroundColor = color;
                                         deshabilitar(cadena[1]);
-                                        listaIngreso.push(cadena[1]);
-                                        movimientos(xy[0], xy[1]);
-                                    }
-                                },
+                                    });
+
+                                    },
                             error:
                                 function (response) {
                                     alert("Error: " + response);
                                 }
                         });
+                document.getElementById("Ruta").style.display = "none";
+                document.getElementById("Mostrar").style.display = "none";
             });
         </script>
         <script>
