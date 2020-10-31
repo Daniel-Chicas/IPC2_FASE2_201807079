@@ -1,0 +1,335 @@
+﻿<!DOCTYPE html>
+<html>
+<label id="header">PERFIL</label>
+<head>
+    <style>
+    </style>
+
+    <style>
+        body {
+            background: #96DDCC;
+        }
+
+        #header {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 70px;
+            left: 600px;
+            top: 50px;
+            color: black;
+            font-weight: bold;
+        }
+
+        #nombre {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 20px;
+            color: black;
+            top: 150px;
+            left: 10px;
+        }
+
+        #usuario {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 20px;
+            color: black;
+            top: 150px;
+            left: 310px;
+        }
+
+        #edad {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 20px;
+            color: black;
+            top: 150px;
+            left: 510px;
+        }
+
+        #pais {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 20px;
+            color: black;
+            top: 150px;
+            left: 700px;
+        }
+
+        #mail {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 20px;
+            color: black;
+            top: 150px;
+            left: 950px;
+        }
+
+        #nombreT {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 15px;
+            color: black;
+            border: none;
+            width: 200px;
+            background: transparent;
+            top: 155px;
+            left: 100px;
+        }
+
+        #usuarioT {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 15px;
+            color: black;
+            border: none;
+            width: 200px;
+            background: transparent;
+            width: 100px;
+            top: 155px;
+            left: 400px;
+        }
+
+        #edadT {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 15px;
+            color: black;
+            border: none;
+            width: 200px;
+            background: transparent;
+            width: 100px;
+            top: 155px;
+            left: 580px;
+        }
+
+        #paisT {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 15px;
+            color: black;
+            border: none;
+            width: 200px;
+            width: 150px;
+            top: 155px;
+            left: 760px;
+            background: transparent;
+        }
+
+        #mailT {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 15px;
+            color: black;
+            border: none;
+            width: 200px;
+            width: 200px;
+            top: 155px;
+            left: 1150px;
+            background: transparent;
+        }
+
+        #información {
+            position: absolute;
+            resize: none;
+            font-family: 'kaushan Script', cursive;
+            color: black;
+            top: 250px;
+            width: 200px;
+            left: 020px;
+            height: 350px;
+        }
+        #información2 {
+            position: absolute;
+            resize: none;
+            font-family: 'kaushan Script', cursive;
+            color: black;
+            top: 250px;
+            left: 230px;
+            width: 200px;
+            height: 350px;
+        }
+
+        #información3 {
+            position: absolute;
+            resize: none;
+            font-family: 'kaushan Script', cursive;
+            color: black;
+            top: 250px;
+            left: 440px;
+            width: 200px;
+            height: 350px;
+        }
+
+        #información4 {
+            position: absolute;
+            resize: none;
+            font-family: 'kaushan Script', cursive;
+            color: black;
+            top: 250px;
+            left: 650px;
+            width: 200px;
+            height: 350px;
+        }
+        #información5 {
+            position: absolute;
+            resize: none;
+            font-family: 'kaushan Script', cursive;
+            color: black;
+            top: 250px;
+            left: 860px;
+            width: 200px;
+            height: 350px;
+        }
+        #información6 {
+            position: absolute;
+            resize: none;
+            font-family: 'kaushan Script', cursive;
+            color: black;
+            top: 250px;
+            left: 1070px;
+            width: 200px;
+            height: 350px;
+        }
+        #tipo {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 30px;
+            color: black;
+            border: none;
+            width: 250px;
+            top: 200px;
+            left: 20px;
+            background: transparent;
+        }
+        #estado {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 30px;
+            color: black;
+            border: none;
+            width: 250px;
+            top: 200px;
+            left: 230px;
+            background: transparent;
+        }
+        #movimiento {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 30px;
+            color: black;
+            border: none;
+            width: 250px;
+            top: 200px;
+            left: 440px;
+            background: transparent;
+        }
+        #fecha {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 30px;
+            color: black;
+            border: none;
+            width: 250px;
+            top: 200px;
+            left: 650px;
+            background: transparent;
+        }
+        #punteo {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 30px;
+            color: black;
+            border: none;
+            width: 250px;
+            top: 200px;
+            left: 860px;
+            background: transparent;
+        }
+        #colorFicha {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 30px;
+            color: black;
+            border: none;
+            width: 250px;
+            top: 200px;
+            left: 1070px;
+            background: transparent;
+        }
+    </style>
+</head>
+<body>
+    <label id="tipo">Tipo Partida</label>
+    <label id="estado">Estado</label>
+    <label id="movimiento">Movimientos</label>
+    <label id="punteo">Puntaje</label>
+    <label id="colorFicha">Ficha</label>
+    <label id="fecha">Fecha</label>
+    <textarea id="información" disabled="disabled"></textarea>
+    <textarea id="información2" disabled="disabled"></textarea>
+    <textarea id="información3" disabled="disabled"></textarea>
+    <textarea id="información4" disabled="disabled"></textarea>
+    <textarea id="información5" disabled="disabled"></textarea>
+    <textarea id="información6" disabled="disabled"></textarea>
+    <label id="nombre">Nombre:</label>
+    <label id="usuario">Usuario:</label>
+    <label id="edad">Edad:</label>
+    <label id="pais">País:</label>
+    <label id="mail">Correo Electrónico:</label>
+    <input id="nombreT" type="text" disabled="disabled" />
+    <input id="usuarioT" type="text" disabled="disabled" />
+    <input id="edadT" type="text" disabled="disabled" />
+    <input id="paisT" type="text" disabled="disabled" />
+    <input id="mailT" type="text" disabled="disabled" />
+
+
+
+
+    @section scripts {
+        <script>
+            $.ajax({
+                type: 'POST',
+                dataType: 'text',
+                url: '@Url.Action("DatosUsuario", "perfil")',
+                success:
+                    function (response) {
+                        var respuesta = response;
+                        var cadena = respuesta.split("&")
+                        if (cadena == "") {
+                            document.getElementById("nombreT").value = "PRUEBA";
+                        }
+                        else {
+                            document.getElementById("nombreT").value = cadena[0];
+                            document.getElementById("usuarioT").value = cadena[1];
+                            document.getElementById("edadT").value = cadena[2];
+                            document.getElementById("paisT").value = cadena[4];
+                            document.getElementById("mailT").value = cadena[3];
+                        }
+
+                    },
+                error:
+                    function (response) {
+                        alert("Error: " + response);
+                    }
+            });
+           $.ajax({
+                type: 'POST',
+                dataType: 'text',
+                url: '@Url.Action("datosJuego", "perfil")',
+                success:
+                    function (response) {
+                        var respuesta = response;
+                        var cadena = respuesta.split("&")
+                        alert(cadena)
+                    },
+                error:
+                    function (response) {
+                        alert("Error: " + response);
+                    }
+            });
+        </script>
+    }
+
+</body>
+</html>
