@@ -1,6 +1,6 @@
 ﻿<html>
 <header>
-    Apertura Personalizada
+    APERTURA PERSONALIZADA
 </header>
 <style>
     body {
@@ -1167,11 +1167,11 @@
         <option value="blue">Azul</option>
         <option value="orange">Anaranjado</option>
         <option value="green">Verde</option>
-        <option value="Violet">Violeta</option>
-        <option value="White">Blanco</option>
+        <option value="violet">Violeta</option>
+        <option value="white">Blanco</option>
         <option value="black">Negro</option>
         <option value="#00AAE4">Celeste</option>
-        <option value="Gray">Gris</option>
+        <option value="gray">Gris</option>
     </select>
     <label id="jugador2color">Jugador 2</label>
     <select multiple id="color2">
@@ -1180,11 +1180,11 @@
         <option value="blue">Azul</option>
         <option value="orange">Anaranjado</option>
         <option value="green">Verde</option>
-        <option value="Violet">Violeta</option>
-        <option value="White">Blanco</option>
+        <option value="violet">Violeta</option>
+        <option value="white">Blanco</option>
         <option value="black">Negro</option>
         <option value="#00AAE4">Celeste</option>
-        <option value="Gray">Gris</option>
+        <option value="gray">Gris</option>
     </select>
     <label id="jugador2">Jugador 2:</label>
     <input id="j2" type="text" />
@@ -1353,70 +1353,66 @@
                         {
                             type: 'POST',
                             dataType: 'text',
-                            url: '@Url.Action("Leer", "Contra")',
+                            url: '@Url.Action("Leer", "TamañoMN")',
                             data: { pruta: Ruta, conteo: conteoParcial },
                             success:
                                 function (response) {
-                                    var cadena = response.split(",");
-                                    if (cadena == "") {
-                                        alert("Debe ingresar una ruta válida");
-                                        document.getElementById("toca").value = cadena[0];
+                                    var cadena = response.split("|");
+                                    if (cadena == "El archivo no es para este módulo.") {
+                                        alert(cadena);
                                     }
-                                    if (cadena[0] == "Turno") {
-                                        document.getElementById("toca").value = cadena[1];
-                                        if (document.getElementById("j1").value == cadena[1]) {
-                                            alert("Ingrese el nombre del jugador invitado y luego presione \"Aceptar\".");
-                                        }
-                                        else {
-                                            document.getElementById("j2").value = cadena[1];
-                                            alert("Para empezar a jugar debe dar click en \"Aceptar\"");
-                                        }
-                                        document.getElementById("Mostrar").style.display = "none";
-                                        var ultimo = listaIngreso.length - 1;
-                                        if (document.getElementById(listaIngreso[ultimo]).style.backgroundColor == "white") {
-                                            contador = 1;
-                                        }
-                                        else {
-                                            contador = 0;
-                                        }
-                                        if (contador % 2 == 0) {
-                                            negro = jug2;
-                                            blanco = jug1;
-                                            document.getElementById("toca").value = negro;
-                                        }
-                                        else {
-                                            negro = jug1;
-                                            blanco = jug2;
-                                            document.getElementById("toca").value = negro;
-                                        }
-                                        var xy = listaIngreso[ultimo].split("");
-                                        var color = document.getElementById(listaIngreso[ultimo]).style.backgroundColor;
-                                        if (color == "white" || color == "White") {
-                                            document.getElementById("color").value = 0;
-                                        }
-                                        else {
-                                            document.getElementById("color").value = 1;
-                                        }
-                                        movimientos(xy[0], xy[1]);
-                                        document.getElementById("Ruta").value = "";
-                                        document.getElementById("Ruta").style.display = "none";
-                                    }
-                                    else {
-                                        if (cadena[0] == "blanco") {
-                                            var xy = cadena[1].split("");
-                                            color = "white";
-                                            contadorBlancas++;
-                                        }
-                                        else {
-                                            var xy = cadena[1].split("");
-                                            color = "black";
-                                            contadorNegras++;
-                                        }
-                                        document.getElementById(cadena[1]).style.backgroundColor = color;
-                                        deshabilitar(cadena[1]);
-                                        listaIngreso.push(cadena[1]);
-                                        movimientos(xy[0], xy[1]);
-                                    }
+                                    var coloresJug1 = [];
+                                    var coloresJug2 = [];
+
+                                    var tamañoT = cadena[0].split("&")
+                                    document.getElementById("ancho").value = tamañoT[1];
+                                    document.getElementById("ancho").disabled = true;
+                                    document.getElementById("alto").value = tamañoT[0];
+                                    document.getElementById("alto").disabled = true;
+
+                                    var coloresUsu1 = cadena[1].split("&");
+                                    coloresUsu1.forEach(function (i) {
+                                        coloresJug1.push(i)
+                                        $("#color1 option[value='" + i + "']").prop("selected", true);
+                                    });
+
+                                    var coloresUsu2 = cadena[2].split("&");
+                                    coloresUsu2.forEach(function (i) {
+                                        coloresJug2.push(i)
+                                        $("#color2 option[value='" + i + "']").prop("selected", true);
+                                    });
+
+                                    $.ajax(
+                                    {
+                                        type: 'POST',
+                                        dataType: 'text',
+                                        url: '@Url.Action("Color", "TamañoMN")',
+                                        data: { color1: coloresJug1, color2: coloresJug2 },
+                                        success:
+                                            function (response) {
+                                                var cadena = response;
+                                            },
+                                        error:
+                                            function (response) {
+                                                alert("Error: " + response);
+                                            }
+                                });
+                                    var transiciones = cadena[3].split("&");
+                                    transiciones.forEach(function (i) {
+                                        var actual = i.split(",");
+                                        document.getElementById(actual[1]).style.backgroundColor = actual[0];
+                                    });
+
+                                    var sigue = cadena[4].split("&");
+
+                                    document.getElementById("Ruta").style.display = "none";
+                                    document.getElementById("colores").style.display = "none";
+                                    document.getElementById("color1").style.display = "none";
+                                    document.getElementById("color2").style.display = "none";
+                                    document.getElementById("Mostrar").style.display = "none";
+                                    document.getElementById("jugador1color").style.display = "none";
+                                    document.getElementById("jugador2color").style.display = "none";
+
                                 },
                             error:
                                 function (response) {
@@ -1449,8 +1445,7 @@
                 posiciones.forEach(function (i) {
                     document.getElementById(i).style.visibility = "hidden";
                 });
-                $.ajax(
-                        {
+                $.ajax({
                             type: 'POST',
                             dataType: 'text',
                             url: '@Url.Action("AnchoAlto", "TamañoMN")',
@@ -1513,26 +1508,27 @@
                     }
                     else {
                         document.getElementById("j1").style.display = "none";
-                        document.getElementById("mov1").style.visibility = "visible";
-                        document.getElementById("mov2").style.visibility = "visible";
-                        document.getElementById("movi1").style.visibility = "visible";
-                        document.getElementById("movi1").innerHTML = "   Movimientos de " + jug1 + ":";
-                        document.getElementById("movi2").innerHTML = "   Movimientos de " + jug2 + ":";
+                        document.getElementById("Dimensiones").style.visibility = "visible";
+                        document.getElementById("LAncho").style.visibility = "visible";
+                        document.getElementById("LAlto").style.visibility = "visible";
+                        document.getElementById("ancho").style.visibility = "visible";
+                        document.getElementById("alto").style.visibility = "visible";
+                        document.getElementById("acepta2").style.visibility = "visible";
                         document.getElementById("mov1").value = movimiento1;
+                        document.getElementById("toca").value = jug1;
                         document.getElementById("mov2").value = movimiento2;
                         document.getElementById("movi2").style.visibility = "visible";
-                        document.getElementById("cro1").style.visibility = "visible";
-                        document.getElementById("cro1").innerHTML = "   Cronómetro";
-                        document.getElementById("Cronometro").style.visibility = "visible";
                         document.getElementById("j2").style.display = "none";
+                        document.getElementById("jugador2color").style.display = "none";
+                        document.getElementById("jugador1color").style.display = "none";
                         document.getElementById("jugador1").style.display = "none";
                         document.getElementById("jugador2").style.display = "none";
-                        document.getElementById("color").style.display = "none";
+                        document.getElementById("color1").style.display = "none";
+                        document.getElementById("colores").style.display = "none";
+                        document.getElementById("color2").style.display = "none";
                         document.getElementById("acepta").style.display = "none";
                         document.getElementById("Mostrar").style.display = "none";
                         document.getElementById("Ruta").style.display = "none";
-                        document.getElementById("Pnegras").value = punteoNegras
-                        document.getElementById("Pblancas").value = punteoBlancas;
                     }
                 }
                 else {
@@ -1575,34 +1571,6 @@
                                         success:
                                             function (response) {
                                                 var cadena = response;
-                                                //if (coloresJug1.length == 1) {
-                                                //    document.getElementById("D4").style.backgroundColor = coloresJug1[0];
-                                                //    document.getElementById("E5").style.backgroundColor = coloresJug1[0];
-                                                //}
-                                                //else {
-                                                //    for (var i = 0; i < coloresJug1.length; i++) {
-                                                //        if (i == 0) {
-                                                //            document.getElementById("D4").style.backgroundColor = coloresJug1[0];
-                                                //        }
-                                                //        if (i == 1) {
-                                                //            document.getElementById("E5").style.backgroundColor = coloresJug1[1];
-                                                //        }
-                                                //    }
-                                                //}
-                                                //if (coloresJug2.length == 1) {
-                                                //    document.getElementById("D5").style.backgroundColor = coloresJug2[0];
-                                                //    document.getElementById("E4").style.backgroundColor = coloresJug2[0];
-                                                //}
-                                                //else {
-                                                //    for (var i = 0; i < coloresJug2.length; i++) {
-                                                //        if (i == 0) {
-                                                //            document.getElementById("E4").style.backgroundColor = coloresJug2[0];
-                                                //        }
-                                                //        if (i == 1) {
-                                                //            document.getElementById("D5").style.backgroundColor = coloresJug2[1];
-                                                //        }
-                                                //    }
-                                                //}
                                             },
                                         error:
                                             function (response) {
