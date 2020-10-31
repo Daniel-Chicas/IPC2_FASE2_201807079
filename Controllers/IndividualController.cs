@@ -77,7 +77,7 @@ namespace WebApplication1.Controllers
                     string toca = "";
                     string colorToca = "";
                     Boolean existe;
-                    while (reader.Read())
+                    while (reader.Read() != false)
                     {
                         if (reader.IsStartElement())
                         {
@@ -127,14 +127,13 @@ namespace WebApplication1.Controllers
                             }
                         }
                     }
-                    int numero = Ficha.Count();
-                    if (conteo >= numero)
+                    
+                    int contar = 1;
+                    cadena = Ficha[0];
+                    while(contar != Ficha.Count())
                     {
-                        cadena = Ficha.Last();
-                    }
-                    else
-                    {
-                        cadena = Ficha[conteo];
+                        cadena = cadena + "&"+Ficha[contar];
+                        contar++;
                     }
 
                     return cadena;
