@@ -11,4 +11,13 @@ namespace WebApplication1.Models
         public string columna { get; set; }
         public int fila { get; set; }
     }
+
+    public class Personalizado
+    {
+        public string filas { get; set; }
+        public string columnas { get; set; }
+        public string colores1 { get; set; }
+        public string colores2 { get; set; }
+        public string modalidad { get; set; }
+    }
 }
