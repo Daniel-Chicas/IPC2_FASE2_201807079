@@ -137,7 +137,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\CargarController.cs" />
     <Compile Include="Controllers\ContraController.cs" />
     <Compile Include="Controllers\IndividualController.cs" />
     <Compile Include="Controllers\aperturaPerController.cs" />
