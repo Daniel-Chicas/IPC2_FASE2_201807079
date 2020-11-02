@@ -237,7 +237,6 @@
     <Content Include="Views\Tablero\Tablero.cshtml" />
     <Content Include="Views\Torneo\Torneo.cshtml" />
     <Content Include="Views\Usuarios\Deshabilitar.cshtml" />
-    <Content Include="Views\Cargar\Cargar.cshtml" />
     <Content Include="Views\Individual\Individual.cshtml" />
     <Content Include="Views\Contra\Contra.cshtml" />
     <Content Include="Views\Partidas\Create.cshtml" />
@@ -250,6 +249,8 @@
     <Content Include="Views\aperturaPer\Index.cshtml" />
     <Content Include="Views\TamañoMN\Index.cshtml" />
     <Content Include="Views\perfil\Index.cshtml" />
+    <Content Include="Views\Torneo\Jugadores.cshtml" />
+    <Content Include="Views\Torneo\Contra.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
