@@ -1,0 +1,859 @@
+﻿<!DOCTYPE html>
+<html>
+<body>
+    <header><label id="header">DATOS DE JUGADORES</label></header>
+    <style>
+        body {
+            background: #B4B6B3;
+        }
+
+        #header {
+            position: absolute;
+            width: 1000px;
+            font-family: 'kaushan Script', cursive;
+            font-size: 70px;
+            left: 300px;
+            top: 50px;
+            color: black;
+            font-weight: bold;
+        }
+
+        #nombreEquipo1 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 20px;
+            top: 210px;
+            width: 150px;
+        }
+
+        #e1j1 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 20px;
+            top: 245px;
+            width: 150px;
+        }
+
+        #e1j2 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 20px;
+            top: 280px;
+            width: 150px;
+        }
+
+        #e1j3 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 20px;
+            top: 315px;
+            width: 150px;
+        }
+
+        #nombreEquipo2 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 180px;
+            top: 210px;
+            width: 150px;
+        }
+
+        #e2j1 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 180px;
+            top: 245px;
+            width: 150px;
+        }
+
+        #e2j2 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 180px;
+            top: 280px;
+            width: 150px;
+        }
+
+        #e2j3 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 180px;
+            top: 315px;
+            width: 150px;
+        }
+
+        #nombreEquipo3 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 340px;
+            top: 210px;
+            width: 150px;
+        }
+
+        #e3j1 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 340px;
+            top: 245px;
+            width: 150px;
+        }
+
+        #e3j2 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 340px;
+            top: 280px;
+            width: 150px;
+        }
+
+        #e3j3 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 340px;
+            top: 315px;
+            width: 150px;
+        }
+
+        #nombreEquipo4 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 500px;
+            top: 210px;
+            width: 150px;
+        }
+
+        #e4j1 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 500px;
+            top: 245px;
+            width: 150px;
+        }
+
+        #e4j2 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 500px;
+            top: 280px;
+            width: 150px;
+        }
+
+        #e4j3 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 500px;
+            top: 315px;
+            width: 150px;
+        }
+
+        #nombreEquipo5 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 660px;
+            top: 210px;
+            width: 150px;
+        }
+
+        #e5j1 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 660px;
+            top: 245px;
+            width: 150px;
+        }
+
+        #e5j2 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 660px;
+            top: 280px;
+            width: 150px;
+        }
+
+        #e5j3 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 660px;
+            top: 315px;
+            width: 150px;
+        }
+
+        #nombreEquipo6 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 820px;
+            top: 210px;
+            width: 150px;
+        }
+
+        #e6j1 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 820px;
+            top: 245px;
+            width: 150px;
+        }
+
+        #e6j2 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 820px;
+            top: 280px;
+            width: 150px;
+        }
+
+        #e6j3 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 820px;
+            top: 315px;
+            width: 150px;
+        }
+
+        #nombreEquipo7 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 980px;
+            top: 210px;
+            width: 150px;
+        }
+
+        #e7j1 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 980px;
+            top: 245px;
+            width: 150px;
+        }
+
+        #e7j2 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 980px;
+            top: 280px;
+            width: 150px;
+        }
+
+        #e7j3 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 980px;
+            top: 315px;
+            width: 150px;
+        }
+
+        #nombreEquipo8 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 1140px;
+            top: 210px;
+            width: 150px;
+        }
+
+        #e8j1 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 1140px;
+            top: 245px;
+            width: 150px;
+        }
+
+        #e8j2 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 1140px;
+            top: 280px;
+            width: 150px;
+        }
+
+        #e8j3 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 1140px;
+            top: 315px;
+            width: 150px;
+        }
+
+        #nombreEquipo9 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 20px;
+            top: 410px;
+            width: 150px;
+        }
+
+        #e9j1 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 20px;
+            top: 445px;
+            width: 150px;
+        }
+
+        #e9j2 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 20px;
+            top: 480px;
+            width: 150px;
+        }
+
+        #e9j3 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 20px;
+            top: 515px;
+            width: 150px;
+        }
+
+        #nombreEquipo10 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 180px;
+            top: 410px;
+            width: 150px;
+        }
+
+        #e10j1 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 180px;
+            top: 445px;
+            width: 150px;
+        }
+
+        #e10j2 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 180px;
+            top: 480px;
+            width: 150px;
+        }
+
+        #e10j3 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 180px;
+            top: 515px;
+            width: 150px;
+        }
+
+        #nombreEquipo11 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 340px;
+            top: 410px;
+            width: 150px;
+        }
+
+        #e11j1 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 340px;
+            top: 445px;
+            width: 150px;
+        }
+
+        #e11j2 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 340px;
+            top: 480px;
+            width: 150px;
+        }
+
+        #e11j3 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 340px;
+            top: 515px;
+            width: 150px;
+        }
+
+        #nombreEquipo12 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 500px;
+            top: 410px;
+            width: 150px;
+        }
+
+        #e12j1 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 500px;
+            top: 445px;
+            width: 150px;
+        }
+
+        #e12j2 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 500px;
+            top: 480px;
+            width: 150px;
+        }
+
+        #e12j3 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 500px;
+            top: 515px;
+            width: 150px;
+        }
+
+        #nombreEquipo13 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 660px;
+            top: 410px;
+            width: 150px;
+        }
+
+        #e13j1 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 660px;
+            top: 445px;
+            width: 150px;
+        }
+
+        #e13j2 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 660px;
+            top: 480px;
+            width: 150px;
+        }
+
+        #e13j3 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 660px;
+            top: 515px;
+            width: 150px;
+        }
+
+        #nombreEquipo14 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 820px;
+            top: 410px;
+            width: 150px;
+        }
+
+        #e14j1 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 820px;
+            top: 445px;
+            width: 150px;
+        }
+
+        #e14j2 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 820px;
+            top: 480px;
+            width: 150px;
+        }
+
+        #e14j3 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 820px;
+            top: 515px;
+            width: 150px;
+        }
+
+        #nombreEquipo15 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 980px;
+            top: 410px;
+            width: 150px;
+        }
+
+        #e15j1 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 980px;
+            top: 445px;
+            width: 150px;
+        }
+
+        #e15j2 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 980px;
+            top: 480px;
+            width: 150px;
+        }
+
+        #e15j3 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 980px;
+            top: 515px;
+            width: 150px;
+        }
+
+        #nombreEquipo16 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 1140px;
+            top: 410px;
+            width: 150px;
+        }
+
+        #e16j1 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 1140px;
+            top: 445px;
+            width: 150px;
+        }
+
+        #e16j2 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 1140px;
+            top: 480px;
+            width: 150px;
+        }
+
+        #e16j3 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 1140px;
+            top: 515px;
+            width: 150px;
+        }
+
+        #e1 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 20px;
+            top: 180px;
+            font-size: 22px;
+            width: 150px;
+        }
+
+        #e2 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 180px;
+            top: 180px;
+            font-size: 22px;
+            width: 150px;
+        }
+
+        #e3 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 340px;
+            top: 180px;
+            font-size: 22px;
+            width: 150px;
+        }
+
+        #e4 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 500px;
+            top: 180px;
+            font-size: 22px;
+            width: 150px;
+        }
+
+        #e5 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 660px;
+            top: 180px;
+            font-size: 22px;
+            width: 150px;
+        }
+
+        #e6 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 820px;
+            top: 180px;
+            font-size: 22px;
+            width: 150px;
+        }
+
+        #e7 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 980px;
+            top: 180px;
+            font-size: 22px;
+            width: 150px;
+        }
+
+        #e8 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 1160px;
+            top: 180px;
+            font-size: 22px;
+            width: 150px;
+        }
+
+        #e9 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 20px;
+            top: 375px;
+            font-size: 22px;
+            width: 150px;
+        }
+
+        #e10 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 180px;
+            top: 375px;
+            font-size: 22px;
+            width: 150px;
+        }
+
+        #e11 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 340px;
+            top: 375px;
+            font-size: 22px;
+            width: 150px;
+        }
+
+        #e12 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 500px;
+            top: 375px;
+            font-size: 22px;
+            width: 150px;
+        }
+
+        #e13 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 660px;
+            top: 375px;
+            font-size: 22px;
+            width: 150px;
+        }
+
+        #e14 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 820px;
+            top: 375px;
+            font-size: 22px;
+            width: 150px;
+        }
+
+        #e15 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 980px;
+            top: 375px;
+            font-size: 22px;
+            width: 150px;
+        }
+
+        #e16 {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 1160px;
+            top: 375px;
+            font-size: 22px;
+            width: 150px;
+        }
+
+        #continuar {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 1150px;
+            top: 575px;
+            border-radius: 50px;
+            background: #D9D950;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #regresar {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 900px;
+            top: 575px;
+            border-radius: 50px;
+            background: #D9D950;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+    <input type="text" id="nombreEquipo1" value="Nombre del equipo 1" onclick="limpiar('nombreEquipo1')">
+    <input type="text" id="e1j1" value="Jugador 1" onclick="limpiar('e1j1')" />
+    <input type="text" id="e1j2" value="Jugador 2" onclick="limpiar('e1j2')" />
+    <input type="text" id="e1j3" value="Jugador 3" onclick="limpiar('e1j3')" />
+    <input type="text" id="nombreEquipo2" value="Nombre del equipo 2" onclick="limpiar('nombreEquipo2')">
+    <input type="text" id="e2j1" value="Jugador 1" onclick="limpiar('e2j1')" />
+    <input type="text" id="e2j2" value="Jugador 2" onclick="limpiar('e2j2')" />
+    <input type="text" id="e2j3" value="Jugador 3" onclick="limpiar('e2j3')" />
+    <input type="text" id="nombreEquipo3" value="Nombre del equipo 3" onclick="limpiar('nombreEquipo3')">
+    <input type="text" id="e3j1" value="Jugador 1" onclick="limpiar('e3j1')" />
+    <input type="text" id="e3j2" value="Jugador 2" onclick="limpiar('e3j2')" />
+    <input type="text" id="e3j3" value="Jugador 3" onclick="limpiar('e3j3')" />
+    <input type="text" id="nombreEquipo4" value="Nombre del equipo 4" onclick="limpiar('nombreEquipo4')">
+    <input type="text" id="e4j1" value="Jugador 1" onclick="limpiar('e4j1')" />
+    <input type="text" id="e4j2" value="Jugador 2" onclick="limpiar('e4j2')" />
+    <input type="text" id="e4j3" value="Jugador 3" onclick="limpiar('e4j3')" />
+    <input type="text" id="nombreEquipo5" value="Nombre del equipo 5" onclick="limpiar('nombreEquipo5')">
+    <input type="text" id="e5j1" value="Jugador 1" onclick="limpiar('e5j1')" />
+    <input type="text" id="e5j2" value="Jugador 2" onclick="limpiar('e5j2')" />
+    <input type="text" id="e5j3" value="Jugador 3" onclick="limpiar('e5j3')" />
+    <input type="text" id="nombreEquipo6" value="Nombre del equipo 6" onclick="limpiar('nombreEquipo6')">
+    <input type="text" id="e6j1" value="Jugador 1" onclick="limpiar('e6j1')" />
+    <input type="text" id="e6j2" value="Jugador 2" onclick="limpiar('e6j2')" />
+    <input type="text" id="e6j3" value="Jugador 3" onclick="limpiar('e6j3')" />
+    <input type="text" id="nombreEquipo7" value="Nombre del equipo 7" onclick="limpiar('nombreEquipo7')">
+    <input type="text" id="e7j1" value="Jugador 1" onclick="limpiar('e7j1')" />
+    <input type="text" id="e7j2" value="Jugador 2" onclick="limpiar('e7j2')" />
+    <input type="text" id="e7j3" value="Jugador 3" onclick="limpiar('e7j3')" />
+    <input type="text" id="nombreEquipo8" value="Nombre del equipo 8" onclick="limpiar('nombreEquipo8')">
+    <input type="text" id="e8j1" value="Jugador 1" onclick="limpiar('e8j1')" />
+    <input type="text" id="e8j2" value="Jugador 2" onclick="limpiar('e8j2')" />
+    <input type="text" id="e8j3" value="Jugador 3" onclick="limpiar('e8j3')" />
+    <input type="text" id="nombreEquipo9" value="Nombre del equipo 9" onclick="limpiar('nombreEquipo9')">
+    <input type="text" id="e9j1" value="Jugador 1" onclick="limpiar('e9j1')" />
+    <input type="text" id="e9j2" value="Jugador 2" onclick="limpiar('e9j2')" />
+    <input type="text" id="e9j3" value="Jugador 3" onclick="limpiar('e9j3')" />
+    <input type="text" id="nombreEquipo10" value="Nombre del equipo 10" onclick="limpiar('nombreEquipo10')">
+    <input type="text" id="e10j1" value="Jugador 1" onclick="limpiar('e10j1')" />
+    <input type="text" id="e10j2" value="Jugador 2" onclick="limpiar('e10j2')" />
+    <input type="text" id="e10j3" value="Jugador 3" onclick="limpiar('e10j3')" />
+    <input type="text" id="nombreEquipo11" value="Nombre del equipo 11" onclick="limpiar('nombreEquipo11')">
+    <input type="text" id="e11j1" value="Jugador 1" onclick="limpiar('e11j1')" />
+    <input type="text" id="e11j2" value="Jugador 2" onclick="limpiar('e11j2')" />
+    <input type="text" id="e11j3" value="Jugador 3" onclick="limpiar('e11j3')" />
+    <input type="text" id="nombreEquipo12" value="Nombre del equipo 12" onclick="limpiar('nombreEquipo12')">
+    <input type="text" id="e12j1" value="Jugador 1" onclick="limpiar('e12j1')" />
+    <input type="text" id="e12j2" value="Jugador 2" onclick="limpiar('e12j2')" />
+    <input type="text" id="e12j3" value="Jugador 3" onclick="limpiar('e12j3')" />
+    <input type="text" id="nombreEquipo13" value="Nombre del equipo 13" onclick="limpiar('nombreEquipo13')">
+    <input type="text" id="e13j1" value="Jugador 1" onclick="limpiar('e13j1')" />
+    <input type="text" id="e13j2" value="Jugador 2" onclick="limpiar('e13j2')" />
+    <input type="text" id="e13j3" value="Jugador 3" onclick="limpiar('e13j3')" />
+    <input type="text" id="nombreEquipo14" value="Nombre del equipo 14" onclick="limpiar('nombreEquipo14')">
+    <input type="text" id="e14j1" value="Jugador 1" onclick="limpiar('e14j1')" />
+    <input type="text" id="e14j2" value="Jugador 2" onclick="limpiar('e14j2')" />
+    <input type="text" id="e14j3" value="Jugador 3" onclick="limpiar('e14j3')" />
+    <input type="text" id="nombreEquipo15" value="Nombre del equipo 15" onclick="limpiar('nombreEquipo15')">
+    <input type="text" id="e15j1" value="Jugador 1" onclick="limpiar('e15j1')" />
+    <input type="text" id="e15j2" value="Jugador 2" onclick="limpiar('e15j2')" />
+    <input type="text" id="e15j3" value="Jugador 3" onclick="limpiar('e15j3')" />
+    <input type="text" id="nombreEquipo16" value="Nombre del equipo 16" onclick="limpiar('nombreEquipo16')">
+    <input type="text" id="e16j1" value="Jugador 1" onclick="limpiar('e16j1')" />
+    <input type="text" id="e16j2" value="Jugador 2" onclick="limpiar('e16j2')" />
+    <input type="text" id="e16j3" value="Jugador 3" onclick="limpiar('e16j3')" />
+    <label id="e1">EQUIPO 1</label>
+    <label id="e2">EQUIPO 2</label>
+    <label id="e3">EQUIPO 3</label>
+    <label id="e4">EQUIPO 4</label>
+    <label id="e5">EQUIPO 5</label>
+    <label id="e6">EQUIPO 6</label>
+    <label id="e7">EQUIPO 7</label>
+    <label id="e8">EQUIPO 8</label>
+    <label id="e9">EQUIPO 9</label>
+    <label id="e10">EQUIPO 10</label>
+    <label id="e11">EQUIPO 11</label>
+    <label id="e12">EQUIPO 12</label>
+    <label id="e13">EQUIPO 13</label>
+    <label id="e14">EQUIPO 14</label>
+    <label id="e15">EQUIPO 15</label>
+    <label id="e16">EQUIPO 16</label>
+    <input id="continuar" type="button" value="CONTINUAR" onclick="grupos()"/>
+    <input id="regresar" type="button" value=" REGRESAR " onclick="location.href='@Url.Action("Torneo", "Torneo")'"/>
+    @section scripts {
+        <script>
+        $.ajax(
+                    {
+                        type: 'POST',
+                        dataType: 'text',
+                        url: '@Url.Action("Integrantes", "Torneo")',
+                        success:
+                            function (response) {
+                                var cadena = 0;
+                                if (response == 4) cadena = 5;
+                                if (response == 8) cadena = 9;
+                                if (response == 16) cadena = 16;
+                                if (cadena != 16) {
+                                    while (cadena < 17) {
+                                        document.getElementById("nombreEquipo" + cadena).style.visibility = "hidden";
+                                        document.getElementById("e" + cadena + "j1").style.visibility = "hidden";
+                                        document.getElementById("e" + cadena + "j2").style.visibility = "hidden";
+                                        document.getElementById("e" + cadena + "j3").style.visibility = "hidden";
+                                        document.getElementById("e"+cadena).style.visibility = "hidden";
+                                        cadena = cadena + 1;
+                                    }
+                                }
+                                    },
+                            error:
+                                function (response) {
+                                    alert("Error: " + response);
+                                }
+                        });
+
+        </script>
+        <script>
+            function limpiar(id) {
+                document.getElementById(id).value = "";
+            }
+
+            function grupos() {
+                var equipo1 = [];
+                var equipo2 = [];
+                var equipo3 = [];
+                var equipo4 = [];
+                var equipo5 = [];
+                var equipo6 = [];
+                var equipo7 = [];
+                var equipo8 = [];
+                var equipo9 = [];
+                var equipo10 = [];
+                var equipo11 = [];
+                var equipo12 = [];
+                var equipo13 = [];
+                var equipo14 = [];
+                var equipo15 = [];
+                var equipo16 = [];
+                contador = 1;
+                while (contador <= 17) {
+                    if (document.getElementById("nombreEquipo" + contador).style.visibility != "hidden") {
+                        var nombreEquipo = document.getElementById("nombreEquipo" + contador).value;
+                        var jugador1 = document.getElementById("e" + contador + "j1").value;
+                        var jugador2 = document.getElementById("e" + contador + "j2").value;
+                        var jugador3 = document.getElementById("e" + contador + "j3").value;
+                        equipo+""+contador
+                    }
+                    contador++;
+                }
+
+            }
+
+
+        </script>
+
+
+
+    }
+
+
+</body>
+
+
+</html>
