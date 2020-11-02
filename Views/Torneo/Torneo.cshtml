@@ -3,33 +3,7 @@
 <head>
     <title>Sintaxis HTML</title>
     <header><label id="header">TORNEO</label></header>
-    @section scripts {
-        <script type="text/javascript">
-        function verificar() {
-            var nombre = document.getElementById('nombre').value;
-            var integrantes = $('#integrantes').find('option:selected').text();
 
-            if (nombre == "" || integrantes == "") {
-                alert("Debe ingresar un nombre para el torneo");
-            }
-            else {
-                window.location = '@Url.Action("Tablero", "Tablero")';
-            }
-            }
-        
-        function Unirse() {
-            var nombre = document.getElementById('nombreU').value;
-            var integrantes = $('#integrantes').find('option:selected').text();
-
-            if (nombre == "" || integrantes == "") {
-                alert("Debe ingresar el nombre del torneo");
-            }
-            else {
-                window.location = '@Url.Action("Tablero", "Tablero")';
-            }
-        }
-        </script>
-    }
     <style>
         body {
             background: #B4B6B3;
@@ -79,6 +53,8 @@
         }
 
         #nombre {
+            font-family: 'kaushan Script', cursive;
+            font-size: 20px;
             position: absolute;
             top: 250px;
             left: 550px;
@@ -114,7 +90,7 @@
         #nombreTorneoU {
             position: absolute;
             font-family: 'kaushan Script', cursive;
-            font-size: 30px;
+            font-size: 50px;
             color: black;
             top: 480px;
         }
@@ -129,35 +105,114 @@
 
         #Boton2 {
             position: absolute;
-            left: 900px;
-            top: 470px;
+            left: 930px;
+            top: 300px;
             border-radius: 50px;
             background: #D9D950;
             font-size: 30px;
+            font-weight: bold;
+        }
+        #cargar {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 50px;
+            color: black;
+            top: 400px;
+        }
+        #ruta {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 20px;
+            color: black;
+            top: 500px;
+            left: 170px;
+        }
+        #bcargar {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            left: 500px;
+            top: 500px;
+            border-radius: 50px;
+            background: #D9D950;
+            font-size: 20px;
             font-weight: bold;
         }
     </style>
 </head>
 <body>
 
-        <label for="nombre" id="CrearTorneo">CREAR UN TORNEO:</label>
-        <label id="nombreTorneo">Nombre del Torneo Nuevo:</label>
-        <input id="nombre" type="text" required="" />
-        <label id="lintegrantes">Número de Integrantes:</label>
-        <div id="listado" class="insertar">
-            <select id="integrantes" name="integrantes" required="">
-                <option value="1">4</option>
-                <option value="2">8</option>
-                <option value="3">16</option>
-            </select>
+    <label for="nombre" id="CrearTorneo">CREAR UN TORNEO:</label>
+    <label id="nombreTorneo">Nombre del Torneo Nuevo:</label>
+    <input id="nombre" type="text" required="" />
+    <label id="lintegrantes">Número de Integrantes:</label>
+    <div id="listado" class="insertar">
+        <select id="integrantes" name="integrantes" required="">
+            <option value="4">4</option>
+            <option value="8">8</option>
+            <option value="16">16</option>
+        </select>
 
-            <input id="Boton" type="submit" value=" CREAR TORNEO " onclick="verificar()"/>
-        </div>
+        <input id="Boton" type="submit" value=" CREAR TORNEO " onclick="empezar()" />
+    </div>
+    <input id="Boton2" type="submit" value=" SALIR " onclick="location.href='@Url.Action("Index", "Juego")'"/>
 
-        <label for="nombreU" id="unirseTorneo">UNIRSE UN TORNEO:</label>
-        <label for="nombreU" id="nombreTorneoU">Nombre del Torneo:</label>
-        <input id="nombreU" type="text" required=""/>
-            <input id="Boton2" type="submit" value=" UNIRSE " onclick="Unirse()"/>
+    <label id="cargar"> CARGAR TORNEO </label>
+    <input id="ruta" type="text" />
+    <input id="bcargar" type="button" value="Cargar Archivo" onclick="cargar()"/>
+    @section scripts {
+        <script type="text/javascript">
+            function empezar() {
+                var nombre = document.getElementById("nombre").value;
+                var integrantes = document.getElementById("integrantes").value;
+                if (nombre == "") {
+                    alert("Debe ingresar un nombre para el torneo.")
+                }
+                else {
+                    $.ajax(
+                    {
+                        type: 'POST',
+                        dataType: 'text',
+                        url: '@Url.Action("NombreTorneo", "Torneo")',
+                        data: { nombre: nombre, cantidad: integrantes},
+                        success:
+                            function (response) {
+                                alert(response);
+                                 window.location = '@Url.Action("Jugadores", "Torneo")';
+                                    },
+                            error:
+                                function (response) {
+                                    alert("Error: " + response);
+                                }
+                        });
+                }
+            }
+
+            function cargar() {
+                var Ruta = "C:\\Users\\Daniel Chicas\\Desktop\\" + document.getElementById("ruta").value + ".xml";
+                var conteoParcial = 1;
+                $.ajax(
+                    {
+                        type: 'POST',
+                        dataType: 'text',
+                        url: '@Url.Action("Leer", "Torneo")',
+                        data: { pruta: Ruta, conteo: conteoParcial },
+                        success:
+                            function (response) {
+                                alert(response);
+                                if (response != "El archivo no pudo ser cargado.") {
+                                    window.location = '@Url.Action("Contra", "Torneo")';
+                                }
+                                    },
+                            error:
+                                function (response) {
+                                    alert("Error: " + response);
+                                }
+                        });
+            }
+
+        </script>
+    }
+
 
 </body>
 
