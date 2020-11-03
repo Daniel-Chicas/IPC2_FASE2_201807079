@@ -195,7 +195,7 @@ namespace WebApplication1.Controllers
             }
 
             int contadorV = 0;
-            while (contadorV != Talto)
+            while (contadorV != Tancho)
             {
             for (int i = 0; i < Talto; i++)
                 {
@@ -506,11 +506,11 @@ namespace WebApplication1.Controllers
                 {
                     if(diagonal[contador] == ";")
                     {
-                        listaTablero = listaTablero + ";";
+                        listaTablero = listaTablero + "&;";
                     }
                     else
                     {
-                    listaTablero = listaTablero+","+ diagonal[contador];
+                    listaTablero = listaTablero+"&"+ diagonal[contador];
                     }
                     contador++;
                 }
@@ -524,11 +524,11 @@ namespace WebApplication1.Controllers
                 {
                     if (diagonal2[contador] == ";")
                     {
-                        listaTablero = listaTablero + ";";
+                        listaTablero = listaTablero + "&;";
                     }
                     else
                     {
-                        listaTablero = listaTablero + "," + diagonal2[contador];
+                        listaTablero = listaTablero + "&" + diagonal2[contador];
                     }
                     contador++;
                 }
@@ -548,6 +548,52 @@ namespace WebApplication1.Controllers
             return "";
         }
 
+        public string Mitad(int Tancho, int Talto)
+        {
+            int mitadAn = (Tancho / 2)-1;
+            int mitadAl = (Talto / 2)-1;
+            string cadena = "";
+            List<String> horizontal = (List<String>)Session["Horizontal"];
+            List<String> vertical = (List<String>)Session["Vertical"];
+            List<string> hori = new List<string> { };
+            for (int i = 0; i < horizontal.Count(); i++)
+            {
+                if(horizontal[i] != ";")
+                {
+                    hori.Add(horizontal[i]);
+                }
+            }
+            List<List<string>> horizontalF = new List<List<string>> { };
+            while (hori.Any())
+            {
+                horizontalF.Add(hori.Take(Tancho).ToList());
+                hori = hori.Skip(Tancho).ToList();
+            }
+            List<string> verti = new List<string> { };
+            for (int i = 0; i < vertical.Count(); i++)
+            {
+                if (vertical[i] != ";")
+                {
+                    verti.Add(vertical[i]);
+                }
+            }
+            List<List<string>> verticalF = new List<List<string>> { };
+            while (verti.Any())
+            {
+                verticalF.Add(verti.Take(Talto).ToList());
+                verti = verti.Skip(Talto).ToList();
+            }
+            List<string> centro1 = horizontalF[mitadAl];
+            string posicion1 = centro1[mitadAn];
+            string posicion2 = centro1[mitadAn + 1];
+
+            List<string> centro2 = horizontalF[mitadAl + 1];
+            string posicion3 = centro2[mitadAn];
+            string posicion4 = centro2[mitadAn + 1];
+
+            cadena = posicion1 + "&" + posicion2 + "&" + posicion3 + "&" + posicion4;
+            return cadena;
+        }
 
         public string Punteo(List<string> coloresFichas)
         {
