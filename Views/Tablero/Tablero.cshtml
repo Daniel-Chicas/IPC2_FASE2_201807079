@@ -1186,7 +1186,7 @@
     <input id="Pnegras" type="text" placeholder=" " disabled="disabled">
     <input id="Salir" type="submit" value="Salir" onclick="location.href='@Url.Action("Index", "JuegoX")'">
     <input id="Guardar" type="submit" value="Guardar">
-    <input id="Repetir" type="submit" value=" Volver a Jugar" onclick="location.href='@Url.Action("Contra", "Contra")'">
+    <input id="Repetir" type="submit" value=" Volver a Jugar" onclick="location.href='@Url.Action("Tablero", "Tablero")'">
     <label id="jugador1">Jugador 1:</label>
     <input id="j1" type="text" disabled="disabled" />
     <label id="jugador1color">  Jugador 1</label>
@@ -1498,6 +1498,66 @@
                                 function (response) {
                                     alert("Error: " + response);
                                 }
+                });
+                var coloresJug1 = [];
+                var coloresJug2 = [];
+                var colores1 = document.getElementById("color1");
+                for (var i = 0; i < colores1.options.length; i++) {
+                    if (colores1.options[i].selected == true) {
+                        coloresJug1.push(colores1.options[i].value);    
+                    }
+                }
+                var colores2 = document.getElementById("color2");
+                for (var i = 0; i < colores2.options.length; i++) {
+                    if (colores2.options[i].selected == true) {
+                        coloresJug2.push(colores2.options[i].value)
+                    }
+                }
+                $.ajax({
+                            type: 'POST',
+                            dataType: 'text',
+                            url: '@Url.Action("Mitad", "TamañoMN")',
+                            data: { Tancho: ancho, Talto: alto},
+                            success:
+                                function (response) {
+                                    var cadena = response.split("&");
+                                    cadena.forEach(function (i) {
+                                        deshabilitar(i)
+                                    });
+                                    if (coloresJug1.length == 1) {
+                                        document.getElementById(cadena[0]).style.backgroundColor = coloresJug1[0];
+                                        document.getElementById(cadena[3]).style.backgroundColor = coloresJug1[0];
+
+                                    }
+                                    else {
+                                        for (var i = 0; i < coloresJug1.length; i++) {
+                                            if (i == 0) {
+                                                document.getElementById(cadena[0]).style.backgroundColor = coloresJug1[0];
+                                            }
+                                            if (i == 1) {
+                                                document.getElementById(cadena[3]).style.backgroundColor = coloresJug1[1];
+                                            }
+                                        }
+                                    }
+                                    if (coloresJug2.length == 1) {
+                                        document.getElementById(cadena[2]).style.backgroundColor = coloresJug2[0];
+                                        document.getElementById(cadena[1]).style.backgroundColor = coloresJug2[0];
+                                    }
+                                    else {
+                                        for (var i = 0; i < coloresJug2.length; i++) {
+                                            if (i == 0) {
+                                                document.getElementById(cadena[1]).style.backgroundColor = coloresJug2[0];
+                                            }
+                                            if (i == 1) {
+                                                document.getElementById(cadena[2]).style.backgroundColor = coloresJug2[1];
+                                            }
+                                        }
+                                    }
+                                },
+                            error:
+                                function (response) {
+                                    alert("Error: " + response);
+                                }
                     });
                 document.getElementById("mov1").style.visibility = "visible";
                 document.getElementById("mov2").style.visibility = "visible";
@@ -1660,8 +1720,8 @@
                     success:
                         function (response) {
                             var cadena = response.split(";");
-                            vertical1(id, cadena);
-                            vertical2(id, cadena);
+                            horizontal(id, cadena);
+                            horizontal2(id, cadena);
                         },
                     error:
                         function (response) {
@@ -1675,9 +1735,9 @@
                     data: { tipo: "3" },
                     success:
                         function (response) {
-                            var respuesta = response.split(";");
-                            diagonal1(id, respuesta);
-                            diagonal2(id, respuesta);
+                            var cadena = response.split(";");
+                            horizontal(id, cadena);
+                            horizontal2(id, cadena);
                         },
                     error:
                         function (response) {
@@ -1691,15 +1751,16 @@
                     data: { tipo: "4" },
                     success:
                         function (response) {
-                            var respuesta = response.split(";");
-                            diagonalI1(id, respuesta);
-                            diagonalI2(id, respuesta);
+                            var cadena = response.split(";");
+                            horizontal(id, cadena);
+                            horizontal2(id, cadena);
                         },
                     error:
                         function (response) {
                             alert("Error: " + response);
                         }
                 });
+
                 setTimeout(function () {
                 $.ajax({
                     type: 'POST',
@@ -1817,8 +1878,8 @@
                          {
                             type: 'POST',
                             dataType: 'text',
-                            url: '@Url.Action("PuntajeApertura", "Partidas")',
-                            data: { NoBlancas: noBlanquitas, NoNegras: noNegritas, Usuario: usuario, Puntaje: noBlancas, Color1: color, Movimientos: movimientosNegro, EstadoPartida: "", TipoPartida: "Apertura Personalizada"  },
+                            url: '@Url.Action("Puntaje", "Partidas")',
+                            data: { NoBlancas: noBlanquitas, NoNegras: noNegritas, Usuario: usuario, Puntaje: noBlancas, Color1: color, Movimientos: movimientosNegro, EstadoPartida: "", TipoPartida: "Reto Inverso"  },
                              success:
                                  function (response) {
                                      var cadena = response;
@@ -1858,6 +1919,9 @@
                         posicionesLimites.push(posicionGen);
                     }
                 }
+                //posicionesLimites.forEach(function (i) {
+                //    alert(posicionesH[i])
+                //});
 
                 var conteoPosicion = 0;
                 var coloresJug1 = []
@@ -1879,7 +1943,8 @@
                         var colorFicha = "";
                         var siguienteFicha = 0;
                         var colorFichaSiguiente = "";
-                        var salida = true;
+                    var salida = true;
+
                     if (i == id) {
                         colorFicha = document.getElementById(i).style.backgroundColor;
                         siguienteFicha = conteoPosicion + 1;
@@ -1899,6 +1964,7 @@
                         if (cjug1 == true) {
                             while (coloresJug1.includes(colorFichaSiguiente) == false && siguienteFicha < posicionesH.length) {
                                 colorFichaSiguiente = document.getElementById(posicionesH[siguienteFicha]).style.backgroundColor;
+
                                 if (posicionesLimites.includes(siguienteFicha)) {
                                     salida = false;
                                     break;
@@ -1928,19 +1994,18 @@
                                 }
                             }
                         }
-                            else {
-                                while (coloresJug2.includes(colorFichaSiguiente) == false && siguienteFicha < posicionesH.length) {
-                                    colorFichaSiguiente = document.getElementById(posicionesH[siguienteFicha]).style.backgroundColor;
-                                    if (posicionesLimites.includes(siguienteFicha)) {
+                        else {
+                            while (coloresJug2.includes(colorFichaSiguiente) == false && siguienteFicha < posicionesH.length) {
+                                colorFichaSiguiente = document.getElementById(posicionesH[siguienteFicha]).style.backgroundColor;
+
+                                if (posicionesLimites.includes(siguienteFicha)) {
                                     salida = false;
                                     break;
                                 }
-
                                 if (colorFichaSiguiente == "") {
                                     salida = false;
                                     break;
                                 }
-
                                 if (coloresJug2.includes(colorFichaSiguiente) == true) {
                                     salida = true;
                                     break;
@@ -1950,7 +2015,7 @@
                                     salida = false;
                                     break;
                                 }
-                                };
+                            };
                             if (salida == true) {
                                 siguienteFicha = conteoPosicion + 1;
                                 if (siguienteFicha == posicionesH.length) siguienteFicha = (posicionesH.length - 1)
@@ -1976,931 +2041,127 @@
                             posicionesHRe.push(actual[j])
                         }
                     }
-                }
+                 }
+                 posicionesHRe.reverse()
                 var tamañoTablero = posicionesHRe.length;
                 var posicionGen = 0;
-                var posicionesLimites = [];
+                 var posicionesLimites = [];
                 var tamañoGeneral = posicionesH2.length - 1;
                 for (var i = 0; i < tamañoGeneral; i++) {
                     var actual = posicionesH2[i].split("&");
                     var finalA = actual.length - 2;
                     posicionGen = posicionesHRe.indexOf(actual[finalA]);
                     posicionesLimites.push(posicionGen);
-                }
+                 }
 
-                var ancho = document.getElementById("ancho").value;
-                var conteoPosicion = 0;
-                var coloresJug1 = []
-                var coloresJug2 = []
-                var colores1 = document.getElementById("color1");
-                for (var i = 0; i < colores1.options.length; i++) {
-                    if (colores1.options[i].selected == true) {
-                        coloresJug1.push(colores1.options[i].value)
-                    }
-                }
-                var colores2 = document.getElementById("color2");
-                for (var i = 0; i < colores2.options.length; i++) {
-                    if (colores2.options[i].selected == true) {
-                        coloresJug2.push(colores2.options[i].value)
-                    }
-                }
+                 var conteoPosicion = 0;
+                 var coloresJug1 = []
+                 var coloresJug2 = []
+                 var colores1 = document.getElementById("color1");
+                 for (var i = 0; i < colores1.options.length; i++) {
+                     if (colores1.options[i].selected == true) {
+                         coloresJug1.push(colores1.options[i].value)
+                     }
+                 }
+                 var colores2 = document.getElementById("color2");
+                 for (var i = 0; i < colores2.options.length; i++) {
+                     if (colores2.options[i].selected == true) {
+                         coloresJug2.push(colores2.options[i].value)
+                     }
+                 }
+                 posicionesHRe.forEach(function (i) {
+                     conteoPosicion = posicionesHRe.indexOf(i);
+                     var colorFicha = "";
+                     var siguienteFicha = 0;
+                     var colorFichaSiguiente = "";
+                     var salida = true;
 
-                posicionesHRe.forEach(function (i) {
-                    conteoPosicion = posicionesHRe.indexOf(i);
-                    var colorFicha = "";
-                    var siguienteFicha = 0;
-                    var colorFichaSiguiente = "";
-                    var salida = true;
-                    if (i == id) {
-                        colorFicha = document.getElementById(i).style.backgroundColor;
-                        siguienteFicha = conteoPosicion - 1;
-                        if (siguienteFicha == -1) siguienteFicha = 0;
-                        colorFichaSiguiente = document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor;
-                        var cjug1 = false;
-                        var cjug2 = false;
-                        for (var i = 0; i < coloresJug1.length; i++) {
-                            if (colorFicha == coloresJug1[i]) {
-                                cjug1 = true;
-                            }
-                        }
-                        for (var i = 0; i < coloresJug2.length; i++) {
-                            if (colorFicha == coloresJug2[i]) {
-                                cjug2 = true;
-                            }
-                        }
-                        if (cjug1 == true) {
-                            while (coloresJug1.includes(colorFichaSiguiente) == false && siguienteFicha >= 0) {
-                                colorFichaSiguiente = document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor;
-                                if (posicionesLimites.includes(siguienteFicha)) {
-                                    salida = false;
-                                    break;
-                                }
-                                if (colorFichaSiguiente == "") {
-                                    salida = false;
-                                    break;
-                                }
-                                if (coloresJug1.includes(colorFichaSiguiente) == true) {
-                                    salida = true;
-                                    break;
-                                }
-                                siguienteFicha--;
-                                if (siguienteFicha == -1) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                            if (salida == true) {
-                                siguienteFicha = conteoPosicion - 1;
-                                if (siguienteFicha == -1) siguienteFicha = 0;
-                                colorFichaSiguiente = document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor;
-                                while (coloresJug1.includes(colorFichaSiguiente) == false && siguienteFicha > 0) {
-                                    colorFichaSiguiente = document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor;
-                                    document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor = colorFicha;
-                                    siguienteFicha--;
-                                }
-                            }
-                        }
-                        else {
-                            while (coloresJug2.includes(colorFichaSiguiente) == false && siguienteFicha >= 0) {
-                                colorFichaSiguiente = document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor;
-                                if (posicionesLimites.includes(siguienteFicha)) {
-                                    salida = false;
-                                    break;
-                                }
+                     if (i == id) {
+                         colorFicha = document.getElementById(i).style.backgroundColor;
+                         siguienteFicha = conteoPosicion + 1;
+                         if (siguienteFicha == posicionesHRe.length) siguienteFicha = (posicionesHRe.length - 1);
+                         colorFichaSiguiente = document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor;
+                         var cjug1 = false;
+                         for (var j = 0; j < coloresJug1.length; j++) {
+                             if (colorFicha == coloresJug1[j]) {
+                                 cjug1 = true;
+                             }
+                         }
+                         for (var k = 0; k < coloresJug2.length; k++) {
+                             if (colorFicha == coloresJug2[k]) {
+                                 cjug2 = true;
+                             }
+                         }
+                         if (cjug1 == true) {
+                             while (coloresJug1.includes(colorFichaSiguiente) == false && siguienteFicha < posicionesHRe.length) {
+                                 colorFichaSiguiente = document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor;
 
-                                if (colorFichaSiguiente == "") {
-                                    salida = false;
-                                    break;
-                                }
+                                 if (posicionesLimites.includes(siguienteFicha)) {
+                                     salida = false;
+                                     break;
+                                 }
+                                 if (colorFichaSiguiente == "") {
+                                     salida = false;
+                                     break;
+                                 }
+                                 if (coloresJug1.includes(colorFichaSiguiente) == true) {
+                                     salida = true;
+                                     break;
+                                 }
+                                 siguienteFicha++;
+                                 if (siguienteFicha == posicionesHRe.length) {
+                                     salida = false;
+                                     break;
+                                 }
+                             };
+                             if (salida == true) {
+                                 siguienteFicha = conteoPosicion + 1;
+                                 if (siguienteFicha == posicionesHRe.length) siguienteFicha = (posicionesHRe.length - 1);
+                                 colorFichaSiguiente = document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor;
+                                 while (coloresJug1.includes(colorFichaSiguiente) == false && siguienteFicha < posicionesHRe.length) {
+                                     colorFichaSiguiente = document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor;
+                                     document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor = colorFicha;
+                                     siguienteFicha++;
+                                 }
+                             }
+                         }
+                         else {
+                             while (coloresJug2.includes(colorFichaSiguiente) == false && siguienteFicha < posicionesHRe.length) {
+                                 colorFichaSiguiente = document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor;
 
-
-                                if (coloresJug2.includes(colorFichaSiguiente) == true) {
-                                    salida = true;
-                                    break;
-                                }
-                                siguienteFicha--;
-                                if (siguienteFicha == 0) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                            if (salida == true) {
-                                siguienteFicha = conteoPosicion - 1;
-                                if (siguienteFicha == -1) siguienteFicha = 0;
-                                colorFichaSiguiente = document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor;
-                                while (coloresJug2.includes(colorFichaSiguiente) == false && siguienteFicha > 0) {
-                                    colorFichaSiguiente = document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor;
-                                    document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor = colorFicha;
-                                    siguienteFicha--;
-                                }
-                            }
-                        }
-                    }
-                    conteoPosicion++;
-                });
-            }
-
-            function vertical1(id, posicionesV1) {
-                var posicionesV = [];
-                for (var i = 0; i < posicionesV1.length; i++) {
-                    var actual = posicionesV1[i].split("&");
-                    for (var j = 0; j < actual.length; j++) {
-                        if (actual[j] != "") {
-                            posicionesV.push(actual[j])
-                        }
-                    }
-                }
-                var tamañoTablero = posicionesV.length;
-                var posicionGen = 0;
-                var posicionesLimites = [];
-                var tamañoGeneral = posicionesV1.length - 1;
-                for (var i = 0; i < tamañoGeneral; i++) {
-                    var actual = posicionesV1[i].split("&");
-                    var finalA = actual.length - 2;
-                    posicionGen = posicionesV.indexOf(actual[finalA]);
-                    posicionesLimites.push(posicionGen);
-                }
-
-                var ancho = document.getElementById("alto").value;
-                var conteoPosicion = 0;
-                var coloresJug1 = []
-                var coloresJug2 = []
-                var colores1 = document.getElementById("color1");
-                for (var i = 0; i < colores1.options.length; i++) {
-                    if (colores1.options[i].selected == true) {
-                        coloresJug1.push(colores1.options[i].value)
-                    }
-                }
-                var colores2 = document.getElementById("color2");
-                for (var i = 0; i < colores2.options.length; i++) {
-                    if (colores2.options[i].selected == true) {
-                        coloresJug2.push(colores2.options[i].value)
-                    }
-                }
-                posicionesV.forEach(function (i) {
-                    conteoPosicion = posicionesV.indexOf(i);
-                    var colorFicha = "";
-                    var siguienteFicha = 0;
-                    var colorFichaSiguiente = "";
-                    var salida = true;
-                    if (i == id) {
-                        colorFicha = document.getElementById(i).style.backgroundColor;
-                        siguienteFicha = conteoPosicion + 1;
-                        if (siguienteFicha == posicionesV.length) siguienteFicha = (posicionesV.length - 1);
-                        colorFichaSiguiente = document.getElementById(posicionesV[siguienteFicha]).style.backgroundColor;
-                        var cjug1 = false;
-                        for (var j = 0; j < coloresJug1.length; j++) {
-                            if (colorFicha == coloresJug1[j]) {
-                                cjug1 = true;
-                            }
-                        }
-                        for (var k = 0; k < coloresJug2.length; k++) {
-                            if (colorFicha == coloresJug2[k]) {
-                                cjug2 = true;
-                            }
-                        }
-                        if (cjug1 == true) {
-                            while (coloresJug1.includes(colorFichaSiguiente) == false && siguienteFicha < posicionesV.length) {
-                                colorFichaSiguiente = document.getElementById(posicionesV[siguienteFicha]).style.backgroundColor;
-                                if (posicionesLimites.includes(siguienteFicha)) {
-                                    salida = false;
-                                    break;
-                                }
-                                if (colorFichaSiguiente == "") {
-                                    salida = false;
-                                    break;
-                                }
-                                if (coloresJug1.includes(colorFichaSiguiente) == true) {
-                                    salida = true;
-                                    break;
-                                }
-                                siguienteFicha++;
-                                if (siguienteFicha == posicionesV.length) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                            if (salida == true) {
-                                siguienteFicha = conteoPosicion + 1;
-                                if (siguienteFicha == posicionesV.length) siguienteFicha = (posicionesV.length - 1);
-                                colorFichaSiguiente = document.getElementById(posicionesV[siguienteFicha]).style.backgroundColor;
-                                while (coloresJug1.includes(colorFichaSiguiente) == false && siguienteFicha < posicionesV.length) {
-                                    colorFichaSiguiente = document.getElementById(posicionesV[siguienteFicha]).style.backgroundColor;
-                                    document.getElementById(posicionesV[siguienteFicha]).style.backgroundColor = colorFicha;
-                                    siguienteFicha++;
-                                }
-                            }
-                        }
-                        else {
-                            while (coloresJug2.includes(colorFichaSiguiente) == false && siguienteFicha < posicionesV.length) {
-                                colorFichaSiguiente = document.getElementById(posicionesV[siguienteFicha]).style.backgroundColor;
-                                if (posicionesLimites.includes(siguienteFicha)) {
-                                    salida = false;
-                                    break;
-                                }
-
-                                if (colorFichaSiguiente == "") {
-                                    salida = false;
-                                    break;
-                                }
-
-                                if (coloresJug2.includes(colorFichaSiguiente) == true) {
-                                    salida = true;
-                                    break;
-                                }
-                                siguienteFicha++;
-                                if (siguienteFicha == posicionesV.length) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                            if (salida == true) {
-                                siguienteFicha = conteoPosicion + 1;
-                                if (siguienteFicha == posicionesV.length) siguienteFicha = (posicionesV.length - 1)
-                                colorFichaSiguiente = document.getElementById(posicionesV[siguienteFicha]).style.backgroundColor;
-                                while (coloresJug2.includes(colorFichaSiguiente) == false && siguienteFicha < posicionesV.length) {
-                                    colorFichaSiguiente = document.getElementById(posicionesV[siguienteFicha]).style.backgroundColor;
-                                    document.getElementById(posicionesV[siguienteFicha]).style.backgroundColor = colorFicha;
-                                    siguienteFicha++;
-                                }
-                            }
-                        }
-                    }
-                    conteoPosicion++;
-                });
-            }
-
-            function vertical2(id, posicionesV2) {
-                var posicionesVRe = [];
-                for (var i = 0; i < posicionesV2.length; i++) {
-                    var actual = posicionesV2[i].split("&");
-                    for (var j = 0; j < actual.length; j++) {
-                        if (actual[j] != "") {
-                            posicionesVRe.push(actual[j])
-                        }
-                    }
-                }
-                var tamañoTablero = posicionesVRe.length;
-                var posicionGen = 0;
-                var posicionesLimites = [];
-                var tamañoGeneral = posicionesV2.length - 1;
-                for (var i = 0; i < tamañoGeneral; i++) {
-                    var actual = posicionesV2[i].split("&");
-                    if (actual[0] != "") {
-                        posicionGen = posicionesVRe.indexOf(actual[0]);
-                        posicionesLimites.push(posicionGen);
-                    }
-                    else {
-                        posicionGen = posicionesVRe.indexOf(actual[1]);
-                        posicionesLimites.push(posicionGen);
-                    }
-                }
-
-                var ancho = document.getElementById("alto").value;
-                var conteoPosicion = 0;
-                var coloresJug1 = []
-                var coloresJug2 = []
-                var colores1 = document.getElementById("color1");
-                for (var i = 0; i < colores1.options.length; i++) {
-                    if (colores1.options[i].selected == true) {
-                        coloresJug1.push(colores1.options[i].value)
-                    }
-                }
-                var colores2 = document.getElementById("color2");
-                for (var i = 0; i < colores2.options.length; i++) {
-                    if (colores2.options[i].selected == true) {
-                        coloresJug2.push(colores2.options[i].value)
-                    }
-                }
-
-                posicionesVRe.forEach(function (i) {
-                    conteoPosicion = posicionesVRe.indexOf(i);
-                    var colorFicha = "";
-                    var siguienteFicha = 0;
-                    var colorFichaSiguiente = "";
-                    var salida = true;
-                    if (i == id) {
-                        colorFicha = document.getElementById(i).style.backgroundColor;
-                        siguienteFicha = conteoPosicion - 1;
-                        if (siguienteFicha == -1) siguienteFicha = 0;
-                        colorFichaSiguiente = document.getElementById(posicionesVRe[siguienteFicha]).style.backgroundColor;
-                        var cjug1 = false;
-                        var cjug2 = false;
-                        for (var i = 0; i < coloresJug1.length; i++) {
-                            if (colorFicha == coloresJug1[i]) {
-                                cjug1 = true;
-                            }
-                        }
-                        for (var i = 0; i < coloresJug2.length; i++) {
-                            if (colorFicha == coloresJug2[i]) {
-                                cjug2 = true;
-                            }
-                        }
-                        if (cjug1 == true) {
-                            while (coloresJug1.includes(colorFichaSiguiente) == false && siguienteFicha >= 0) {
-                                colorFichaSiguiente = document.getElementById(posicionesVRe[siguienteFicha]).style.backgroundColor;
-                                if (posicionesLimites.includes(siguienteFicha)) {
-                                    salida = false;
-                                    break;
-                                }
-                                if (colorFichaSiguiente == "") {
-                                    salida = false;
-                                    break;
-                                }
-                                if (coloresJug1.includes(colorFichaSiguiente) == true) {
-                                    salida = true;
-                                    break;
-                                }
-                                siguienteFicha--;
-                                if (siguienteFicha == -1) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                            if (salida == true) {
-                                siguienteFicha = conteoPosicion - 1;
-                                if (siguienteFicha == -1) siguienteFicha = 0;
-                                colorFichaSiguiente = document.getElementById(posicionesVRe[siguienteFicha]).style.backgroundColor;
-                                while (coloresJug1.includes(colorFichaSiguiente) == false && siguienteFicha > 0) {
-                                    colorFichaSiguiente = document.getElementById(posicionesVRe[siguienteFicha]).style.backgroundColor;
-                                    document.getElementById(posicionesVRe[siguienteFicha]).style.backgroundColor = colorFicha;
-                                    siguienteFicha--;
-                                }
-                            }
-                        }
-                        else {
-                            while (coloresJug2.includes(colorFichaSiguiente) == false && siguienteFicha >= 0) {
-                                colorFichaSiguiente = document.getElementById(posicionesVRe[siguienteFicha]).style.backgroundColor;
-                                if (posicionesLimites.includes(siguienteFicha)) {
-                                    salida = false;
-                                    break;
-                                }
-
-                                if (colorFichaSiguiente == "") {
-                                    salida = false;
-                                    break;
-                                }
-
-
-                                if (coloresJug2.includes(colorFichaSiguiente) == true) {
-                                    salida = true;
-                                    break;
-                                }
-                                siguienteFicha--;
-                                if (siguienteFicha == 0) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                            if (salida == true) {
-                                siguienteFicha = conteoPosicion - 1;
-                                if (siguienteFicha == -1) siguienteFicha = 0;
-                                colorFichaSiguiente = document.getElementById(posicionesVRe[siguienteFicha]).style.backgroundColor;
-                                while (coloresJug2.includes(colorFichaSiguiente) == false && siguienteFicha > 0) {
-                                    colorFichaSiguiente = document.getElementById(posicionesVRe[siguienteFicha]).style.backgroundColor;
-                                    document.getElementById(posicionesVRe[siguienteFicha]).style.backgroundColor = colorFicha;
-                                    siguienteFicha--;
-                                }
-                            }
-                        }
-                    }
-                    conteoPosicion++;
-                });
-            }
-
-            function diagonal1(id, posicionesIAb1) {
-                var posicionesIAb = [];
-                for (var i = 0; i < posicionesIAb1.length; i++) {
-                    var actual = posicionesIAb1[i].split(",");
-                    for (var j = 0; j < actual.length; j++) {
-                        if (actual[j] != "") {
-                            posicionesIAb.push(actual[j])
-                        }
-                    }
-                }
-                var tamañoTablero = posicionesIAb.length;
-                var posicionGen = 0;
-                var posicionesLimites = [];
-                for (var i = 0; i < posicionesIAb1.length; i++) {
-                    var actual = posicionesIAb1[i].split(",");
-                    if (actual.length == 1) {
-                        posicionGen = posicionesIAb.indexOf(actual[0]);
-                        posicionesLimites.push(posicionGen);
-                    }
-                    else {
-                        posicionGen = posicionesIAb.indexOf(actual[1]);
-                        if (posicionGen == (tamañoTablero - 1)) {
-                            posicionGen = tamañoTablero;
-                        }
-                        posicionesLimites.push(posicionGen);
-                    }
-                }
-                var conteoPosicion = 0;
-                var coloresJug1 = []
-                var coloresJug2 = []
-                var colores1 = document.getElementById("color1");
-                for (var i = 0; i < colores1.options.length; i++) {
-                    if (colores1.options[i].selected == true) {
-                        coloresJug1.push(colores1.options[i].value)
-                    }
-                }
-                var colores2 = document.getElementById("color2");
-                for (var i = 0; i < colores2.options.length; i++) {
-                    if (colores2.options[i].selected == true) {
-                        coloresJug2.push(colores2.options[i].value)
-                    }
-                }
-                posicionesIAb.forEach(function (i) {
-                    conteoPosicion = posicionesIAb.indexOf(i);
-                    var colorFicha = "";
-                    var siguienteFicha = 0;
-                    var colorFichaSiguiente = "";
-                    var salida = true;
-                    if (i == id) {
-                        colorFicha = document.getElementById(i).style.backgroundColor;
-                        siguienteFicha = conteoPosicion + 1;
-                        if (siguienteFicha == posicionesIAb.length) siguienteFicha = (posicionesIAb.length - 1);
-                        colorFichaSiguiente = document.getElementById(posicionesIAb[siguienteFicha]).style.backgroundColor;
-                        var cjug1 = false;
-                        var cjug2 = false;
-                        for (var i = 0; i < coloresJug1.length; i++) {
-                            if (colorFicha == coloresJug1[i]) {
-                                cjug1 = true;
-                            }
-                        }
-                        for (var i = 0; i < coloresJug2.length; i++) {
-                            if (colorFicha == coloresJug2[i]) {
-                                cjug2 = true;
-                            }
-                        }
-                        if (cjug1 == true) {
-                            while (coloresJug1.includes(colorFichaSiguiente) == false && siguienteFicha < posicionesIAb.length) {
-                                colorFichaSiguiente = document.getElementById(posicionesIAb[siguienteFicha]).style.backgroundColor;
-                                if (posicionesLimites.includes(siguienteFicha)) {
-                                    salida = false;
-                                    break;
-                                }
-                                if (colorFichaSiguiente == "") {
-                                    salida = false;
-                                    break;
-                                }
-                                if (coloresJug1.includes(colorFichaSiguiente) == true) {
-                                    salida = true;
-                                    break;
-                                }
-                                siguienteFicha++;
-                                if (siguienteFicha == posicionesIAb.length) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                            if (salida == true) {
-                                siguienteFicha = conteoPosicion + 1;
-                                if (siguienteFicha == posicionesIAb.length) siguienteFicha = (posicionesIAb.length - 1);
-                                colorFichaSiguiente = document.getElementById(posicionesIAb[siguienteFicha]).style.backgroundColor;
-                                while (coloresJug1.includes(colorFichaSiguiente) == false && siguienteFicha < posicionesIAb.length) {
-                                    colorFichaSiguiente = document.getElementById(posicionesIAb[siguienteFicha]).style.backgroundColor;
-                                    document.getElementById(posicionesIAb[siguienteFicha]).style.backgroundColor = colorFicha;
-                                    siguienteFicha++;
-                                }
-                            }
-                        }
-                        else {
-                            while (coloresJug2.includes(colorFichaSiguiente) == false && siguienteFicha < posicionesIAb.length) {
-                                colorFichaSiguiente = document.getElementById(posicionesIAb[siguienteFicha]).style.backgroundColor;
-                                if (posicionesLimites.includes(siguienteFicha)) {
-                                    salida = false;
-                                    break;
-                                }
-
-                                if (colorFichaSiguiente == "") {
-                                    salida = false;
-                                    break;
-                                }
-
-
-                                if (coloresJug2.includes(colorFichaSiguiente) == true) {
-                                    salida = true;
-                                    break;
-                                }
-                                siguienteFicha++;
-                                if (siguienteFicha == 0) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                            if (salida == true) {
-                                siguienteFicha = conteoPosicion + 1;
-
-                                if (siguienteFicha == posicionesIAb.length) siguienteFicha = (posicionesIAb.length - 1);
-                                colorFichaSiguiente = document.getElementById(posicionesIAb[siguienteFicha]).style.backgroundColor;
-                                while (coloresJug2.includes(colorFichaSiguiente) == false && siguienteFicha < posicionesIAb.length) {
-                                    colorFichaSiguiente = document.getElementById(posicionesIAb[siguienteFicha]).style.backgroundColor;
-                                    document.getElementById(posicionesIAb[siguienteFicha]).style.backgroundColor = colorFicha;
-                                    siguienteFicha++;
-                                }
-                            }
-                        }
-                    }
-                    conteoPosicion++;
-                });
-            }
-
-            function diagonal2(id, posicionesIAb2) {
-                var posicionesIAbRe = [];
-                for (var i = 0; i < posicionesIAb2.length; i++) {
-                    var actual = posicionesIAb2[i].split(",");
-                    for (var j = 0; j < actual.length; j++) {
-                        if (actual[j] != "") {
-                            posicionesIAbRe.push(actual[j])
-                        }
-                    }
-                }
-                var tamañoTablero = posicionesIAbRe.length;
-                var posicionGen = 0;
-                var posicionesLimites = [];
-                for (var i = 0; i < posicionesIAb2.length; i++) {
-                    var actual = posicionesIAb2[i].split(",");
-                    var total = actual.length - 1;
-                    posicionesLimites.push(actual[total])
-                }
-                var conteoPosicion = 0;
-                var coloresJug1 = []
-                var coloresJug2 = []
-                var colores1 = document.getElementById("color1");
-                for (var i = 0; i < colores1.options.length; i++) {
-                    if (colores1.options[i].selected == true) {
-                        coloresJug1.push(colores1.options[i].value)
-                    }
-                }
-                var colores2 = document.getElementById("color2");
-                for (var i = 0; i < colores2.options.length; i++) {
-                    if (colores2.options[i].selected == true) {
-                        coloresJug2.push(colores2.options[i].value)
-                    }
-                }
-                posicionesIAbRe.forEach(function (i) {
-                    conteoPosicion = posicionesIAbRe.indexOf(i);
-                    var colorFicha = "";
-                    var siguienteFicha = 0;
-                    var colorFichaSiguiente = "";
-                    var salida = true;
-                    if (i == id) {
-                        colorFicha = document.getElementById(i).style.backgroundColor;
-                        siguienteFicha = conteoPosicion - 1;
-                        if (siguienteFicha == -1) siguienteFicha = 0;
-                        colorFichaSiguiente = document.getElementById(posicionesIAbRe[siguienteFicha]).style.backgroundColor;
-                        var cjug1 = false;
-                        var cjug2 = false;
-                        for (var i = 0; i < coloresJug1.length; i++) {
-                            if (colorFicha == coloresJug1[i]) {
-                                cjug1 = true;
-                            }
-                        }
-                        for (var i = 0; i < coloresJug2.length; i++) {
-                            if (colorFicha == coloresJug2[i]) {
-                                cjug2 = true;
-                            }
-                        }
-                        if (cjug1 == true) {
-                            while (coloresJug1.includes(colorFichaSiguiente) == false && siguienteFicha > 0) {
-                                colorFichaSiguiente = document.getElementById(posicionesIAbRe[siguienteFicha]).style.backgroundColor;
-                                if (posicionesLimites.includes(siguienteFicha)) {
-                                    salida = false;
-                                    break;
-                                }
-                                if (colorFichaSiguiente == "") {
-                                    salida = false;
-                                    break;
-                                }
-                                if (coloresJug1.includes(colorFichaSiguiente) == true) {
-                                    salida = true;
-                                    break;
-                                }
-                                siguienteFicha--;
-                                if (siguienteFicha == -1) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                            if (salida == true) {
-                                siguienteFicha = conteoPosicion - 1;
-                                if (siguienteFicha == -1) siguienteFicha = 0;
-                                colorFichaSiguiente = document.getElementById(posicionesIAbRe[siguienteFicha]).style.backgroundColor;
-                                while (coloresJug1.includes(colorFichaSiguiente) == false && siguienteFicha > 0) {
-                                    colorFichaSiguiente = document.getElementById(posicionesIAbRe[siguienteFicha]).style.backgroundColor;
-                                    document.getElementById(posicionesIAbRe[siguienteFicha]).style.backgroundColor = colorFicha;
-                                    siguienteFicha--;
-                                }
-                            }
-                        }
-                        else {
-                            while (coloresJug2.includes(colorFichaSiguiente) == false && siguienteFicha > 0) {
-                                colorFichaSiguiente = document.getElementById(posicionesIAbRe[siguienteFicha]).style.backgroundColor;
-                                if (posicionesLimites.includes(siguienteFicha)) {
-                                    salida = false;
-                                    break;
-                                }
-
-                                if (colorFichaSiguiente == "") {
-                                    salida = false;
-                                    break;
-                                }
-
-
-                                if (coloresJug2.includes(colorFichaSiguiente) == true) {
-                                    salida = true;
-                                    break;
-                                }
-                                siguienteFicha--;
-                                if (siguienteFicha == -1) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                            if (salida == true) {
-                                siguienteFicha = conteoPosicion - 1;
-
-                                if (siguienteFicha == -1) siguienteFicha = 0;
-                                colorFichaSiguiente = document.getElementById(posicionesIAbRe[siguienteFicha]).style.backgroundColor;
-                                while (coloresJug2.includes(colorFichaSiguiente) == false && siguienteFicha > 0) {
-                                    colorFichaSiguiente = document.getElementById(posicionesIAbRe[siguienteFicha]).style.backgroundColor;
-                                    document.getElementById(posicionesIAbRe[siguienteFicha]).style.backgroundColor = colorFicha;
-                                    siguienteFicha--;
-                                }
-                            }
-                        }
-                    }
-                    conteoPosicion++;
-                });
-            }
-
-            function diagonalI1(id, posicionesD) {
-                var posicionesD1 = [];
-                for (var i = 0; i < posicionesD.length; i++) {
-                    var actual = posicionesD[i].split(",");
-                    for (var j = 0; j < actual.length; j++) {
-                        if (actual[j] != "") {
-                            posicionesD1.push(actual[j])
-                        }
-                    }
-                }
-                var tamañoTablero = posicionesD1.length;
-                var posicionGen = 0;
-                var posicionesLimites = [];
-                for (var i = 0; i < posicionesD.length; i++) {
-                    var actual = posicionesD[i].split(",");
-                    if (actual.length == 1) {
-                        posicionGen = posicionesD1.indexOf(actual[0]);
-                        posicionesLimites.push(posicionGen);
-                    }
-                    else {
-                        posicionGen = posicionesD1.indexOf(actual[1]);
-                        if (posicionGen == (tamañoTablero - 1)) {
-                            posicionGen = tamañoTablero;
-                        }
-                        posicionesLimites.push(posicionGen);
-                    }
-                }
-                var conteoPosicion = 0;
-                var coloresJug1 = []
-                var coloresJug2 = []
-                var colores1 = document.getElementById("color1");
-                for (var i = 0; i < colores1.options.length; i++) {
-                    if (colores1.options[i].selected == true) {
-                        coloresJug1.push(colores1.options[i].value)
-                    }
-                }
-                var colores2 = document.getElementById("color2");
-                for (var i = 0; i < colores2.options.length; i++) {
-                    if (colores2.options[i].selected == true) {
-                        coloresJug2.push(colores2.options[i].value)
-                    }
-                }
-                posicionesD1.forEach(function (i) {
-                    conteoPosicion = posicionesD1.indexOf(i);
-                    var colorFicha = "";
-                    var siguienteFicha = 0;
-                    var colorFichaSiguiente = "";
-                    var salida = true;
-                    if (i == id) {
-                        colorFicha = document.getElementById(i).style.backgroundColor;
-                        siguienteFicha = conteoPosicion + 1;
-                        if (siguienteFicha == posicionesD1.length) siguienteFicha = (posicionesD1.length - 1);
-                        colorFichaSiguiente = document.getElementById(posicionesD1[siguienteFicha]).style.backgroundColor;
-                        var cjug1 = false;
-                        var cjug2 = false;
-                        for (var i = 0; i < coloresJug1.length; i++) {
-                            if (colorFicha == coloresJug1[i]) {
-                                cjug1 = true;
-                            }
-                        }
-                        for (var i = 0; i < coloresJug2.length; i++) {
-                            if (colorFicha == coloresJug2[i]) {
-                                cjug2 = true;
-                            }
-                        }
-                        if (cjug1 == true) {
-                            while (coloresJug1.includes(colorFichaSiguiente) == false && siguienteFicha < posicionesD1.length) {
-                                colorFichaSiguiente = document.getElementById(posicionesD1[siguienteFicha]).style.backgroundColor;
-                                if (posicionesLimites.includes(siguienteFicha)) {
-                                    salida = false;
-                                    break;
-                                }
-                                if (colorFichaSiguiente == "") {
-                                    salida = false;
-                                    break;
-                                }
-                                if (coloresJug1.includes(colorFichaSiguiente) == true) {
-                                    salida = true;
-                                    break;
-                                }
-                                siguienteFicha++;
-                                if (siguienteFicha == posicionesD1.length) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                            if (salida == true) {
-                                siguienteFicha = conteoPosicion + 1;
-                                if (siguienteFicha == posicionesD1.length) siguienteFicha = (posicionesD1.length - 1);
-                                colorFichaSiguiente = document.getElementById(posicionesD1[siguienteFicha]).style.backgroundColor;
-                                while (coloresJug1.includes(colorFichaSiguiente) == false && siguienteFicha < posicionesD1.length) {
-                                    colorFichaSiguiente = document.getElementById(posicionesD1[siguienteFicha]).style.backgroundColor;
-                                    document.getElementById(posicionesD1[siguienteFicha]).style.backgroundColor = colorFicha;
-                                    siguienteFicha++;
-                                }
-                            }
-                        }
-                        else {
-                            while (coloresJug2.includes(colorFichaSiguiente) == false && siguienteFicha < posicionesD1.length) {
-                                colorFichaSiguiente = document.getElementById(posicionesD1[siguienteFicha]).style.backgroundColor;
-                                if (posicionesLimites.includes(siguienteFicha)) {
-                                    salida = false;
-                                    break;
-                                }
-
-                                if (colorFichaSiguiente == "") {
-                                    salida = false;
-                                    break;
-                                }
-
-
-                                if (coloresJug2.includes(colorFichaSiguiente) == true) {
-                                    salida = true;
-                                    break;
-                                }
-                                siguienteFicha++;
-                                if (siguienteFicha == 0) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                            if (salida == true) {
-                                siguienteFicha = conteoPosicion + 1;
-
-                                if (siguienteFicha == posicionesD1.length) siguienteFicha = (posicionesD1.length - 1);
-                                colorFichaSiguiente = document.getElementById(posicionesD1[siguienteFicha]).style.backgroundColor;
-                                while (coloresJug2.includes(colorFichaSiguiente) == false && siguienteFicha < posicionesD1.length) {
-                                    colorFichaSiguiente = document.getElementById(posicionesD1[siguienteFicha]).style.backgroundColor;
-                                    document.getElementById(posicionesD1[siguienteFicha]).style.backgroundColor = colorFicha;
-                                    siguienteFicha++;
-                                }
-                            }
-                        }
-                    }
-                    conteoPosicion++;
-                });
-            }
-
-            function diagonalI2(id, posicionesD) {
-                var posicionesD2 = [];
-                for (var i = 0; i < posicionesD.length; i++) {
-                    var actual = posicionesD[i].split(",");
-                    for (var j = 0; j < actual.length; j++) {
-                        if (actual[j] != "") {
-                            posicionesD2.push(actual[j])
-                        }
-                    }
-                }
-                var tamañoTablero = posicionesD2.length;
-                var posicionGen = 0;
-                var posicionesLimites = [];
-                for (var i = 0; i < posicionesD.length; i++) {
-                    var actual = posicionesD[i].split(",");
-                    var total = actual.length - 1;
-                    posicionesLimites.push(actual[total])
-                }
-                var conteoPosicion = 0;
-                var coloresJug1 = []
-                var coloresJug2 = []
-                var colores1 = document.getElementById("color1");
-                for (var i = 0; i < colores1.options.length; i++) {
-                    if (colores1.options[i].selected == true) {
-                        coloresJug1.push(colores1.options[i].value)
-                    }
-                }
-                var colores2 = document.getElementById("color2");
-                for (var i = 0; i < colores2.options.length; i++) {
-                    if (colores2.options[i].selected == true) {
-                        coloresJug2.push(colores2.options[i].value)
-                    }
-                }
-                posicionesD2.forEach(function (i) {
-                    conteoPosicion = posicionesD2.indexOf(i);
-                    var colorFicha = "";
-                    var siguienteFicha = 0;
-                    var colorFichaSiguiente = "";
-                    var salida = true;
-                    if (i == id) {
-                        colorFicha = document.getElementById(i).style.backgroundColor;
-                        siguienteFicha = conteoPosicion - 1;
-                        if (siguienteFicha == -1) siguienteFicha = 0;
-                        colorFichaSiguiente = document.getElementById(posicionesD2[siguienteFicha]).style.backgroundColor;
-                        var cjug1 = false;
-                        var cjug2 = false;
-                        for (var i = 0; i < coloresJug1.length; i++) {
-                            if (colorFicha == coloresJug1[i]) {
-                                cjug1 = true;
-                            }
-                        }
-                        for (var i = 0; i < coloresJug2.length; i++) {
-                            if (colorFicha == coloresJug2[i]) {
-                                cjug2 = true;
-                            }
-                        }
-                        if (cjug1 == true) {
-                            while (coloresJug1.includes(colorFichaSiguiente) == false && siguienteFicha > 0) {
-                                colorFichaSiguiente = document.getElementById(posicionesD2[siguienteFicha]).style.backgroundColor;
-                                if (posicionesLimites.includes(siguienteFicha)) {
-                                    salida = false;
-                                    break;
-                                }
-                                if (colorFichaSiguiente == "") {
-                                    salida = false;
-                                    break;
-                                }
-                                if (coloresJug1.includes(colorFichaSiguiente) == true) {
-                                    salida = true;
-                                    break;
-                                }
-                                siguienteFicha--;
-                                if (siguienteFicha == -1) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                            if (salida == true) {
-                                siguienteFicha = conteoPosicion - 1;
-                                if (siguienteFicha == -1) siguienteFicha = 0;
-                                colorFichaSiguiente = document.getElementById(posicionesD2[siguienteFicha]).style.backgroundColor;
-                                while (coloresJug1.includes(colorFichaSiguiente) == false && siguienteFicha > 0) {
-                                    colorFichaSiguiente = document.getElementById(posicionesD2[siguienteFicha]).style.backgroundColor;
-                                    document.getElementById(posicionesD2[siguienteFicha]).style.backgroundColor = colorFicha;
-                                    siguienteFicha--;
-                                }
-                            }
-                        }
-                        else {
-                            while (coloresJug2.includes(colorFichaSiguiente) == false && siguienteFicha > 0) {
-                                colorFichaSiguiente = document.getElementById(posicionesD2[siguienteFicha]).style.backgroundColor;
-                                if (posicionesLimites.includes(siguienteFicha)) {
-                                    salida = false;
-                                    break;
-                                }
-
-                                if (colorFichaSiguiente == "") {
-                                    salida = false;
-                                    break;
-                                }
-
-
-                                if (coloresJug2.includes(colorFichaSiguiente) == true) {
-                                    salida = true;
-                                    break;
-                                }
-                                siguienteFicha--;
-                                if (siguienteFicha == -1) {
-                                    salida = false;
-                                    break;
-                                }
-                            };
-                            if (salida == true) {
-                                siguienteFicha = conteoPosicion - 1;
-
-                                if (siguienteFicha == -1) siguienteFicha = 0;
-                                colorFichaSiguiente = document.getElementById(posicionesD2[siguienteFicha]).style.backgroundColor;
-                                while (coloresJug2.includes(colorFichaSiguiente) == false && siguienteFicha > 0) {
-                                    colorFichaSiguiente = document.getElementById(posicionesD2[siguienteFicha]).style.backgroundColor;
-                                    document.getElementById(posicionesD2[siguienteFicha]).style.backgroundColor = colorFicha;
-                                    siguienteFicha--;
-                                }
-                            }
-                        }
-                    }
-                    conteoPosicion++;
-                });
-            }
+                                 if (posicionesLimites.includes(siguienteFicha)) {
+                                     salida = false;
+                                     break;
+                                 }
+                                 if (colorFichaSiguiente == "") {
+                                     salida = false;
+                                     break;
+                                 }
+                                 if (coloresJug2.includes(colorFichaSiguiente) == true) {
+                                     salida = true;
+                                     break;
+                                 }
+                                 siguienteFicha++;
+                                 if (siguienteFicha == posicionesHRe.length) {
+                                     salida = false;
+                                     break;
+                                 }
+                             };
+                             if (salida == true) {
+                                 siguienteFicha = conteoPosicion + 1;
+                                 if (siguienteFicha == posicionesHRe.length) siguienteFicha = (posicionesHRe.length - 1)
+                                 colorFichaSiguiente = document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor;
+                                 while (coloresJug2.includes(colorFichaSiguiente) == false && siguienteFicha < posicionesHRe.length) {
+                                     colorFichaSiguiente = document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor;
+                                     document.getElementById(posicionesHRe[siguienteFicha]).style.backgroundColor = colorFicha;
+                                     siguienteFicha++;
+                                 }
+                             }
+                         }
+                     }
+                     conteoPosicion++;
+                 });
+             }
 
             function punteo(posicionesConteo) {
                 var coloresJug1 = []
@@ -2919,31 +2180,29 @@
                 }
                 var colores1 = [];
                 var colores2 = [];
-                var conteoPuntos = 0;
-                while (conteoPuntos != (posicionesConteo.length-1)) {
-                    var posicionAc = posicionesConteo[conteoPuntos];
-                    var colorAct = document.getElementById(posicionAc).style.backgroundColor;
-                    if (colorAct != "") {
-                        if (coloresJug1.includes(colorAct)) {
-                            colores1.push(".");
-                        }
-                        if (coloresJug2.includes(colorAct)) {
-                            colores2.push("¿");
+                posicionesConteo.forEach(function (i) {
+                    var color = document.getElementById(i).style.backgroundColor;
+                    if (color != "") {
+                        var colorAct = document.getElementById(i).style.backgroundColor;
+                        if (colorAct != "") {
+                            if (coloresJug1.includes(colorAct)) {
+                                colores1.push(".");
+                            }
+                            if (coloresJug2.includes(colorAct)) {
+                                colores2.push("¿");
+                            }
                         }
                     }
-                    conteoPuntos++;
-                }
+                });
                 document.getElementById("Pblancas").value = colores1.length;
                 document.getElementById("Pnegras").value = colores2.length;
                 var tamañoTablero = posicionesConteo.length;
                 var lleva = colores1.length + colores2.length;
-                if (lleva == tamañoTablero || lleva == (tamañoTablero-1)) {
-                    alert("fin");
+                if (lleva == tamañoTablero) {
                     var nombre1 = document.getElementById("j1").value;
                     final(nombre1, coloresJug1);
                 }
             }
-
         </script>
 
         <script>
