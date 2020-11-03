@@ -133,6 +133,7 @@
             position: absolute;
             resize: none;
             font-family: 'kaushan Script', cursive;
+            font-size:20px;
             color: black;
             top: 250px;
             width: 200px;
@@ -143,6 +144,7 @@
             position: absolute;
             resize: none;
             font-family: 'kaushan Script', cursive;
+            font-size: 20px;
             color: black;
             top: 250px;
             left: 230px;
@@ -154,6 +156,7 @@
             position: absolute;
             resize: none;
             font-family: 'kaushan Script', cursive;
+            font-size: 20px;
             color: black;
             top: 250px;
             left: 440px;
@@ -165,6 +168,7 @@
             position: absolute;
             resize: none;
             font-family: 'kaushan Script', cursive;
+            font-size: 19px;
             color: black;
             top: 250px;
             left: 650px;
@@ -175,6 +179,7 @@
             position: absolute;
             resize: none;
             font-family: 'kaushan Script', cursive;
+            font-size: 20px;
             color: black;
             top: 250px;
             left: 860px;
@@ -185,6 +190,7 @@
             position: absolute;
             resize: none;
             font-family: 'kaushan Script', cursive;
+            font-size: 20px;
             color: black;
             top: 250px;
             left: 1070px;
@@ -264,7 +270,7 @@
     <label id="estado">Estado</label>
     <label id="movimiento">Movimientos</label>
     <label id="punteo">Puntaje</label>
-    <label id="colorFicha">Ficha</label>
+    <label id="colorFicha">Color Fichas</label>
     <label id="fecha">Fecha</label>
     <textarea id="información" disabled="disabled"></textarea>
     <textarea id="información2" disabled="disabled"></textarea>
@@ -321,7 +327,19 @@
                     function (response) {
                         var respuesta = response;
                         var cadena = respuesta.split("&")
-                        alert(cadena)
+                        for (var i = 0; i < (cadena.length - 1); i++) {
+                            var actual = cadena[i].split("|");
+                            document.getElementById("información").value = document.getElementById("información").value + "\r"+actual[4];
+                            document.getElementById("información2").value = document.getElementById("información2").value + "\r" + actual[3];
+                            document.getElementById("información3").value = document.getElementById("información3").value + "\r" + actual[2];
+                            document.getElementById("información4").value = document.getElementById("información4").value + "\r" + actual[5];
+                            document.getElementById("información5").value = document.getElementById("información5").value + "\r" + actual[0];
+                            document.getElementById("información6").value = document.getElementById("información6").value + "\r" + actual[1];
+                        }
+                        //alert(cadena[0]);
+                        //alert(cadena[1]);
+                        //alert(cadena[2]);
+                        //alert(cadena[3]);
                     },
                 error:
                     function (response) {
