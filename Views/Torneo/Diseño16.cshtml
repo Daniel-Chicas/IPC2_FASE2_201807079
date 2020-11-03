@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-image: url("../16.png");
+            background-repeat: no-repeat;
+            background-position: 0px 50px;
+            background-size: 100% 550%;
+        }
+
+        #Boton2 {
+            position: absolute;
+            left: 1230px;
+            top: 550px;
+            border-radius: 50px;
+            background: #D9D950;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        #equipo1{
+            position: absolute;
+            top: 130px;
+            left: 50px;
+            width: 179px;
+        }
+        #equipo2 {
+            position: absolute;
+            top: 165px;
+            left: 50px;
+            width: 179px;
+        }
+        #equipo3 {
+            position: absolute;
+            top: 200px;
+            left: 50px;
+            width: 179px;
+        }
+        #equipo4 {
+            position: absolute;
+            top: 235px;
+            left: 50px;
+            width: 179px;
+        }
+        #equipo5 {
+            position: absolute;
+            top: 270px;
+            left: 50px;
+            width: 179px;
+        }
+        #equipo6 {
+            position: absolute;
+            top: 305px;
+            left: 50px;
+            width: 179px;
+        }
+        #equipo7 {
+            position: absolute;
+            top: 340px;
+            left: 50px;
+            width: 179px;
+        }
+        #equipo8 {
+            position: absolute;
+            top: 375px;
+            left: 50px;
+            width: 179px;
+        }
+        #equipo9 {
+            position: absolute;
+            top: 130px;
+            left: 1100px;
+            width: 186px;
+        }
+
+        #equipo10 {
+            position: absolute;
+            top: 165px;
+            left: 1100px;
+            width: 186px;
+        }
+
+        #equipo11 {
+            position: absolute;
+            top: 200px;
+            left: 1100px;
+            width: 186px;
+        }
+
+        #equipo12 {
+            position: absolute;
+            top: 235px;
+            left: 1100px;
+            width: 186px;
+        }
+
+        #equipo13 {
+            position: absolute;
+            top: 270px;
+            left: 1100px;
+            width: 186px;
+        }
+
+        #equipo14 {
+            position: absolute;
+            top: 305px;
+            left: 1100px;
+            width: 186px;
+        }
+
+        #equipo15 {
+            position: absolute;
+            top: 340px;
+            left: 1100px;
+            width: 186px;
+        }
+
+        #equipo16 {
+            position: absolute;
+            top: 375px;
+            left: 1100px;
+            width: 186px;
+        }
+    </style>
+</head>
+<body>
+    <select id="equipo1"></select>
+    <select id="equipo2"></select>
+    <select id="equipo3"></select>
+    <select id="equipo4"></select>
+    <select id="equipo5"></select>
+    <select id="equipo6"></select>
+    <select id="equipo7"></select>
+    <select id="equipo8"></select>
+    <select id="equipo9"></select>
+    <select id="equipo10"></select>
+    <select id="equipo11"></select>
+    <select id="equipo12"></select>
+    <select id="equipo13"></select>
+    <select id="equipo14"></select>
+    <select id="equipo15"></select>
+    <select id="equipo16"></select>
+    <input id="Boton2" type="submit" value=" SALIR " onclick="location.href='@Url.Action("TableroCampeonato", "Torneo")'" />
+
+    @section scripts {
+        <script type="text/javascript">
+                $.ajax(
+                {
+                    type: 'POST',
+                    dataType: 'text',
+                    url: '@Url.Action("DatosJugadores", "Torneo")',
+                    success:
+                        function (response) {
+                            //$('#lider_id').prepend("<option value='1'>Josh_reder</option>");
+                            var cadena = response.split(";");
+                            for (var i = 0; i < (cadena.length - 1); i++) {
+                                var actual = cadena[i].split("&");
+                                $('#equipo' + (i+1)).prepend("<option value='0'>" + actual[0] + "</option>");
+                                $('#equipo' + (i + 1)).prepend("<option value='1'>" + actual[1] + "</option>");
+                                $('#equipo' + (i + 1)).prepend("<option value='2'>" + actual[2] + "</option>");
+                                $('#equipo' + (i + 1)).prepend("<option value='3'>" + actual[3] + "</option>");
+                            }
+                                },
+                        error:
+                            function (response) {
+                                alert("Error: " + response);
+                            }
+                    });
+
+        </script>
+    }
+
+
+</body>
+
+
+</html>
