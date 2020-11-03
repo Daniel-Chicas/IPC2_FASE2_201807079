@@ -3,7 +3,6 @@
 <head>
     <title>Sintaxis HTML</title>
     <header><label id="header">TORNEO</label></header>
-
     <style>
         body {
             background: #B4B6B3;
@@ -199,8 +198,8 @@
                         success:
                             function (response) {
                                 alert(response);
-                                if (response != "El archivo no pudo ser cargado.") {
-                                    window.location = '@Url.Action("Contra", "Torneo")';
+                                if (response != "No se ha podido cargar el campeonato, intente nuevamente.") {
+                                    window.location = '@Url.Action("TableroCampeonato", "Torneo")';
                                 }
                                     },
                             error:
