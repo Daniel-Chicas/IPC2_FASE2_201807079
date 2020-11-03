@@ -203,22 +203,40 @@ namespace WebApplication1.Controllers
         public string datosJuego()
         {
             var pusuario = (string)Session["usuario"];
-            string cadena = "";
             SqlCommand comando = new SqlCommand("SELECT * FROM Partida WHERE UsuarioId = "+"'"+pusuario+"'", conexion);
             conexion.Open();
             SqlDataReader leer = comando.ExecuteReader();
-            if (leer.Read() == true)
+            List<List<string>> equipo = new List<List<string>> { };
+            
+            while (leer.Read() == true)
             {
+                List<string> info = new List<string> { };
                 string puntos = leer["Puntaje"].ToString();
                 string colorFicha = leer["ColorFicha"].ToString();
                 string movimientos = leer["CantidadMovimientos"].ToString();
                 string estado = leer["EstadoPartida"].ToString();
                 string tipo = leer["TipoPartida"].ToString();
                 string fecha = leer["FechaPartida"].ToString();
-
-                cadena = "si se encontró";
+                info.Add(puntos);
+                info.Add(colorFicha);
+                info.Add(movimientos);
+                info.Add(estado);
+                info.Add(tipo);
+                info.Add(fecha);
+                equipo.Add(info);
             }
             conexion.Close();
+            string cadena = "";
+            for (int i = 0; i < equipo.Count(); i++)
+            {
+                List<string> actual = equipo[i];
+                for (int j = 0; j < actual.Count(); j++)
+                {
+                    cadena = cadena + actual[j];
+                    cadena = cadena + "|";
+                }
+                cadena = cadena + "&";
+            }
             return cadena;
         }
 
