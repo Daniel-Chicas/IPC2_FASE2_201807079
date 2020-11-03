@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-image: url("../8.png");
+            background-repeat: no-repeat;
+            background-position: 0px 50px;
+            background-size: 100% 550%;
+        }
+        #Boton2 {
+            position: absolute;
+            left: 1230px;
+            top: 500px;
+            border-radius: 50px;
+            background: #D9D950;
+            font-size: 30px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <input id="Boton2" type="submit" value=" SALIR " onclick="location.href='@Url.Action("TableroCampeonato", "Torneo")'" />
+
+    @section scripts {
+        <script type="text/javascript">
+            function empezar() {
+                var nombre = document.getElementById("nombre").value;
+                var integrantes = document.getElementById("integrantes").value;
+                if (nombre == "") {
+                    alert("Debe ingresar un nombre para el torneo.")
+                }
+                else {
+                    $.ajax(
+                    {
+                        type: 'POST',
+                        dataType: 'text',
+                        url: '@Url.Action("NombreTorneo", "Torneo")',
+                        data: { nombre: nombre, cantidad: integrantes},
+                        success:
+                            function (response) {
+                                alert(response);
+                                 window.location = '@Url.Action("Jugadores", "Torneo")';
+                                    },
+                            error:
+                                function (response) {
+                                    alert("Error: " + response);
+                                }
+                        });
+                }
+            }
+
+        </script>
+    }
+
+
+</body>
+
+
+</html>
