@@ -247,10 +247,12 @@
     <Content Include="Views\tipoJuego\Index.cshtml" />
     <Content Include="Views\JuegoX\Index.cshtml" />
     <Content Include="Views\aperturaPer\Index.cshtml" />
-    <Content Include="Views\TamañoMN\Index.cshtml" />
     <Content Include="Views\perfil\Index.cshtml" />
     <Content Include="Views\Torneo\Jugadores.cshtml" />
-    <Content Include="Views\Torneo\Contra.cshtml" />
+    <Content Include="Views\Torneo\TableroCampeonato.cshtml" />
+    <Content Include="Views\Torneo\Diseño4.cshtml" />
+    <Content Include="Views\Torneo\Diseño16.cshtml" />
+    <Content Include="Views\Torneo\Diseño8.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
