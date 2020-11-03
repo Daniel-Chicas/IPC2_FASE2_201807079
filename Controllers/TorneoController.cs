@@ -22,9 +22,28 @@ namespace WebApplication1.Controllers
 
         public ActionResult Torneo()
         {
+            Session["lectura"] = "";
             Session["Campeonato"] = "";
             return View();
         }
+
+        public string Datos(List<List<string>> jugadores)
+        {
+            Session["lectura"] = jugadores;
+            string cadena = "";
+            if(jugadores.Count() != 0)
+            {
+                cadena = "Bienvenido al juego";
+            }
+            else
+            {
+                cadena = "No se ha podido cargar el campeonato, intente nuevamente.";
+            }
+            return cadena;
+        }
+
+
+
 
         public string NombreTorneo(string nombre, int cantidad)
         {
@@ -36,10 +55,52 @@ namespace WebApplication1.Controllers
 
         public ActionResult Jugadores()
         {
+            if(Session["cantidadIntegrantes"].ToString() == "")
+            {
+                Session["cantidadIntegrantes"] = 4;
+            };
             return View();
         }
 
+        public string DatosJugadores()
+        {
+            string cadena = "";
+            List<List<string>> datos = (List<List<string>>)Session["lectura"];
+            int contador = 0;
+            while(contador != datos.Count())
+            {
+                int contint = 0;
+                List<string> actual = datos[contador];
+                while (contint < 4)
+                {
+                    cadena = cadena + actual[contint]+"&";
+                    contint++;
+                }
+                cadena = cadena + ";";
+                contador++;
+            }
 
+
+
+            return cadena;
+        }
+
+
+
+        public ActionResult Diseño4()
+        {
+            return View();
+        }
+
+        public ActionResult Diseño8()
+        {
+            return View();
+        }
+
+        public ActionResult Diseño16()
+        {
+            return View();
+        }
 
 
         public string Integrantes()
@@ -48,11 +109,24 @@ namespace WebApplication1.Controllers
             return cadena;
         }
 
-        public ActionResult Contra()
+        public ActionResult TableroCampeonato()
         {
+            Session["turnosEquipos"]=0;
             Session["contar"] = 0;
             return View();
         }
+
+        public string Turnos()
+        {
+            int contador = (int)Session["turnosEquipos"];
+            List<List<string>> equipos = (List<List<string>>)Session["lectura"];
+            List<string> jugador1 = equipos[contador];
+            List<string> jugador2 = equipos[contador+1];
+            string cadena = jugador1[0] + "&" + jugador2[0];
+            return cadena;
+        }
+
+
 
         public string Conteo()
         {
@@ -217,6 +291,8 @@ namespace WebApplication1.Controllers
                     cadena = "La archivo fue cargado con éxito.";
 
                     Session["lectura"] = datos;
+                    Session["cantidadIntegrantes"] = datos.Count();
+
                 }
                 catch (Exception)
                 {
