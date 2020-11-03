@@ -797,7 +797,8 @@
                                         document.getElementById("e" + cadena + "j1").style.visibility = "hidden";
                                         document.getElementById("e" + cadena + "j2").style.visibility = "hidden";
                                         document.getElementById("e" + cadena + "j3").style.visibility = "hidden";
-                                        document.getElementById("e"+cadena).style.visibility = "hidden";
+                                        document.getElementById("e" + cadena).style.visibility = "hidden";
+
                                         cadena = cadena + 1;
                                     }
                                 }
@@ -815,37 +816,47 @@
             }
 
             function grupos() {
-                var equipo1 = [];
-                var equipo2 = [];
-                var equipo3 = [];
-                var equipo4 = [];
-                var equipo5 = [];
-                var equipo6 = [];
-                var equipo7 = [];
-                var equipo8 = [];
-                var equipo9 = [];
-                var equipo10 = [];
-                var equipo11 = [];
-                var equipo12 = [];
-                var equipo13 = [];
-                var equipo14 = [];
-                var equipo15 = [];
-                var equipo16 = [];
+                var equipos = [];
+                var individual = [];
+                var nombreEquipo = "";
+                var jugador1 = "";
+                var jugador2 = "";
+                var jugador3 = "";
                 contador = 1;
-                while (contador <= 17) {
+                while (contador <= 16) {
                     if (document.getElementById("nombreEquipo" + contador).style.visibility != "hidden") {
-                        var nombreEquipo = document.getElementById("nombreEquipo" + contador).value;
-                        var jugador1 = document.getElementById("e" + contador + "j1").value;
-                        var jugador2 = document.getElementById("e" + contador + "j2").value;
-                        var jugador3 = document.getElementById("e" + contador + "j3").value;
-                        equipo+""+contador
+                        individual = [];
+                        nombreEquipo = document.getElementById("nombreEquipo" + contador).value;
+                        jugador1 = document.getElementById("e" + contador + "j1").value;
+                        jugador2 = document.getElementById("e" + contador + "j2").value;
+                        jugador3 = document.getElementById("e" + contador + "j3").value;
+                        individual.push(nombreEquipo);
+                        individual.push(jugador1);
+                        individual.push(jugador2);
+                        individual.push(jugador3);
+                        equipos.push(individual);
                     }
                     contador++;
                 }
-
+                $.ajax(
+                    {
+                        type: 'POST',
+                        dataType: 'text',
+                        url: '@Url.Action("Datos", "Torneo")',
+                        data: { jugadores: equipos },
+                        success:
+                            function (response) {
+                                alert(response);
+                                if (response != "El archivo no pudo ser cargado.") {
+                                    window.location = '@Url.Action("TableroCampeonato", "Torneo")';
+                                }
+                                    },
+                            error:
+                                function (response) {
+                                    alert("Error: " + response);
+                                }
+                        });
             }
-
-
         </script>
 
 
