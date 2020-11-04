@@ -75,6 +75,26 @@ namespace WebApplication1.Controllers
             return "Partida Finalizada";
         }
 
+        public string AnadirPuntajeCampeonato(List<string> Usuario, int Puntaje, String Color1, int Movimientos, String EstadoPartida, String TipoPartida)
+        {
+            for (int i = 0; i < Usuario.Count(); i++)
+            {
+            Partida modeloPartida = new Partida();
+            modeloPartida.UsuarioId = Usuario[i];
+            modeloPartida.Puntaje = Puntaje;
+            modeloPartida.ColorFicha = Color1;
+            modeloPartida.CantidadMovimientos = Movimientos;
+            modeloPartida.EstadoPartida = EstadoPartida;
+            modeloPartida.TipoPartida = TipoPartida;
+            modeloPartida.FechaPartida = DateTime.Now;
+            db.Partida.Add(modeloPartida);
+            db.SaveChanges();
+            }
+            return "Partida Finalizada";
+        }
+
+
+
         public string Puntaje(int NoBlancas, int NoNegras, String Usuario, int Puntaje, String Color1, int Movimientos, String EstadoPartida, String TipoPartida)
         {
             string cadena = "";
