@@ -58,15 +58,15 @@ namespace WebApplication1.Controllers
             return View(campeonato);
         }
 
-        public string AnadirPuntaje(String usuario, string nombre, string cantidadEquipos)
+        public string AnadirCampeonato(String usuario, string nombre, string cantidadEquipos, string estado, string ganador)
         {
             Campeonato modeloCampeonato = new Campeonato();
             modeloCampeonato.UsuarioIdCreador = usuario;
             modeloCampeonato.NombreTorneo = nombre;
             modeloCampeonato.CantidadEquipos = cantidadEquipos;
-            modeloCampeonato.EquipoGanador = "";
+            modeloCampeonato.EquipoGanador = ganador;
             modeloCampeonato.FechaCreacion = DateTime.Now;
-            modeloCampeonato.Estado = "";
+            modeloCampeonato.Estado = estado;
             db.Campeonato.Add(modeloCampeonato);
             db.SaveChanges();
             return "Partida Finalizada";
