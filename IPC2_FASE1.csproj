@@ -137,6 +137,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CampeonatoesController.cs" />
     <Compile Include="Controllers\ContraController.cs" />
     <Compile Include="Controllers\IndividualController.cs" />
     <Compile Include="Controllers\aperturaPerController.cs" />
@@ -164,6 +165,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BD_Proyecto.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Campeonato.cs">
+      <DependentUpon>BD_Proyecto.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\Partida.cs">
       <DependentUpon>BD_Proyecto.tt</DependentUpon>
@@ -239,11 +243,6 @@
     <Content Include="Views\Usuarios\Deshabilitar.cshtml" />
     <Content Include="Views\Individual\Individual.cshtml" />
     <Content Include="Views\Contra\Contra.cshtml" />
-    <Content Include="Views\Partidas\Create.cshtml" />
-    <Content Include="Views\Partidas\Delete.cshtml" />
-    <Content Include="Views\Partidas\Details.cshtml" />
-    <Content Include="Views\Partidas\Edit.cshtml" />
-    <Content Include="Views\Partidas\Index.cshtml" />
     <Content Include="Views\tipoJuego\Index.cshtml" />
     <Content Include="Views\JuegoX\Index.cshtml" />
     <Content Include="Views\aperturaPer\Index.cshtml" />
