@@ -72,6 +72,14 @@ namespace WebApplication1.Controllers
             return cadena;
         }
 
+        public void datosTorneoFinal(string ganador)
+        {
+            string usuario = Session["usuario"].ToString();
+            string nombreCamp = Session["Campeonato"].ToString();
+            string cantidad = Session["cantidadIntegrantes"].ToString();
+            CampeonatoesController datosCamp = new CampeonatoesController();
+            datosCamp.AnadirCampeonato(usuario, nombreCamp, cantidad, "finalizado", ganador);
+        }
 
         public string DatosJugadores()
         {
