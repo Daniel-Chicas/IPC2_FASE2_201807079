@@ -13,42 +13,363 @@
         #Boton2 {
             position: absolute;
             left: 1230px;
+            top: 550px;
+            border-radius: 50px;
+            background: #D9D950;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        #equipo1 {
+            position: absolute;
+            top: 130px;
+            left: 105px;
+            width: 179px;
+        }
+
+        #equipo2 {
+            position: absolute;
+            top: 165px;
+            left: 105px;
+            width: 179px;
+        }
+
+        #equipo3 {
+            position: absolute;
+            top: 130px;
+            left: 1045px;
+            width: 186px;
+        }
+
+        #equipo4 {
+            position: absolute;
+            top: 165px;
+            left: 1045px;
+            width: 186px;
+        }
+
+        #Campeonato {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 30px;
+            color: black;
+            left: 500px;
+            top: 55px;
+        }
+
+        #Boton1 {
+            position: absolute;
+            left: 50px;
+            top: 550px;
+            border-radius: 50px;
+            background: #D9D950;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        #equipo17 {
+            position: absolute;
+            top: 148px;
+            left: 357px;
+            width: 180px;
+        }
+
+
+        #equipo18 {
+            position: absolute;
+            top: 148px;
+            left: 775px;
+            width: 178px;
+        }
+
+        #equipo22 {
+            position: absolute;
+            top: 218px;
+            left: 830px;
+            width: 178px;
+        }
+
+        #equipo23 {
+            position: absolute;
+            top: 288px;
+            left: 830px;
+            width: 178px;
+        }
+
+        #equipo24 {
+            position: absolute;
+            top: 357px;
+            left: 830px;
+            width: 178px;
+        }
+
+        #equipo25 {
+            position: absolute;
+            top: 183px;
+            left: 481px;
+            width: 146px;
+        }
+
+        #equipo26 {
+            position: absolute;
+            top: 323px;
+            left: 481px;
+            width: 146px;
+        }
+
+        #equipo27 {
+            position: absolute;
+            top: 183px;
+            left: 683px;
+            width: 146px;
+        }
+
+        #equipo28 {
+            position: absolute;
+            top: 323px;
+            left: 683px;
+            width: 146px;
+        }
+
+        #equipo29 {
+            position: absolute;
+            top: 221px;
+            left: 583px;
+            width: 146px;
+        }
+
+        #equipo30 {
+            position: absolute;
+            top: 281px;
+            left: 583px;
+            width: 146px;
+        }
+
+        #final {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            top: 317px;
+            left: 500px;
+            height: 35px;
+            width: 700px;
+            border: none;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        #Boton3 {
+            position: absolute;
+            left: 50px;
             top: 500px;
             border-radius: 50px;
             background: #D9D950;
             font-size: 30px;
             font-weight: bold;
         }
+
+        #Fin {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            top: 317px;
+            left: 300px;
+            height: 40px;
+            width: 700px;
+            border: none;
+            text-align: center;
+            font-size: 20px;
+            visibility: hidden;
+        }
     </style>
 </head>
 <body>
+    <label id="Fin"></label>
+    <label id="Campeonato"></label>
+    <select id="equipo1"></select>
+    <select id="equipo2"></select>
+    <select id="equipo3"></select>
+    <select id="equipo4"></select>
+    <select id="equipo17"></select>
+    <select id="equipo18"></select>
+    <select id="final"></select>
     <input id="Boton2" type="submit" value=" SALIR " onclick="location.href='@Url.Action("TableroCampeonato", "Torneo")'" />
+    <input id="Boton1" type="submit" value="EJECUTAR" onclick="ejecutar()" />
+    <input id="Boton3" type="submit" value="PUNTEAR" onclick="punteo()" />
     @section scripts {
         <script type="text/javascript">
-            function empezar() {
-                var nombre = document.getElementById("nombre").value;
-                var integrantes = document.getElementById("integrantes").value;
-                if (nombre == "") {
-                    alert("Debe ingresar un nombre para el torneo.")
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'text',
+                    url: '@Url.Action("DatosJugadores", "Torneo")',
+                    success:
+                        function (response) {
+                            var cadena = response.split(";");
+                            for (var i = 0; i < (cadena.length - 1); i++) {
+                                var actual = cadena[i].split("&");
+                                $('#equipo' + (i + 1)).prepend("<option value='" + actual[3] + "'>" + actual[3] + "</option>");
+                                $('#equipo' + (i + 1)).prepend("<option value='" + actual[2] + "'>" + actual[2] + "</option>");
+                                $('#equipo' + (i + 1)).prepend("<option value='" + actual[1] + "'>" + actual[1] + "</option>");
+                                $('#equipo' + (i + 1)).prepend("<option value='" + actual[0] + "' disabled selected >" + actual[0] + "</option>");
+                            }
+                                },
+                        error:
+                            function (response) {
+                                alert("Error: " + response);
+                            }
+                    });
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'text',
+                    url: '@Url.Action("datosTorneo", "Torneo")',
+                    data: {tipo: 1},
+                    success:
+                        function (response) {
+                            var cadena = response;
+                            document.getElementById("Campeonato").innerHTML = "CAMPEONATO: \"" + cadena + "\"";
+                                },
+                        error:
+                            function (response) {
+                                alert("Error: " + response);
+                            }
+                });
+        </script>
+        <script>
+            var contadorEje = 1;
+
+            function ejecutar() {
+                if (document.getElementById("equipo1").disabled == true && document.getElementById("equipo17").disabled == false) {
+                    $('#final').empty();
+                    var jugador17 = document.getElementById("equipo17").value;
+                    var jugador18 = document.getElementById("equipo18").value;
+                    $('#final').prepend("<option value='" + jugador18 + "'>" + jugador18 + "</option>");
+                    $('#final').prepend("<option value='" + jugador17 + "'>" + jugador17 + "</option>");
                 }
-                else {
+                if (document.getElementById("equipo1").disabled == false) {
+                    $('#equipo17').empty();
+                    $('#equipo18').empty();
+                    var jugador1 = document.getElementById("equipo1").value;
+                    var jugador2 = document.getElementById("equipo2").value;
+                    var jugador3 = document.getElementById("equipo3").value;
+                    var jugador4 = document.getElementById("equipo4").value;
+                    $('#equipo17').prepend("<option value='" + jugador2 + "'>" + jugador2 + "</option>");
+                    $('#equipo17').prepend("<option value='" + jugador1 + "'>" + jugador1 + "</option>");
+                    $('#equipo18').prepend("<option value='" + jugador4 + "'>" + jugador4 + "</option>");
+                    $('#equipo18').prepend("<option value='" + jugador3 + "'>" + jugador3 + "</option>");
+                }
+                contadorEje++;
+            }
+            var punteoCont = 1;
+            var contador = 1;
+            var ganadores = [];
+
+            function punteo() {
+                if (contador <= 3) {
+                    var jugador17 = document.getElementById("equipo17").value;
+                    var jugador18 = document.getElementById("equipo18").value;
+                    ganadores.push(jugador17);
+                    ganadores.push(jugador18);
                     $.ajax(
-                    {
+                        {
+                            type: 'POST',
+                            dataType: 'text',
+                            url: '@Url.Action("AnadirPuntajeCampeonato", "Partidas")',
+                            data: { Usuario: ganadores, Puntaje: 1, Color1: "negras", Movimientos: 0, EstadoPartida: "Ganó", TipoPartida: "Campeonato" },
+                            success:
+                                function (response) {
+                                    var cadena = response;
+                                    alert("Jugador 1: " + cadena)
+                                },
+                            error:
+                                function (response) {
+                                    alert("ERROR: " + response);
+                                }
+                        });
+                    $('#equipo17').empty();
+                    $('#equipo18').empty();
+                }
+                if (contador == 3) {
+                    $.ajax({
                         type: 'POST',
                         dataType: 'text',
-                        url: '@Url.Action("NombreTorneo", "Torneo")',
-                        data: { nombre: nombre, cantidad: integrantes},
+                        url: '@Url.Action("PunteoDS", "Torneo")',
+                        data: {ganadores: ganadores},
                         success:
                             function (response) {
-                                alert(response);
-                                 window.location = '@Url.Action("Jugadores", "Torneo")';
+                                var cadena = response.split("&");
+                                for (var j = 0; j < cadena.length; j++) {
+                                    var select = document.getElementById(cadena[j]);
+                                    for (var i = 0; i < select.options.length; i++) {
+                                        if (j == 0) {
+                                            $('#equipo17').prepend("<option value='" + select.options[i].value + "'>" + select.options[i].value + "</option>");
+                                        }
+                                        if (j == 1) {
+                                            $('#equipo18').prepend("<option value='" + select.options[i].value + "'>" + select.options[i].value + "</option>");
+                                        }
+                                    }
+                                }
+
+
                                     },
                             error:
                                 function (response) {
                                     alert("Error: " + response);
                                 }
-                        });
+                    });
+
+                    var contadorInterno = 0;
+                    while (contadorInterno < 16) {
+                        $("#equipo" + (contadorInterno + 1)).prop('disabled', 'disabled');
+                        contadorInterno++;
+                    }
+                    ganadores = []
                 }
+
+                if (contador >= 4 && contador <= 6) {
+                    var final = document.getElementById("final").value;
+                    ganadores.push(final);
+                     $.ajax(
+                        {
+                            type: 'POST',
+                            dataType: 'text',
+                            url: '@Url.Action("AnadirPuntajeCampeonato", "Partidas")',
+                            data: { Usuario: ganadores, Puntaje: 1, Color1: "negras", Movimientos: 0, EstadoPartida: "Ganó", TipoPartida: "Campeonato" },
+                            success:
+                                function (response) {
+                                    var cadena = response;
+                                    alert("Jugador 1: " + cadena)
+                                },
+                            error:
+                                function (response) {
+                                    alert("ERROR: " + response);
+                                }
+                        });
+                    $('#final').empty();
+                }
+                if (contador == 6) {
+                    document.getElementById("final").style.visibility = "hidden";
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'text',
+                        url: '@Url.Action("final", "Torneo")',
+                        data: {ganadores: ganadores},
+                        success:
+                            function (response) {
+                                var cadena = response.split("&");
+                                for (var j = 0; j < cadena.length; j++)
+                                    document.getElementById("Fin").style.visibility = "visible";
+                                    document.getElementById("Fin").innerHTML = cadena;
+                                    },
+                            error:
+                                function (response) {
+                                    alert("Error: " + response);
+                                }
+                    });
+                    $("#equipo29").prop('disabled', 'disabled');
+                    $("#equipo30").prop('disabled', 'disabled');
+
+
+                }
+
+                contador++;
             }
 
         </script>
