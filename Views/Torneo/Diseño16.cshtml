@@ -381,6 +381,10 @@
                     $('#equipo18').empty();
                     $('#equipo19').empty();
                     $('#equipo20').empty();
+                    $('#equipo24').empty();
+                    $('#equipo21').empty();
+                    $('#equipo22').empty();
+                    $('#equipo23').empty();
                     var jugador1 = document.getElementById("equipo1").value;
                     var jugador2 = document.getElementById("equipo2").value;
                     var jugador3 = document.getElementById("equipo3").value;
@@ -416,38 +420,128 @@
                 }
                 contadorEje++;
             }
+
+
             var punteoCont = 1;
             var contador = 1;
             var ganadores = [];
+            var perdedores = [];
+            var ganadoresParciales = [];
 
             function punteo() {
                 if (contador <= 3) {
                     var jugador17 = document.getElementById("equipo17").value;
+                    var jugador1 = document.getElementById("equipo1").value;
+                    var jugador2 = document.getElementById("equipo2").value;
+                    if (jugador17 == jugador1) {
+                        perdedores.push(jugador2)
+                    }
+                    else {
+                        perdedores.push(jugador1)
+                    }
                     var jugador18 = document.getElementById("equipo18").value;
+                    var jugador1 = document.getElementById("equipo3").value;
+                    var jugador2 = document.getElementById("equipo4").value;
+                    if (jugador18 == jugador1) {
+                        perdedores.push(jugador2)
+                    }
+                    else {
+                        perdedores.push(jugador1)
+                    }
                     var jugador19 = document.getElementById("equipo19").value;
+                    var jugador1 = document.getElementById("equipo5").value;
+                    var jugador2 = document.getElementById("equipo6").value;
+                    if (jugador19 == jugador1) {
+                        perdedores.push(jugador2)
+                    }
+                    else {
+                        perdedores.push(jugador1)
+                    }
                     var jugador20 = document.getElementById("equipo20").value;
+                    var jugador1 = document.getElementById("equipo7").value;
+                    var jugador2 = document.getElementById("equipo8").value;
+                    if (jugador20 == jugador1) {
+                        perdedores.push(jugador2)
+                    }
+                    else {
+                        perdedores.push(jugador1)
+                    }
                     var jugador21 = document.getElementById("equipo21").value;
+                    var jugador1 = document.getElementById("equipo9").value;
+                    var jugador2 = document.getElementById("equipo10").value;
+                    if (jugador21 == jugador1) {
+                        perdedores.push(jugador2)
+                    }
+                    else {
+                        perdedores.push(jugador1)
+                    }
                     var jugador22 = document.getElementById("equipo22").value;
+                    var jugador1 = document.getElementById("equipo11").value;
+                    var jugador2 = document.getElementById("equipo12").value;
+                    if (jugador22 == jugador1) {
+                        perdedores.push(jugador2)
+                    }
+                    else {
+                        perdedores.push(jugador1)
+                    }
                     var jugador23 = document.getElementById("equipo23").value;
+                    var jugador1 = document.getElementById("equipo13").value;
+                    var jugador2 = document.getElementById("equipo14").value;
+                    if (jugador23 == jugador1) {
+                        perdedores.push(jugador2)
+                    }
+                    else {
+                        perdedores.push(jugador1)
+                    }
                     var jugador24 = document.getElementById("equipo24").value;
+                    var jugador1 = document.getElementById("equipo15").value;
+                    var jugador2 = document.getElementById("equipo16").value;
+                    if (jugador24 == jugador1) {
+                        perdedores.push(jugador2)
+                    }
+                    else {
+                        perdedores.push(jugador1)
+                    }
                     ganadores.push(jugador17);
+                    ganadoresParciales.push(jugador17);
                     ganadores.push(jugador18);
+                    ganadoresParciales.push(jugador18);
                     ganadores.push(jugador19);
+                    ganadoresParciales.push(jugador19);
                     ganadores.push(jugador20);
+                    ganadoresParciales.push(jugador20);
                     ganadores.push(jugador21);
+                    ganadoresParciales.push(jugador21);
                     ganadores.push(jugador22);
+                    ganadoresParciales.push(jugador22);
                     ganadores.push(jugador23);
+                    ganadoresParciales.push(jugador23);
                     ganadores.push(jugador24);
+                    ganadoresParciales.push(jugador24);
                      $.ajax(
                         {
                             type: 'POST',
                             dataType: 'text',
                             url: '@Url.Action("AnadirPuntajeCampeonato", "Partidas")',
-                            data: { Usuario: ganadores, Puntaje: 1, Color1: "negras", Movimientos: 0, EstadoPartida: "Ganó", TipoPartida: "Campeonato" },
+                            data: { Usuario: ganadoresParciales, Puntaje: 1, Color1: "NAC", Movimientos: 0, EstadoPartida: "Ganó", TipoPartida: "Campeonato" },
                             success:
                                 function (response) {
                                     var cadena = response;
-                                    alert("Jugador 1: " + cadena)
+                                },
+                            error:
+                                function (response) {
+                                    alert("ERROR: " + response);
+                                }
+                         });
+                    $.ajax(
+                        {
+                            type: 'POST',
+                            dataType: 'text',
+                            url: '@Url.Action("AnadirPuntajeCampeonato", "Partidas")',
+                            data: { Usuario: perdedores, Puntaje: 0, Color1: "NAC", Movimientos: 0, EstadoPartida: "Perdió", TipoPartida: "Campeonato" },
+                            success:
+                                function (response) {
+                                    var cadena = response;
                                 },
                             error:
                                 function (response) {
@@ -462,6 +556,8 @@
                     $('#equipo22').empty();
                     $('#equipo23').empty();
                     $('#equipo24').empty();
+                    ganadoresParciales = [];
+                    perdedores = [];
                 }
                 if (contador == 3) {
                     $.ajax({
@@ -501,8 +597,6 @@
                                         }
                                     }
                                 }
-
-
                                     },
                             error:
                                 function (response) {
@@ -516,27 +610,79 @@
                         contadorInterno++;
                     }
                     ganadores = []
+                    ganadoresParciales = [];
+                    perdedores = [];
                 }
 
                 if (contador >= 4 && contador <= 6) {
                     var jugador25 = document.getElementById("equipo25").value;
+                    var jugador1 = document.getElementById("equipo17").value;
+                    var jugador2 = document.getElementById("equipo18").value;
+                    if (jugador25 == jugador1) {
+                        perdedores.push(jugador2)
+                    }
+                    else {
+                        perdedores.push(jugador1)
+                    }
                     var jugador26 = document.getElementById("equipo26").value;
+                    var jugador1 = document.getElementById("equipo19").value;
+                    var jugador2 = document.getElementById("equipo20").value;
+                    if (jugador26 == jugador1) {
+                        perdedores.push(jugador2)
+                    }
+                    else {
+                        perdedores.push(jugador1)
+                    }
                     var jugador27 = document.getElementById("equipo27").value;
+                    var jugador1 = document.getElementById("equipo21").value;
+                    var jugador2 = document.getElementById("equipo22").value;
+                    if (jugador27 == jugador1) {
+                        perdedores.push(jugador2)
+                    }
+                    else {
+                        perdedores.push(jugador1)
+                    }
                     var jugador28 = document.getElementById("equipo28").value;
+                    var jugador1 = document.getElementById("equipo23").value;
+                    var jugador2 = document.getElementById("equipo24").value;
+                    if (jugador28 == jugador1) {
+                        perdedores.push(jugador2)
+                    }
+                    else {
+                        perdedores.push(jugador1)
+                    }
                     ganadores.push(jugador25);
+                    ganadoresParciales.push(jugador25);
                     ganadores.push(jugador26);
+                    ganadoresParciales.push(jugador26);
                     ganadores.push(jugador27);
+                    ganadoresParciales.push(jugador27);
                     ganadores.push(jugador28);
+                    ganadoresParciales.push(jugador28);
                      $.ajax(
                         {
                             type: 'POST',
                             dataType: 'text',
                             url: '@Url.Action("AnadirPuntajeCampeonato", "Partidas")',
-                            data: { Usuario: ganadores, Puntaje: 1, Color1: "negras", Movimientos: 0, EstadoPartida: "Ganó", TipoPartida: "Campeonato" },
+                            data: { Usuario: ganadoresParciales, Puntaje: 1, Color1: "NAC", Movimientos: 0, EstadoPartida: "Ganó", TipoPartida: "Campeonato" },
                             success:
                                 function (response) {
                                     var cadena = response;
-                                    alert("Jugador 1: " + cadena)
+                                },
+                            error:
+                                function (response) {
+                                    alert("ERROR: " + response);
+                                }
+                         });
+                    $.ajax(
+                        {
+                            type: 'POST',
+                            dataType: 'text',
+                            url: '@Url.Action("AnadirPuntajeCampeonato", "Partidas")',
+                            data: { Usuario: perdedores, Puntaje: 0, Color1: "NAC", Movimientos: 0, EstadoPartida: "Perdió", TipoPartida: "Campeonato" },
+                            success:
+                                function (response) {
+                                    var cadena = response;
                                 },
                             error:
                                 function (response) {
@@ -547,6 +693,8 @@
                     $('#equipo26').empty();
                     $('#equipo27').empty();
                     $('#equipo28').empty();
+                    ganadoresParciales = [];
+                    perdedores = [];
                 }
                 if (contador == 6) {
                     $.ajax({
@@ -589,23 +737,57 @@
                         contadorInterno++;
                     }
                     ganadores = []
+                    ganadoresParciales = [];
+                    perdedores = [];
                 }
 
                 if (contador >= 7 && contador <= 9) {
                     var jugador29 = document.getElementById("equipo29").value;
+                    var jugador1 = document.getElementById("equipo25").value;
+                    var jugador2 = document.getElementById("equipo27").value;
+                    if (jugador29 == jugador1) {
+                        perdedores.push(jugador2)
+                    }
+                    else {
+                        perdedores.push(jugador1)
+                    }
                     var jugador30 = document.getElementById("equipo30").value;
+                    var jugador1 = document.getElementById("equipo28").value;
+                    var jugador2 = document.getElementById("equipo26").value;
+                    if (jugador30 == jugador1) {
+                        perdedores.push(jugador2)
+                    }
+                    else {
+                        perdedores.push(jugador1)
+                    }
                     ganadores.push(jugador29);
+                    ganadoresParciales.push(jugador29);
                     ganadores.push(jugador30);
+                    ganadoresParciales.push(jugador30);
                      $.ajax(
                         {
                             type: 'POST',
                             dataType: 'text',
                             url: '@Url.Action("AnadirPuntajeCampeonato", "Partidas")',
-                            data: { Usuario: ganadores, Puntaje: 1, Color1: "negras", Movimientos: 0, EstadoPartida: "Ganó", TipoPartida: "Campeonato" },
+                            data: { Usuario: ganadoresParciales, Puntaje: 1, Color1: "NAC", Movimientos: 0, EstadoPartida: "Ganó", TipoPartida: "Campeonato" },
                             success:
                                 function (response) {
                                     var cadena = response;
-                                    alert("Jugador 1: " + cadena)
+                                },
+                            error:
+                                function (response) {
+                                    alert(Error+"response");
+                                }
+                         });
+                     $.ajax(
+                        {
+                            type: 'POST',
+                            dataType: 'text',
+                             url: '@Url.Action("AnadirPuntajeCampeonato", "Partidas")',
+                             data: { Usuario: perdedores, Puntaje: 0, Color1: "NAC", Movimientos: 0, EstadoPartida: "Perdió", TipoPartida: "Campeonato" },
+                            success:
+                                function (response) {
+                                    var cadena = response;
                                 },
                             error:
                                 function (response) {
@@ -614,6 +796,8 @@
                         });
                     $('#equipo29').empty();
                     $('#equipo30').empty();
+                    ganadoresParciales = [];
+                    perdedores = [];
                 }
                 if (contador == 9) {
                     $.ajax({
@@ -650,21 +834,31 @@
                         contadorInterno++;
                     }
                     ganadores = []
+                    ganadoresParciales = [];
+                    perdedores = [];
                 }
 
                 if (contador >= 10 && contador <= 12) {
                     var final = document.getElementById("final").value;
+                    var jugador1 = document.getElementById("equipo29").value;
+                    var jugador2 = document.getElementById("equipo30").value;
+                    if (final == jugador1) {
+                        perdedores.push(jugador2)
+                    }
+                    else {
+                        perdedores.push(jugador1)
+                    }
                     ganadores.push(final);
+                    ganadoresParciales.push(final);
                      $.ajax(
                         {
                             type: 'POST',
                             dataType: 'text',
-                            url: '@Url.Action("AnadirPuntajeCampeonato", "Partidas")',
-                            data: { Usuario: ganadores, Puntaje: 1, Color1: "negras", Movimientos: 0, EstadoPartida: "Ganó", TipoPartida: "Campeonato" },
+                             url: '@Url.Action("AnadirPuntajeCampeonato", "Partidas")',
+                             data: { Usuario: ganadoresParciales, Puntaje: 1, Color1: "NAC", Movimientos: 0, EstadoPartida: "Ganó", TipoPartida: "Campeonato" },
                             success:
                                 function (response) {
                                     var cadena = response;
-                                    alert("Jugador 1: " + cadena)
                                 },
                             error:
                                 function (response) {
@@ -672,6 +866,8 @@
                                 }
                         });
                     $('#final').empty();
+                    ganadoresParciales = [];
+                    perdedores = [];
                 }
                 if (contador == 12) {
                     document.getElementById("final").style.visibility = "hidden";
@@ -685,7 +881,22 @@
                                 var cadena = response.split("&");
                                 for (var j = 0; j < cadena.length; j++)
                                     document.getElementById("Fin").style.visibility = "visible";
-                                    document.getElementById("Fin").innerHTML = cadena;
+                                document.getElementById("Fin").innerHTML = cadena;
+
+                                $.ajax({
+                                        type: 'POST',
+                                        dataType: 'text',
+                                        url: '@Url.Action("datosTorneoFinal", "Torneo")',
+                                        data: { ganador: cadena},
+                                        success:
+                                            function (response) {
+                                                    },
+                                            error:
+                                                function (response) {
+                                                    alert("Error: " + response);
+                                                }
+                                });
+
                                     },
                             error:
                                 function (response) {
@@ -694,8 +905,6 @@
                     });
                     $("#equipo29").prop('disabled', 'disabled');
                     $("#equipo30").prop('disabled', 'disabled');
-                     
-
                 }
 
                 contador++;
