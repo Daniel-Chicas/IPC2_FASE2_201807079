@@ -27,5 +27,6 @@ namespace WebApplication1.Entity
     
         public virtual DbSet<Partida> Partida { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<Campeonato> Campeonato { get; set; }
     }
 }
