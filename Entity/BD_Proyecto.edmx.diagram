@@ -7,6 +7,7 @@
       <Diagram DiagramId="6acd437d306e4cd0bb3973ec0f44574f" Name="Diagram1" ZoomLevel="81">
         <EntityTypeShape EntityType="BD_IPC2Model.Partida" Width="1.5" PointX="0.5" PointY="2" />
         <EntityTypeShape EntityType="BD_IPC2Model.Usuario" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="BD_IPC2Model.Campeonato" Width="1.5" PointX="6" PointY="2.375" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
