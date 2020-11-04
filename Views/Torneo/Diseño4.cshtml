@@ -260,23 +260,57 @@
             var punteoCont = 1;
             var contador = 1;
             var ganadores = [];
+            var perdedores = [];
+            var ganadoresParciales = [];
 
             function punteo() {
                 if (contador <= 3) {
                     var jugador17 = document.getElementById("equipo17").value;
+                    var jugador1 = document.getElementById("equipo1").value;
+                    var jugador2 = document.getElementById("equipo2").value;
+                    if (jugador17 == jugador1) {
+                        perdedores.push(jugador2)
+                    }
+                    else {
+                        perdedores.push(jugador1)
+                    }
                     var jugador18 = document.getElementById("equipo18").value;
+                    var jugador1 = document.getElementById("equipo3").value;
+                    var jugador2 = document.getElementById("equipo4").value;
+                    if (jugador18 == jugador1) {
+                        perdedores.push(jugador2)
+                    }
+                    else {
+                        perdedores.push(jugador1)
+                    }
                     ganadores.push(jugador17);
+                    ganadoresParciales.push(jugador17)
                     ganadores.push(jugador18);
+                    ganadoresParciales.push(jugador18)
                     $.ajax(
                         {
                             type: 'POST',
                             dataType: 'text',
                             url: '@Url.Action("AnadirPuntajeCampeonato", "Partidas")',
-                            data: { Usuario: ganadores, Puntaje: 1, Color1: "negras", Movimientos: 0, EstadoPartida: "Ganó", TipoPartida: "Campeonato" },
+                            data: { Usuario: ganadoresParciales, Puntaje: 1, Color1: "NAC", Movimientos: 0, EstadoPartida: "Ganó", TipoPartida: "Campeonato" },
                             success:
                                 function (response) {
                                     var cadena = response;
-                                    alert("Jugador 1: " + cadena)
+                                },
+                            error:
+                                function (response) {
+                                    alert("ERROR: " + response);
+                                }
+                        });
+                    $.ajax(
+                        {
+                            type: 'POST',
+                            dataType: 'text',
+                            url: '@Url.Action("AnadirPuntajeCampeonato", "Partidas")',
+                            data: { Usuario: perdedores, Puntaje: 0, Color1: "NAC", Movimientos: 0, EstadoPartida: "Perdió", TipoPartida: "Campeonato" },
+                            success:
+                                function (response) {
+                                    var cadena = response;
                                 },
                             error:
                                 function (response) {
@@ -285,6 +319,8 @@
                         });
                     $('#equipo17').empty();
                     $('#equipo18').empty();
+                    ganadoresParciales = [];
+                    perdedores = [];
                 }
                 if (contador == 3) {
                     $.ajax({
@@ -320,22 +356,47 @@
                         $("#equipo" + (contadorInterno + 1)).prop('disabled', 'disabled');
                         contadorInterno++;
                     }
+                    ganadoresParciales = []
                     ganadores = []
+                    perdedores = []
                 }
 
                 if (contador >= 4 && contador <= 6) {
                     var final = document.getElementById("final").value;
+                    var jugador1 = document.getElementById("equipo17").value;
+                    var jugador2 = document.getElementById("equipo18").value;
+                    if (final == jugador1) {
+                        perdedores.push(jugador2)
+                    }
+                    else {
+                        perdedores.push(jugador1)
+                    }
                     ganadores.push(final);
+                    ganadoresParciales.push(final)
                      $.ajax(
                         {
                             type: 'POST',
                             dataType: 'text',
-                            url: '@Url.Action("AnadirPuntajeCampeonato", "Partidas")',
-                            data: { Usuario: ganadores, Puntaje: 1, Color1: "negras", Movimientos: 0, EstadoPartida: "Ganó", TipoPartida: "Campeonato" },
+                             url: '@Url.Action("AnadirPuntajeCampeonato", "Partidas")',
+                             data: { Usuario: ganadoresParciales, Puntaje: 1, Color1: "NAC", Movimientos: 0, EstadoPartida: "Ganó", TipoPartida: "Campeonato" },
                             success:
                                 function (response) {
                                     var cadena = response;
-                                    alert("Jugador 1: " + cadena)
+                                },
+                            error:
+                                function (response) {
+                                    alert("ERROR: " + response);
+                                }
+                         });
+                    $.ajax(
+                        {
+                            type: 'POST',
+                            dataType: 'text',
+                            url: '@Url.Action("AnadirPuntajeCampeonato", "Partidas")',
+                            data: { Usuario: perdedores, Puntaje: 0, Color1: "NAC", Movimientos: 0, EstadoPartida: "Perdió", TipoPartida: "Campeonato" },
+                            success:
+                                function (response) {
+                                    var cadena = response;
                                 },
                             error:
                                 function (response) {
@@ -343,6 +404,8 @@
                                 }
                         });
                     $('#final').empty();
+                    perdedores = [];
+                    ganadoresParciales = []
                 }
                 if (contador == 6) {
                     document.getElementById("final").style.visibility = "hidden";
@@ -357,6 +420,21 @@
                                 for (var j = 0; j < cadena.length; j++)
                                     document.getElementById("Fin").style.visibility = "visible";
                                     document.getElementById("Fin").innerHTML = cadena;
+
+                                    $.ajax({
+                                        type: 'POST',
+                                        dataType: 'text',
+                                        url: '@Url.Action("datosTorneoFinal", "Torneo")',
+                                        data: { ganador: cadena},
+                                        success:
+                                            function (response) {
+                                                    },
+                                            error:
+                                                function (response) {
+                                                    alert("Error: " + response);
+                                                }
+                                    });
+
                                     },
                             error:
                                 function (response) {
@@ -365,7 +443,6 @@
                     });
                     $("#equipo29").prop('disabled', 'disabled');
                     $("#equipo30").prop('disabled', 'disabled');
-
 
                 }
 
