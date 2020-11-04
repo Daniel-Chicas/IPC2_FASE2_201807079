@@ -121,9 +121,144 @@
             left: 1100px;
             width: 186px;
         }
+        #Campeonato {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            font-size: 30px;
+            color: black;
+            left: 500px;
+            top: 55px;
+        }
+        #Boton1 {
+            position: absolute;
+            left: 50px;
+            top: 550px;
+            border-radius: 50px;
+            background: #D9D950;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        #equipo17 {
+            position: absolute;
+            top: 148px;
+            left: 302px;
+            width: 180px;
+        }
+        #equipo18 {
+            position: absolute;
+            top: 220px;
+            left: 302px;
+            width: 180px;
+        }
+        #equipo19 {
+            position: absolute;
+            top: 288px;
+            left: 302px;
+            width: 180px;
+        }
+        #equipo20 {
+            position: absolute;
+            top: 356px;
+            left: 302px;
+            width: 180px;
+        }
+        #equipo21 {
+            position: absolute;
+            top: 148px;
+            left: 830px;
+            width: 178px;
+        }
+        #equipo22 {
+            position: absolute;
+            top: 218px;
+            left: 830px;
+            width: 178px;
+        }
+        #equipo23 {
+            position: absolute;
+            top: 288px;
+            left: 830px;
+            width: 178px;
+        }
+        #equipo24 {
+            position: absolute;
+            top: 357px;
+            left: 830px;
+            width: 178px;
+        }
+        #equipo25 {
+            position: absolute;
+            top: 183px;
+            left: 481px;
+            width: 146px;
+        }
+        #equipo26 {
+            position: absolute;
+            top: 323px;
+            left: 481px;
+            width: 146px;
+        }
+        #equipo27 {
+            position: absolute;
+            top: 183px;
+            left: 683px;
+            width: 146px;
+        }
+        #equipo28 {
+            position: absolute;
+            top: 323px;
+            left: 683px;
+            width: 146px;
+        }
+        #equipo29 {
+            position: absolute;
+            top: 221px;
+            left: 583px;
+            width: 146px;
+        }
+        #equipo30 {
+            position: absolute;
+            top: 281px;
+            left: 583px;
+            width: 146px;
+        }
+        #final {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            top: 522px;
+            left: 600px;
+            height: 35px;
+            width: 700px;
+            border: none;
+            text-align: center;
+            font-size: 20px;
+        }
+        #Boton3 {
+            position: absolute;
+            left: 50px;
+            top: 500px;
+            border-radius: 50px;
+            background: #D9D950;
+            font-size: 30px;
+            font-weight: bold;
+        }
+        #Fin {
+            position: absolute;
+            font-family: 'kaushan Script', cursive;
+            top: 528px;
+            left: 390px;
+            height: 40px;
+            width: 700px;
+            border: none;
+            text-align: center;
+            font-size: 20px;
+            visibility: hidden;
+        }
     </style>
 </head>
 <body>
+    <label id="Fin"></label>
+    <label id="Campeonato"></label>
     <select id="equipo1"></select>
     <select id="equipo2"></select>
     <select id="equipo3"></select>
@@ -140,25 +275,39 @@
     <select id="equipo14"></select>
     <select id="equipo15"></select>
     <select id="equipo16"></select>
+    <select id="equipo17"></select>
+    <select id="equipo18"></select>
+    <select id="equipo19"></select>
+    <select id="equipo20"></select>
+    <select id="equipo21"></select>
+    <select id="equipo22"></select>
+    <select id="equipo23"></select>
+    <select id="equipo24"></select>
+    <select id="equipo25"></select>
+    <select id="equipo26"></select>
+    <select id="equipo27"></select>
+    <select id="equipo28"></select>
+    <select id="equipo29"></select>
+    <select id="equipo30"></select>
+    <select id="final"></select>
     <input id="Boton2" type="submit" value=" SALIR " onclick="location.href='@Url.Action("TableroCampeonato", "Torneo")'" />
-
+    <input id="Boton1" type="submit" value="EJECUTAR" onclick="ejecutar()" />
+    <input id="Boton3" type="submit" value="PUNTEAR" onclick="punteo()"/>
     @section scripts {
         <script type="text/javascript">
-                $.ajax(
-                {
+                $.ajax({
                     type: 'POST',
                     dataType: 'text',
                     url: '@Url.Action("DatosJugadores", "Torneo")',
                     success:
                         function (response) {
-                            //$('#lider_id').prepend("<option value='1'>Josh_reder</option>");
                             var cadena = response.split(";");
                             for (var i = 0; i < (cadena.length - 1); i++) {
                                 var actual = cadena[i].split("&");
-                                $('#equipo' + (i+1)).prepend("<option value='0'>" + actual[0] + "</option>");
-                                $('#equipo' + (i + 1)).prepend("<option value='1'>" + actual[1] + "</option>");
-                                $('#equipo' + (i + 1)).prepend("<option value='2'>" + actual[2] + "</option>");
-                                $('#equipo' + (i + 1)).prepend("<option value='3'>" + actual[3] + "</option>");
+                                $('#equipo' + (i + 1)).prepend("<option value='" + actual[3] + "'>" + actual[3] + "</option>");
+                                $('#equipo' + (i + 1)).prepend("<option value='" + actual[2] + "'>" + actual[2] + "</option>");
+                                $('#equipo' + (i + 1)).prepend("<option value='" + actual[1] + "'>" + actual[1] + "</option>");
+                                $('#equipo' + (i + 1)).prepend("<option value='" + actual[0] + "' disabled selected >" + actual[0] + "</option>");
                             }
                                 },
                         error:
@@ -166,12 +315,393 @@
                                 alert("Error: " + response);
                             }
                     });
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'text',
+                    url: '@Url.Action("datosTorneo", "Torneo")',
+                    data: {tipo: 1},
+                    success:
+                        function (response) {
+                            var cadena = response;
+                            document.getElementById("Campeonato").innerHTML = "CAMPEONATO: \"" + cadena + "\"";
+                                },
+                        error:
+                            function (response) {
+                                alert("Error: " + response);
+                            }
+                });
+        </script>
+        <script>
+            var contadorEje = 1;
+
+            function ejecutar() {
+                if (document.getElementById("equipo1").disabled == true && document.getElementById("equipo17").disabled == true && document.getElementById("equipo25").disabled == true) {
+                    $('#final').empty();
+                    var jugador29 = document.getElementById("equipo29").value;
+                    var jugador30 = document.getElementById("equipo30").value;
+                    $('#final').prepend("<option value='" + jugador29 + "'>" + jugador29 + "</option>");
+                    $('#final').prepend("<option value='" + jugador30 + "'>" + jugador30 + "</option>");
+                }
+                if (document.getElementById("equipo1").disabled == true && document.getElementById("equipo17").disabled == true && document.getElementById("equipo25").disabled == false) {
+                    $('#equipo29').empty();
+                    $('#equipo30').empty();
+                    var jugador25 = document.getElementById("equipo25").value;
+                    var jugador26 = document.getElementById("equipo26").value;
+                    var jugador27 = document.getElementById("equipo27").value;
+                    var jugador28 = document.getElementById("equipo28").value;
+                    $('#equipo29').prepend("<option value='" + jugador27 + "'>" + jugador27 + "</option>");
+                    $('#equipo29').prepend("<option value='" + jugador25 + "'>" + jugador25 + "</option>");
+                    $('#equipo30').prepend("<option value='" + jugador28 + "'>" + jugador28 + "</option>");
+                    $('#equipo30').prepend("<option value='" + jugador26 + "'>" + jugador26 + "</option>");
+                }
+                if (document.getElementById("equipo1").disabled == true && document.getElementById("equipo17").disabled == false) {
+                    $('#equipo25').empty();
+                    $('#equipo26').empty();
+                    $('#equipo27').empty();
+                    $('#equipo28').empty();
+                    var jugador17 = document.getElementById("equipo17").value;
+                    var jugador18 = document.getElementById("equipo18").value;
+                    var jugador19 = document.getElementById("equipo19").value;
+                    var jugador20 = document.getElementById("equipo20").value;
+                    var jugador21 = document.getElementById("equipo21").value;
+                    var jugador22 = document.getElementById("equipo22").value;
+                    var jugador23 = document.getElementById("equipo23").value;
+                    var jugador24 = document.getElementById("equipo24").value;
+                    $('#equipo25').prepend("<option value='" + jugador18 + "'>" + jugador18 + "</option>");
+                    $('#equipo25').prepend("<option value='" + jugador17 + "'>" + jugador17 + "</option>");
+                    $('#equipo26').prepend("<option value='" + jugador20 + "'>" + jugador20 + "</option>");
+                    $('#equipo26').prepend("<option value='" + jugador19 + "'>" + jugador19 + "</option>");
+                    $('#equipo27').prepend("<option value='" + jugador22 + "'>" + jugador22 + "</option>");
+                    $('#equipo27').prepend("<option value='" + jugador21 + "'>" + jugador21 + "</option>");
+                    $('#equipo28').prepend("<option value='" + jugador24 + "'>" + jugador24 + "</option>");
+                    $('#equipo28').prepend("<option value='" + jugador23 + "'>" + jugador23 + "</option>");
+                }
+                if (document.getElementById("equipo1").disabled == false) {
+                    $('#equipo17').empty();
+                    $('#equipo18').empty();
+                    $('#equipo19').empty();
+                    $('#equipo20').empty();
+                    var jugador1 = document.getElementById("equipo1").value;
+                    var jugador2 = document.getElementById("equipo2").value;
+                    var jugador3 = document.getElementById("equipo3").value;
+                    var jugador4 = document.getElementById("equipo4").value;
+                    var jugador5 = document.getElementById("equipo5").value;
+                    var jugador6 = document.getElementById("equipo6").value;
+                    var jugador7 = document.getElementById("equipo7").value;
+                    var jugador8 = document.getElementById("equipo8").value;
+                    var jugador9 = document.getElementById("equipo9").value;
+                    var jugador10 = document.getElementById("equipo10").value;
+                    var jugador11 = document.getElementById("equipo11").value;
+                    var jugador12 = document.getElementById("equipo12").value;
+                    var jugador13 = document.getElementById("equipo13").value;
+                    var jugador14 = document.getElementById("equipo14").value;
+                    var jugador15 = document.getElementById("equipo15").value;
+                    var jugador16 = document.getElementById("equipo16").value;
+                    $('#equipo17').prepend("<option value='" + jugador2 + "'>" + jugador2 + "</option>");
+                    $('#equipo17').prepend("<option value='" + jugador1 + "'>" + jugador1 + "</option>");
+                    $('#equipo18').prepend("<option value='" + jugador4 + "'>" + jugador4 + "</option>");
+                    $('#equipo18').prepend("<option value='" + jugador3 + "'>" + jugador3 + "</option>");
+                    $('#equipo19').prepend("<option value='" + jugador6 + "'>" + jugador6 + "</option>");
+                    $('#equipo19').prepend("<option value='" + jugador5 + "'>" + jugador5 + "</option>");
+                    $('#equipo20').prepend("<option value='" + jugador8 + "'>" + jugador8 + "</option>");
+                    $('#equipo20').prepend("<option value='" + jugador7 + "'>" + jugador7 + "</option>");
+                    $('#equipo21').prepend("<option value='" + jugador10 + "'>" + jugador10 + "</option>");
+                    $('#equipo21').prepend("<option value='" + jugador9 + "'>" + jugador9 + "</option>");
+                    $('#equipo22').prepend("<option value='" + jugador12 + "'>" + jugador12 + "</option>");
+                    $('#equipo22').prepend("<option value='" + jugador11 + "'>" + jugador11 + "</option>");
+                    $('#equipo23').prepend("<option value='" + jugador14 + "'>" + jugador14 + "</option>");
+                    $('#equipo23').prepend("<option value='" + jugador13 + "'>" + jugador13 + "</option>");
+                    $('#equipo24').prepend("<option value='" + jugador16 + "'>" + jugador16 + "</option>");
+                    $('#equipo24').prepend("<option value='" + jugador15 + "'>" + jugador15 + "</option>");
+                }
+                contadorEje++;
+            }
+            var punteoCont = 1;
+            var contador = 1;
+            var ganadores = [];
+
+            function punteo() {
+                if (contador <= 3) {
+                    var jugador17 = document.getElementById("equipo17").value;
+                    var jugador18 = document.getElementById("equipo18").value;
+                    var jugador19 = document.getElementById("equipo19").value;
+                    var jugador20 = document.getElementById("equipo20").value;
+                    var jugador21 = document.getElementById("equipo21").value;
+                    var jugador22 = document.getElementById("equipo22").value;
+                    var jugador23 = document.getElementById("equipo23").value;
+                    var jugador24 = document.getElementById("equipo24").value;
+                    ganadores.push(jugador17);
+                    ganadores.push(jugador18);
+                    ganadores.push(jugador19);
+                    ganadores.push(jugador20);
+                    ganadores.push(jugador21);
+                    ganadores.push(jugador22);
+                    ganadores.push(jugador23);
+                    ganadores.push(jugador24);
+                     $.ajax(
+                        {
+                            type: 'POST',
+                            dataType: 'text',
+                            url: '@Url.Action("AnadirPuntajeCampeonato", "Partidas")',
+                            data: { Usuario: ganadores, Puntaje: 1, Color1: "negras", Movimientos: 0, EstadoPartida: "Ganó", TipoPartida: "Campeonato" },
+                            success:
+                                function (response) {
+                                    var cadena = response;
+                                    alert("Jugador 1: " + cadena)
+                                },
+                            error:
+                                function (response) {
+                                    alert("ERROR: " + response);
+                                }
+                        });
+                    $('#equipo17').empty();
+                    $('#equipo18').empty();
+                    $('#equipo19').empty();
+                    $('#equipo20').empty();
+                    $('#equipo21').empty();
+                    $('#equipo22').empty();
+                    $('#equipo23').empty();
+                    $('#equipo24').empty();
+                }
+                if (contador == 3) {
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'text',
+                        url: '@Url.Action("PunteoDS", "Torneo")',
+                        data: {ganadores: ganadores},
+                        success:
+                            function (response) {
+                                var cadena = response.split("&");
+                                for (var j = 0; j < cadena.length; j++) {
+                                    var select = document.getElementById(cadena[j]);
+                                    for (var i = 0; i < select.options.length; i++) {
+                                        if (j == 0) {
+                                            $('#equipo17').prepend("<option value='" + select.options[i].value + "'>" + select.options[i].value + "</option>");
+                                        }
+                                        if (j == 1) {
+                                            $('#equipo18').prepend("<option value='" + select.options[i].value + "'>" + select.options[i].value + "</option>");
+                                        }
+                                        if (j == 2) {
+                                            $('#equipo19').prepend("<option value='" + select.options[i].value + "'>" + select.options[i].value + "</option>");
+                                        }
+                                        if (j == 3) {
+                                            $('#equipo20').prepend("<option value='" + select.options[i].value + "'>" + select.options[i].value + "</option>");
+                                        }
+                                        if (j == 4) {
+                                            $('#equipo21').prepend("<option value='" + select.options[i].value + "'>" + select.options[i].value + "</option>");
+                                        }
+                                        if (j == 5) {
+                                            $('#equipo22').prepend("<option value='" + select.options[i].value + "'>" + select.options[i].value + "</option>");
+                                        }
+                                        if (j == 6) {
+                                            $('#equipo23').prepend("<option value='" + select.options[i].value + "'>" + select.options[i].value + "</option>");
+                                        }
+                                        if (j == 7) {
+                                            $('#equipo24').prepend("<option value='" + select.options[i].value + "'>" + select.options[i].value + "</option>");
+                                        }
+                                    }
+                                }
+
+
+                                    },
+                            error:
+                                function (response) {
+                                    alert("Error: " + response);
+                                }
+                    });
+
+                    var contadorInterno = 0;
+                    while (contadorInterno < 16) {
+                        $("#equipo" + (contadorInterno + 1)).prop('disabled', 'disabled');
+                        contadorInterno++;
+                    }
+                    ganadores = []
+                }
+
+                if (contador >= 4 && contador <= 6) {
+                    var jugador25 = document.getElementById("equipo25").value;
+                    var jugador26 = document.getElementById("equipo26").value;
+                    var jugador27 = document.getElementById("equipo27").value;
+                    var jugador28 = document.getElementById("equipo28").value;
+                    ganadores.push(jugador25);
+                    ganadores.push(jugador26);
+                    ganadores.push(jugador27);
+                    ganadores.push(jugador28);
+                     $.ajax(
+                        {
+                            type: 'POST',
+                            dataType: 'text',
+                            url: '@Url.Action("AnadirPuntajeCampeonato", "Partidas")',
+                            data: { Usuario: ganadores, Puntaje: 1, Color1: "negras", Movimientos: 0, EstadoPartida: "Ganó", TipoPartida: "Campeonato" },
+                            success:
+                                function (response) {
+                                    var cadena = response;
+                                    alert("Jugador 1: " + cadena)
+                                },
+                            error:
+                                function (response) {
+                                    alert("ERROR: " + response);
+                                }
+                        });
+                    $('#equipo25').empty();
+                    $('#equipo26').empty();
+                    $('#equipo27').empty();
+                    $('#equipo28').empty();
+                }
+                if (contador == 6) {
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'text',
+                        url: '@Url.Action("PunteoOC", "Torneo")',
+                        data: {ganadores: ganadores},
+                        success:
+                            function (response) {
+                                var cadena = response.split("&");
+                                for (var j = 0; j < cadena.length; j++) {
+                                    var select = document.getElementById(cadena[j]);
+                                    for (var i = 0; i < select.options.length; i++) {
+                                        if (j == 0) {
+                                            $('#equipo25').prepend("<option value='" + select.options[i].value + "'>" + select.options[i].value + "</option>");
+                                        }
+                                        if (j == 1) {
+                                            $('#equipo26').prepend("<option value='" + select.options[i].value + "'>" + select.options[i].value + "</option>");
+                                        }
+                                        if (j == 2) {
+                                            $('#equipo27').prepend("<option value='" + select.options[i].value + "'>" + select.options[i].value + "</option>");
+                                        }
+                                        if (j == 3) {
+                                            $('#equipo28').prepend("<option value='" + select.options[i].value + "'>" + select.options[i].value + "</option>");
+                                        }
+                                    }
+                                }
+
+
+                                    },
+                            error:
+                                function (response) {
+                                    alert("Error: " + response);
+                                }
+                    });
+
+                    var contadorInterno = 0;
+                    while (contadorInterno < 8) {
+                        $("#equipo" + (contadorInterno + 17)).prop('disabled', 'disabled');
+                        contadorInterno++;
+                    }
+                    ganadores = []
+                }
+
+                if (contador >= 7 && contador <= 9) {
+                    var jugador29 = document.getElementById("equipo29").value;
+                    var jugador30 = document.getElementById("equipo30").value;
+                    ganadores.push(jugador29);
+                    ganadores.push(jugador30);
+                     $.ajax(
+                        {
+                            type: 'POST',
+                            dataType: 'text',
+                            url: '@Url.Action("AnadirPuntajeCampeonato", "Partidas")',
+                            data: { Usuario: ganadores, Puntaje: 1, Color1: "negras", Movimientos: 0, EstadoPartida: "Ganó", TipoPartida: "Campeonato" },
+                            success:
+                                function (response) {
+                                    var cadena = response;
+                                    alert("Jugador 1: " + cadena)
+                                },
+                            error:
+                                function (response) {
+                                    alert("ERROR: " + response);
+                                }
+                        });
+                    $('#equipo29').empty();
+                    $('#equipo30').empty();
+                }
+                if (contador == 9) {
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'text',
+                        url: '@Url.Action("PunteoME", "Torneo")',
+                        data: {ganadores: ganadores},
+                        success:
+                            function (response) {
+                                var cadena = response.split("&");
+                                for (var j = 0; j < cadena.length; j++) {
+                                    var select = document.getElementById(cadena[j]);
+                                    for (var i = 0; i < select.options.length; i++) {
+                                        if (j == 0) {
+                                            $('#equipo29').prepend("<option value='" + select.options[i].value + "'>" + select.options[i].value + "</option>");
+                                        }
+                                        if (j == 1) {
+                                            $('#equipo30').prepend("<option value='" + select.options[i].value + "'>" + select.options[i].value + "</option>");
+                                        }
+                                    }
+                                }
+
+
+                                    },
+                            error:
+                                function (response) {
+                                    alert("Error: " + response);
+                                }
+                    });
+
+                    var contadorInterno = 0;
+                    while (contadorInterno < 4) {
+                        $("#equipo" + (contadorInterno + 25)).prop('disabled', 'disabled');
+                        contadorInterno++;
+                    }
+                    ganadores = []
+                }
+
+                if (contador >= 10 && contador <= 12) {
+                    var final = document.getElementById("final").value;
+                    ganadores.push(final);
+                     $.ajax(
+                        {
+                            type: 'POST',
+                            dataType: 'text',
+                            url: '@Url.Action("AnadirPuntajeCampeonato", "Partidas")',
+                            data: { Usuario: ganadores, Puntaje: 1, Color1: "negras", Movimientos: 0, EstadoPartida: "Ganó", TipoPartida: "Campeonato" },
+                            success:
+                                function (response) {
+                                    var cadena = response;
+                                    alert("Jugador 1: " + cadena)
+                                },
+                            error:
+                                function (response) {
+                                    alert("ERROR: " + response);
+                                }
+                        });
+                    $('#final').empty();
+                }
+                if (contador == 12) {
+                    document.getElementById("final").style.visibility = "hidden";
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'text',
+                        url: '@Url.Action("final", "Torneo")',
+                        data: {ganadores: ganadores},
+                        success:
+                            function (response) {
+                                var cadena = response.split("&");
+                                for (var j = 0; j < cadena.length; j++)
+                                    document.getElementById("Fin").style.visibility = "visible";
+                                    document.getElementById("Fin").innerHTML = cadena;
+                                    },
+                            error:
+                                function (response) {
+                                    alert("Error: " + response);
+                                }
+                    });
+                    $("#equipo29").prop('disabled', 'disabled');
+                    $("#equipo30").prop('disabled', 'disabled');
+                     
+
+                }
+
+                contador++;
+            }
 
         </script>
     }
-
-
 </body>
-
-
 </html>
