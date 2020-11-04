@@ -5,6 +5,18 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="BD_IPC2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Campeonato">
+          <Key>
+            <PropertyRef Name="IdTorneo" />
+          </Key>
+          <Property Name="IdTorneo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioIdCreador" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NombreTorneo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CantidadEquipos" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EquipoGanador" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FechaCreacion" Type="date" />
+          <Property Name="Estado" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Partida">
           <Key>
             <PropertyRef Name="PuntajeId" />
@@ -34,6 +46,7 @@
           <Property Name="FechaUltMod" Type="datetime" />
         </EntityType>
         <EntityContainer Name="BD_IPC2ModelStoreContainer">
+          <EntitySet Name="Campeonato" EntityType="Self.Campeonato" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Partida" EntityType="Self.Partida" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -44,6 +57,7 @@
         <EntityContainer Name="BD_IPC2Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Partida" EntityType="BD_IPC2Model.Partida" />
           <EntitySet Name="Usuario" EntityType="BD_IPC2Model.Usuario" />
+          <EntitySet Name="Campeonato" EntityType="BD_IPC2Model.Campeonato" />
         </EntityContainer>
         <EntityType Name="Partida">
           <Key>
@@ -72,6 +86,18 @@
           <Property Name="Pais" Type="Int32" Nullable="false" />
           <Property Name="EstadoId" Type="Int32" Nullable="false" />
           <Property Name="FechaUltMod" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Campeonato">
+          <Key>
+            <PropertyRef Name="IdTorneo" />
+          </Key>
+          <Property Name="IdTorneo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioIdCreador" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NombreTorneo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CantidadEquipos" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EquipoGanador" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="0" />
+          <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -106,6 +132,19 @@
                 <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Usuarioid" ColumnName="Usuarioid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Campeonato">
+            <EntityTypeMapping TypeName="BD_IPC2Model.Campeonato">
+              <MappingFragment StoreEntitySet="Campeonato">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="EquipoGanador" ColumnName="EquipoGanador" />
+                <ScalarProperty Name="CantidadEquipos" ColumnName="CantidadEquipos" />
+                <ScalarProperty Name="NombreTorneo" ColumnName="NombreTorneo" />
+                <ScalarProperty Name="UsuarioIdCreador" ColumnName="UsuarioIdCreador" />
+                <ScalarProperty Name="IdTorneo" ColumnName="IdTorneo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
