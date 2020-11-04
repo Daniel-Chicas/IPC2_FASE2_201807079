@@ -62,6 +62,17 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public string datosTorneo(int tipo)
+        {
+            string cadena = "";
+            if(tipo == 1)
+            {
+                cadena = Session["Campeonato"].ToString();
+            }
+            return cadena;
+        }
+
+
         public string DatosJugadores()
         {
             string cadena = "";
@@ -79,8 +90,551 @@ namespace WebApplication1.Controllers
                 cadena = cadena + ";";
                 contador++;
             }
+            return cadena;
+        }
 
+        public string PunteoDS(List<string> ganadores)
+        {
+            string cadena = "";
+            int contar1 = 0;
+            int contar2 = 0;
+            int contar3 = 0;
+            int contar4 = 0;
+            int contar5 = 0;
+            int contar6 = 0;
+            int contar7 = 0;
+            int contar8 = 0;
+            int contar9 = 0;
+            int contar10 = 0;
+            int contar11 = 0;
+            int contar12 = 0;
+            int contar13 = 0;
+            int contar14 = 0;
+            int contar15 = 0;
+            int contar16 = 0;
+            List<List<string>> datos = (List<List<string>>)Session["lectura"];
+            for (int j = 0; j < ganadores.Count(); j++)
+            {
+                for (int i = 0; i < datos.Count(); i++)
+                {
+                    List<string> actual = datos[i];
+                    for (int k = 0; k < actual.Count(); k++)
+                    {
+                        if (ganadores[j] == actual[k])
+                        {
+                            if (i == 0)
+                            {
+                                contar1++;
+                            }
+                            if (i == 1)
+                            {
+                                contar2++;
+                            }
+                            if (i == 2)
+                            {
+                                contar3++;
+                            }
+                            if (i == 3)
+                            {
+                                contar4++;
+                            }
+                            if (i == 4)
+                            {
+                                contar5++;
+                            }
+                            if (i == 5)
+                            {
+                                contar6++;
+                            }
+                            if (i == 6)
+                            {
+                                contar7++;
+                            }
+                            if (i == 7)
+                            {
+                                contar8++;
+                            }
+                            if (i == 8)
+                            {
+                                contar9++;
+                            }
+                            if (i == 9)
+                            {
+                                contar10++;
+                            }
+                            if (i == 10)
+                            {
+                                contar11++;
+                            }
+                            if (i == 11)
+                            {
+                                contar12++;
+                            }
+                            if (i == 12)
+                            {
+                                contar13++;
+                            }
+                            if (i == 13)
+                            {
+                                contar14++;
+                            }
+                            if (i == 14)
+                            {
+                                contar15++;
+                            }
+                            if (i == 15)
+                            {
+                                contar16++;
+                            }
+                        }
+                    }
+                }
+            }
+                if (contar2>contar1)
+                {
+                    if (contar2 != contar1)
+                    {
+                        cadena = "equipo2";
+                    }
+                }
+                else
+                {
+                    if (contar2 != contar1)
+                    {
+                        cadena = "equipo1";
+                    }
+                }
+                if (contar4 > contar3)
+                {
+                    if (contar4 != contar3)
+                    {
+                        cadena = cadena + "&" + "equipo4";
+                    }
+                }
+                else
+                {
+                    if (contar4 != contar3)
+                    {
+                        cadena = cadena + "&" + "equipo3";
+                    }
+                }
+                if (contar6 > contar5)
+                {
+                    if (contar6 != contar5)
+                    {
+                        cadena = cadena + "&" + "equipo6";
+                    }
+                }
+                else
+                {
+                    if (contar6 != contar5)
+                    {
+                        cadena = cadena + "&" + "equipo5";
+                    }
+                }
+                if (contar8 > contar7)
+                {
+                    if (contar8 != contar7)
+                    {
+                        cadena = cadena + "&" + "equipo8";
+                    }
+                }
+                else
+                {
+                    if (contar8 != contar7)
+                    {
+                        cadena = cadena + "&" + "equipo7";
+                    }
+                }
+                if (contar10 > contar9)
+                {
+                    if (contar10 != contar9)
+                    {
+                        cadena = cadena + "&" + "equipo10";
+                    }
+                }
+                else
+                {
+                    if (contar10 != contar9)
+                    {
+                        cadena = cadena + "&" + "equipo9";
+                    }
+                }
+                if (contar12 > contar11)
+                {
+                    if (contar12 != contar11)
+                    {
+                        cadena = cadena + "&" + "equipo12";
+                    }
+                }
+                else
+                {
+                    if (contar12 != contar11)
+                    {
+                        cadena = cadena + "&" + "equipo11";
+                    }
+                }
+                if (contar14 > contar13)
+                {
+                    if (contar14 != contar13)
+                    {
+                        cadena = cadena + "&" + "equipo14";
+                    }
+                }
+                else
+                {
+                    if (contar14 != contar13)
+                    {
+                        cadena = cadena + "&" + "equipo13";
+                    }
+                }
+                if (contar16 > contar15)
+                {
+                    if(contar16 != contar15)
+                    {
+                        cadena = cadena + "&" + "equipo16";
+                    }
+                }
+                else
+                {
+                    if (contar16 != contar15)
+                    {
+                        cadena = cadena + "&" + "equipo15";
+                    }
+                
+            }
+            List<List<string>> datos1 = datos;
+            List<List<string>> datos2 = new List<List<string>> { };
+            for (int j = 0; j < ganadores.Count(); j++)
+            {
+                for (int i = 0; i < datos1.Count(); i++)
+                {
+                    List<string> actual = datos1[i];
+                    for (int k = 0; k < actual.Count(); k++)
+                    {
+                        if (actual[k] == ganadores[j])
+                        {
+                            for (int l = 0; l < datos2.Count(); l++)
+                            {
+                                List<string> actual2 = datos2[l];
+                                if(actual[0] == actual2[0])
+                                {
+                                    datos2.Remove(actual);
+                                }
+                            }
+                            datos2.Add(actual);
+                        }
+                    }
+                }
+            }
+            Session["cadenaUsar"] = datos2;
+            return cadena;
+        }
 
+        public string PunteoOC(List<string> ganadores)
+        {
+            string cadena = "";
+            int contar1 = 0;
+            int contar2 = 0;
+            int contar3 = 0;
+            int contar4 = 0;
+            int contar5 = 0;
+            int contar6 = 0;
+            int contar7 = 0;
+            int contar8 = 0;
+            int contar9 = 0;
+            int contar10 = 0;
+            int contar11 = 0;
+            int contar12 = 0;
+            int contar13 = 0;
+            int contar14 = 0;
+            int contar15 = 0;
+            int contar16 = 0;
+            List<List<string>> datos = (List<List<string>>)Session["cadenaUsar"];
+            for (int j = 0; j < ganadores.Count(); j++)
+            {
+                for (int i = 0; i < datos.Count(); i++)
+                {
+                    List<string> actual = datos[i];
+                    for (int k = 0; k < actual.Count(); k++)
+                    {
+                        if (ganadores[j] == actual[k])
+                        {
+                            if (i == 0)
+                            {
+                                contar1++;
+                            }
+                            if (i == 1)
+                            {
+                                contar2++;
+                            }
+                            if (i == 2)
+                            {
+                                contar3++;
+                            }
+                            if (i == 3)
+                            {
+                                contar4++;
+                            }
+                            if (i == 4)
+                            {
+                                contar5++;
+                            }
+                            if (i == 5)
+                            {
+                                contar6++;
+                            }
+                            if (i == 6)
+                            {
+                                contar7++;
+                            }
+                            if (i == 7)
+                            {
+                                contar8++;
+                            }
+                            if (i == 8)
+                            {
+                                contar9++;
+                            }
+                            if (i == 9)
+                            {
+                                contar10++;
+                            }
+                            if (i == 10)
+                            {
+                                contar11++;
+                            }
+                            if (i == 11)
+                            {
+                                contar12++;
+                            }
+                            if (i == 12)
+                            {
+                                contar13++;
+                            }
+                            if (i == 13)
+                            {
+                                contar14++;
+                            }
+                            if (i == 14)
+                            {
+                                contar15++;
+                            }
+                            if (i == 15)
+                            {
+                                contar16++;
+                            }
+                        }
+                    }
+                }
+            }
+                if (contar2 > contar1)
+                {
+                    if (contar2 != contar1)
+                    {
+                        cadena = "equipo18";
+                    }
+                }
+                else
+                {
+                    if (contar2 != contar1)
+                    {
+                        cadena = "equipo17";
+                    }
+                }
+                if (contar4 > contar3)
+                {
+                    if (contar4 != contar3)
+                    {
+                        cadena = cadena + "&" + "equipo20";
+                    }
+                }
+                else
+                {
+                    if (contar4 != contar3)
+                    {
+                        cadena = cadena + "&" + "equipo19";
+                    }
+                }
+                if (contar6 > contar5)
+                {
+                    if (contar6 != contar5)
+                    {
+                        cadena = cadena + "&" + "equipo22";
+                    }
+                }
+                else
+                {
+                    if (contar6 != contar5)
+                    {
+                        cadena = cadena + "&" + "equipo21";
+                    }
+                }
+                if (contar8 > contar7)
+                {
+                    if (contar8 != contar7)
+                    {
+                        cadena = cadena + "&" + "equipo24";
+                    }
+                }
+                else
+                {
+                    if (contar8 != contar7)
+                    {
+                        cadena = cadena + "&" + "equipo23";
+                    }
+                }
+
+            List<List<string>> datos1 = datos;
+            List<List<string>> datos2 = new List<List<string>> { };
+            for (int j = 0; j < ganadores.Count(); j++)
+            {
+                for (int i = 0; i < datos1.Count(); i++)
+                {
+                    List<string> actual = datos1[i];
+                    for (int k = 0; k < actual.Count(); k++)
+                    {
+                        if (actual[k] == ganadores[j])
+                        {
+                            for (int l = 0; l < datos2.Count(); l++)
+                            {
+                                List<string> actual2 = datos2[l];
+                                if (actual[0] == actual2[0])
+                                {
+                                    datos2.Remove(actual);
+                                }
+                            }
+                            datos2.Add(actual);
+                        }
+                    }
+                }
+            }
+            Session["cadenaUsar"] = datos2;
+            return cadena;
+        }
+
+        public string PunteoME(List<string> ganadores)
+        {
+            string cadena = "";
+            int contar1 = 0;
+            int contar2 = 0;
+            int contar3 = 0;
+            int contar4 = 0;
+            List<List<string>> datos = (List<List<string>>)Session["cadenaUsar"];
+            for (int j = 0; j < ganadores.Count(); j++)
+            {
+                for (int i = 0; i < datos.Count(); i++)
+                {
+                    List<string> actual = datos[i];
+                    for (int k = 0; k < actual.Count(); k++)
+                    {
+                        if (ganadores[j] == actual[k])
+                        {
+                            if (i == 0)
+                            {
+                                contar1++;
+                            }
+                            if (i == 1)
+                            {
+                                contar2++;
+                            }
+                            if (i == 2)
+                            {
+                                contar3++;
+                            }
+                            if (i == 3)
+                            {
+                                contar4++;
+                            }
+                        }
+                    }
+                }
+            }
+            if (contar3 > contar1)
+            {
+                if (contar3 != contar1)
+                {
+                    cadena = "equipo27";
+                }
+            }
+            else
+            {
+                if (contar3 != contar1)
+                {
+                    cadena = "equipo25";
+                }
+            }
+            if (contar4 > contar2)
+            {
+                if (contar4 != contar2)
+                {
+                    cadena = cadena + "&" + "equipo28";
+                }
+            }
+            else
+            {
+                if (contar4 != contar2)
+                {
+                    cadena = cadena + "&" + "equipo26";
+                }
+            }
+
+            List<List<string>> datos1 = datos;
+            List<List<string>> datos2 = new List<List<string>> { };
+            for (int j = 0; j < ganadores.Count(); j++)
+            {
+                for (int i = 0; i < datos1.Count(); i++)
+                {
+                    List<string> actual = datos1[i];
+                    for (int k = 0; k < actual.Count(); k++)
+                    {
+                        if (actual[k] == ganadores[j])
+                        {
+                            for (int l = 0; l < datos2.Count(); l++)
+                            {
+                                List<string> actual2 = datos2[l];
+                                if (actual[0] == actual2[0])
+                                {
+                                    datos2.Remove(actual);
+                                }
+                            }
+                            datos2.Add(actual);
+                        }
+                    }
+                }
+            }
+            Session["cadenaUsar"] = datos2;
+            return cadena;
+        }
+
+        public string final(List<string> ganadores)
+        {
+            string cadena = "";
+            List<string> conteo1 = new List<string> { };
+            List<string> conteo2 = new List<string> { };
+            conteo1.Add(ganadores[0]);
+            for (int i = 1; i < ganadores.Count(); i++)
+            {
+                if (conteo1.Contains(ganadores[i]))
+                {
+                    conteo1.Add(ganadores[i]);
+                }
+                else
+                {
+                    conteo2.Add(ganadores[i]);
+                }
+                
+            }
+            int contador1 = conteo1.Count();
+            int contador2 = conteo2.Count();
+            if (contador1 > contador2)
+            {
+                cadena = conteo1[0];
+            }
+            else
+            {
+                cadena = conteo2[0];
+            }
 
             return cadena;
         }
@@ -125,7 +679,6 @@ namespace WebApplication1.Controllers
             string cadena = jugador1[0] + "&" + jugador2[0];
             return cadena;
         }
-
 
 
         public string Conteo()
