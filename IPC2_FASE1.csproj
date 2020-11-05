@@ -221,9 +221,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\Usuarios\Create.cshtml" />
-    <Content Include="Views\Usuarios\Delete.cshtml" />
-    <Content Include="Views\Usuarios\Details.cshtml" />
-    <Content Include="Views\Usuarios\Edit.cshtml" />
     <Content Include="Views\Usuarios\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
