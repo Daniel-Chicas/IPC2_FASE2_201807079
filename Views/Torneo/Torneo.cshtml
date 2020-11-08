@@ -160,6 +160,10 @@
     <input id="bcargar" type="button" value="Cargar Archivo" onclick="cargar()"/>
     @section scripts {
         <script type="text/javascript">
+
+
+
+
             function empezar() {
                 var nombre = document.getElementById("nombre").value;
                 var integrantes = document.getElementById("integrantes").value;
@@ -176,7 +180,9 @@
                         success:
                             function (response) {
                                 alert(response);
-                                 window.location = '@Url.Action("Jugadores", "Torneo")';
+                                if (response != "Este campeonato ya existe. Ingrese otro nombre.") {
+                                    window.location = '@Url.Action("Jugadores", "Torneo")';
+                                }
                                     },
                             error:
                                 function (response) {
