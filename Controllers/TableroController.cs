@@ -105,6 +105,13 @@ namespace WebApplication1.Controllers
             return cadena+"&"+contadorG;
         }
 
+        public string FichasGuardar(List<string> fichas, List<string> colores)
+        {
+            string cadena = "";
+            return cadena;
+        }
+
+
 
         public string Conteo(int contador)
         {
