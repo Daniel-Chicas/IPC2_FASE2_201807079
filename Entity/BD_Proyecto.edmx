@@ -13,7 +13,6 @@
           <Property Name="UsuarioIdCreador" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="NombreTorneo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CantidadEquipos" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="EquipoGanador" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="FechaCreacion" Type="date" />
           <Property Name="Estado" Type="varchar" MaxLength="50" />
         </EntityType>
@@ -95,7 +94,6 @@
           <Property Name="UsuarioIdCreador" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="NombreTorneo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CantidadEquipos" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EquipoGanador" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FechaCreacion" Type="DateTime" Precision="0" />
           <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
@@ -140,7 +138,6 @@
               <MappingFragment StoreEntitySet="Campeonato">
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
-                <ScalarProperty Name="EquipoGanador" ColumnName="EquipoGanador" />
                 <ScalarProperty Name="CantidadEquipos" ColumnName="CantidadEquipos" />
                 <ScalarProperty Name="NombreTorneo" ColumnName="NombreTorneo" />
                 <ScalarProperty Name="UsuarioIdCreador" ColumnName="UsuarioIdCreador" />
