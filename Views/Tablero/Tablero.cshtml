@@ -2076,6 +2076,7 @@
                      conteoPosicion++;
                  });
              }
+            var contadorFinal = 0;
 
             function punteo(posicionesConteo) {
                 var coloresJug1 = []
@@ -2112,8 +2113,10 @@
                 document.getElementById("Pnegras").value = colores2.length;
                 var tamañoTablero = posicionesConteo.length;
                 var lleva = colores1.length + colores2.length;
-                if (lleva == tamañoTablero) {
+
+                if (lleva == tamañoTablero && contadorFinal == 0) {
                     var nombre1 = document.getElementById("j1").value;
+                    contadorFinal++;
                     final(nombre1, coloresJug1);
                 }
             }
