@@ -18,7 +18,6 @@ namespace WebApplication1.Entity
         public string UsuarioIdCreador { get; set; }
         public string NombreTorneo { get; set; }
         public string CantidadEquipos { get; set; }
-        public string EquipoGanador { get; set; }
         public Nullable<System.DateTime> FechaCreacion { get; set; }
         public string Estado { get; set; }
     }
