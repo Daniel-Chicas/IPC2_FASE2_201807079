@@ -8,11 +8,15 @@ using WebApplication1.Models;
 using Microsoft.Ajax.Utilities;
 using System.Data;
 using System.Data.Sql;
+using System.Data.Entity;
+using System.Net;
+using WebApplication1.Entity;
 
 namespace WebApplication1.Controllers
 {
     public class TorneoController : Controller
     {
+        private BD_IPC2Entities db = new BD_IPC2Entities();
         XmlDocument doc = new XmlDocument();
         List<string> Ficha;
         public ActionResult Index()
@@ -47,9 +51,18 @@ namespace WebApplication1.Controllers
 
         public string NombreTorneo(string nombre, int cantidad)
         {
-            string cadena = "El campeonato \""+nombre+"\" ha sido creado.";
-            Session["Campeonato"] = nombre;
-            Session["cantidadIntegrantes"] = cantidad;
+            Entity.Campeonato nombreU = db.Campeonato.Where(s => s.NombreTorneo == nombre ).FirstOrDefault();
+            string cadena;
+            if (nombreU == null)
+            {
+                cadena = "El campeonato \""+nombre+"\" ha sido creado.";
+                Session["Campeonato"] = nombre;
+                Session["cantidadIntegrantes"] = cantidad;
+            }
+            else
+            {
+                cadena = "Este campeonato ya existe. Ingrese otro nombre.";
+            }
             return cadena;
         }
 
@@ -72,13 +85,13 @@ namespace WebApplication1.Controllers
             return cadena;
         }
 
-        public void datosTorneoFinal(string ganador)
+        public void datosTorneoFinal()
         {
             string usuario = Session["usuario"].ToString();
             string nombreCamp = Session["Campeonato"].ToString();
             string cantidad = Session["cantidadIntegrantes"].ToString();
             CampeonatoesController datosCamp = new CampeonatoesController();
-            datosCamp.AnadirCampeonato(usuario, nombreCamp, cantidad, "finalizado", ganador);
+            datosCamp.AnadirCampeonato(usuario, nombreCamp, cantidad, "finalizado");
         }
 
         public string DatosJugadores()
