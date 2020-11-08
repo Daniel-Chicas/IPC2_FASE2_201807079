@@ -697,7 +697,7 @@ namespace WebApplication1.Controllers
             List<List<string>> equipos = (List<List<string>>)Session["lectura"];
             List<string> jugador1 = equipos[contador];
             List<string> jugador2 = equipos[contador+1];
-            string cadena = jugador1[0] + "&" + jugador2[0];
+            string cadena = jugador1[1] + "&" + jugador2[1];
             return cadena;
         }
 
