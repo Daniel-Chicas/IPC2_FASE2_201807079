@@ -420,22 +420,7 @@
                                 for (var j = 0; j < cadena.length; j++)
                                     document.getElementById("Fin").style.visibility = "visible";
                                     document.getElementById("Fin").innerHTML = cadena;
-
-                                    $.ajax({
-                                        type: 'POST',
-                                        dataType: 'text',
-                                        url: '@Url.Action("datosTorneoFinal", "Torneo")',
-                                        data: { ganador: cadena},
-                                        success:
-                                            function (response) {
-                                                    },
-                                            error:
-                                                function (response) {
-                                                    alert("Error: " + response);
-                                                }
-                                    });
-
-                                    },
+                                },
                             error:
                                 function (response) {
                                     alert("Error: " + response);
